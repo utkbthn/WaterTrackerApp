@@ -30,30 +30,51 @@
       border-radius: 12px;
     }
 
-    /* Butonları div olarak stilize ediyoruz */
-    .app-button { /* Yeni sınıf adı */
-      display: inline-block; /* div'in buton gibi davranması için */
-      font-size: 18px;
-      padding: 12px 25px;
-      margin: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      background-color: #3399ff; /* Normal buton rengi */
-      color: white;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+ /* Mevcut .app-button stilinizi güncelleyin */
+.app-button {
+  display: inline-block;
+  font-size: 18px;
+  padding: 12px 25px;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background-color: #3399ff; /* Normal buton rengi */
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Normal gölge */
 
-      /* Safari'nin dokunma anındaki varsayılan vurgu rengini kaldır */
-      -webkit-tap-highlight-color: transparent; 
-      /* İçerik seçimini engelle (mobil cihazlarda tıklanma anında metin seçimi olmasın) */
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
+  /* TÜM İLGİLİ ÖZELLİKLER İÇİN YUMUŞAK GEÇİŞLER */
+  /* Renk, gölge ve transform değişiklikleri 0.3 saniyede gerçekleşir. */
+  transition: background-color 0.3s ease,
+              box-shadow 0.3s ease,
+              transform 0.3s ease;
+
+  /* Safari'nin dokunma anındaki varsayılan vurgu rengini kaldır */
+  -webkit-tap-highlight-color: transparent;
+  /* İçerik seçimini engelle (mobil cihazlarda tıklanma anında metin seçimi olmasın) */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Fareyle üzerine gelindiğinde (Hover durumu) */
+/* Buton hafifçe koyulaşır ve gölgesi belirginleşir. */
+.app-button:hover {
+  background-color: #2a7acc; /* Daha koyu mavi */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Daha belirgin gölge */
+  transform: translateY(-2px); /* Hafifçe yukarı kalkma efekti */
+}
+
+/* Tıklandığında veya dokunulduğunda (Active durumu) */
+/* Buton koyulaşır, içe gömülür ve gölgesi azalır. */
+.app-button:active {
+  background-color: #2a7acc; /* Tıklandığında/dokunulduğunda daha koyu renk */
+  transform: translateY(2px); /* Buton 2 piksel aşağı kayar (basılma hissi) */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Gölgeyi küçültür ve içe gömülme hissi verir */
+}
 
     /* Ayarlar Paneli Genel Düzeni */
     #settingsPanel {
