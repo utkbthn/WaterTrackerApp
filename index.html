@@ -53,7 +53,7 @@
       transition: background-color 0.3s ease, box-shadow 0.3s ease; 
 
       /* Safari'nin dokunma anındaki varsayılan vurgu rengini kaldır */
-      -webkit-tap-highlight-color: transparent; 
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important; /* Tap highlightı tamamen şeffaf yapmaya zorla */
       /* İçerik seçimini engelle (mobil cihazlarda tıklanma anında metin seçimi olmasın) */
       -webkit-touch-callout: none;
       -webkit-user-select: none;
@@ -61,6 +61,12 @@
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
+
+      /* Ek agresif sıfırlamalar */
+      outline: none; 
+      -webkit-appearance: none; 
+      appearance: none; 
+      background: inherit !important; 
     }
 
     .app-button:hover {
@@ -68,12 +74,12 @@
       box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     }
 
-    /* Tıklandığında (active durumdayken) hiçbir görsel değişiklik olmasın */
+    /* Tıklandığında (active durumdayken) hiçbir görsel değişiklik olmasın, AMA ÇOK HIZLI GİTSİN */
     .app-button:active {
       background-color: #3399ff; /* Normal rengiyle aynı */
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Normal gölgesiyle aynı */
       transform: translateY(0); /* Hiçbir kayma olmasın */
-      transition: none; /* Hiçbir geçiş efekti olmasın, anında olsun */
+      transition: all 0.05s ease-out; /* Buradaki değişiklik: Çok kısa bir geçiş ekledik */
     }
 
 
