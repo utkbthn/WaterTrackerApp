@@ -153,17 +153,21 @@
   </div>
 
   <script>
-    let current = parseInt(localStorage.getItem("water")) || 0;
-    
-    let max = parseInt(localStorage.getItem("maxWater")) || 3300;
-    
-    const progress = document.getElementById("progressBar");
-    
-    const status = document.getElementById("status");
-    
-    let currentAddAmount = parseInt(localStorage.getItem("addAmount")) || 250;
-    
-    let lastResetDate = localStorage.getItem("lastResetDate");
+  // 1. Varsayılan Değerleri const ile tanımla
+const DEFAULT_MAX_WATER_AMOUNT = 2500; // Varsayılan günlük su hedefi (ml)
+const DEFAULT_ADD_AMOUNT = 250;       // Her tıklamada eklenecek varsayılan su miktarı (ml)
+
+// 2. Uygulama Durumunu Yansıtan Değişkenler (let ile)
+let currentWaterAmount = parseInt(localStorage.getItem("water")) || 0; // Mevcut içilen su miktarı
+
+// 3. Kullanıcının ayarladığı veya varsayılan hedef ve ekleme miktarları (let ile)
+let maxWaterGoal = parseInt(localStorage.getItem("maxWater")) || DEFAULT_MAX_WATER_AMOUNT;
+let addWaterAmount = parseInt(localStorage.getItem("addAmount")) || DEFAULT_ADD_AMOUNT;
+
+// 4. Diğer Uygulama Değişkenleri ve DOM Referansları
+const progressBar = document.getElementById("progressBar");
+const statusDisplay = document.getElementById("status");
+let lastResetDate = localStorage.getItem("lastResetDate");;
 
     function getTodayDateString() {
       const today = new Date();
