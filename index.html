@@ -39,7 +39,7 @@
   <div class="progress">
     <div class="progress-bar" id="progressBar"></div>
   </div>
-  <button onclick="addWater()">Drink Water</button>
+  <button id="addWaterButton" onclick="addWater()">Drink Water</button>
   <button onclick="resetWater()">Reset</button>
   <button onclick="openSettings()">Settings</button>
 
@@ -78,11 +78,11 @@
       status.innerText = `${current} ml / ${max} ml`;}
     
     function addWater() {
-      if (current < max) {
-        current += 300;
-        if (current > max) current = max;
-        localStorage.setItem("water", current);
-        updateDisplay();}}
+    if (current < max) {
+    current += currentAddAmount;
+    if (current > max) current = max;
+    localStorage.setItem("water", current);
+    updateDisplay();}}
     
     function resetWater() {
       current = 0;
