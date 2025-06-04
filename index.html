@@ -327,28 +327,45 @@ input[type="number"] {
             document.getElementById("settingsPanel").style.display = "none";
         }
 
-        function openSettings() {
-            const settingsPanel = document.getElementById("settingsPanel");
-            if (settingsPanel.style.display === "block") {
-                settingsPanel.style.display = "none";
-            } else {
-                settingsPanel.style.display = "block";
-                // Ayarlar inputlarını mevcut değerlerle doldur
-                document.getElementById("addAmount").value = addWaterAmount;
-                document.getElementById("maxAmount").value = maxWaterGoal;
-            }
-        }
+   function openSettings() {
+    const settingsPanel = document.getElementById("settingsPanel");
+    if (settingsPanel.style.display === "block") {
+        settingsPanel.style.display = "none";
+    } else {
+        settingsPanel.style.display = "block";
+        // Ayarlar inputlarını/select'ini mevcut değerlerle doldur
+        document.getElementById("addAmount").value = addWaterAmount; // <select> için de .value kullanılır
+        document.getElementById("maxAmount").value = maxWaterGoal;
+    }
+}
 
         function saveAndCloseSettings() {
-            const newAddAmount = parseInt(document.getElementById("addAmount").value);
-            if (!isNaN(newAddAmount) && newAddAmount > 0) {
-                addWaterAmount = newAddAmount;
-                localStorage.setItem("addAmount", addWaterAmount);
-                console.log("Yeni ekleme miktarı kaydedildi:", addWaterAmount);
-            } else {
-                alert("Lütfen geçerli bir su ekleme miktarı girin (örneğin 100, 200).");
-                return;
-            }
+    // addAmount artık bir <select> elementi olduğu için value'sini doğrudan alıyoruz
+    const newAddAmount = parseInt(document.getElementById("addAmount").value);
+    if (!isNaN(newAddAmount) && newAddAmount > 0) {
+        addWaterAmount = newAddAmount;
+        localStorage.setItem("addAmount", addWaterAmount);
+        console.log("Yeni ekleme miktarı kaydedildi:", addWaterAmount);
+    } else {
+        // Bu uyarı <select> kullanıldığında muhtemelen gösterilmeyecektir çünkü her zaman geçerli bir değer seçilecektir
+        alert("Lütfen geçerli bir su ekleme miktarı seçin.");
+        return;
+    }
+
+    const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
+    if (!isNaN(newMaxAmount) && newMaxAmount > 0) {
+        maxWaterGoal = newMaxAmount;
+        localStorage.setItem("maxWater", maxWaterGoal);
+        console.log("Yeni günlük hedef miktarı kaydedildi:", newMaxAmount);
+    } else {
+        alert("Lütfen geçerli bir günlük hedef su miktarı girin (örneğin 2000, 3000).");
+        return;
+    }
+
+    document.getElementById("settingsPanel").style.display = "none";
+    console.log("Ayarlar kaydedildi ve panel kapatıldı.");
+    updateDisplay();
+}
 
             const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
             if (!isNaN(newMaxAmount) && newMaxAmount > 0) {
