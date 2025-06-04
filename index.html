@@ -1,403 +1,242 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Tracker</title>
-    <style>body {
-    font-family: sans-serif;
-    text-align: center;
-    background: #f0f8ff;
-    padding-bottom: 50px;
-}
+    <title>Su Takipçisi</title>
+    <style>
+        /* CSS Kodunuz Buraya Gelecek */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Daha modern bir font */
+            text-align: center;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f7ff 100%); /* Hafif gradyanlı arka plan */
+            padding-bottom: 50px;
+            color: #333; /* Genel metin rengi */
+        }
 
-.water-icon {
-    max-width: 100px;
-    height: auto;
-    display: block;
-    margin: 20px auto 30px auto;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease-in-out;
-}
+        .water-icon {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 20px auto 30px auto;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Daha belirgin gölge */
+            transition: transform 0.3s ease-in-out;
+        }
 
-.water-icon:hover {
-    transform: scale(1.05);
-}
+        .water-icon:hover {
+            transform: scale(1.05);
+        }
 
-/* Mevcut .progress, .progress-text, .progress-bar'ı bu kodlarla DEĞİŞTİRİN */
+        /* YENİ BARDAK KODLARI BURADA BAŞLIYOR */
+        .water-glass-container {
+            position: relative;
+            width: 100px; /* Bardağın genişliği */
+            height: 280px; /* Bardağın yüksekliği */
+            background: rgba(255, 255, 255, 0.7); /* Hafif şeffaf bardak içi */
+            border: 2px solid #a0c0e0; /* Bardağın kenarlığı */
+            /* Gerçekçi bardak formu için border-radius */
+            border-radius: 10px 10px 40px 40px / 10px 10px 20px 20px; /* Üstler az, altlar daha yuvarlak */
+            margin: 30px auto;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); /* Daha güçlü gölge */
+            display: flex;
+            align-items: flex-end; /* Su seviyesini alttan başlat */
+            justify-content: center; /* Metni yatayda ortala */
+            transition: all 0.5s ease-in-out; /* Bardak görünüm geçişleri için */
+        }
 
-/* Mevcut .water-bottle-container, .water-bottle-fill ve .water-fill-text'i bu kodlarla DEĞİŞTİRİN */
+        /* Bardak içindeki su doluluğu */
+        .water-glass-fill {
+            width: 100%;
+            height: 0; /* Başlangıçta 0 yükseklikte */
+            /* Eski progress bar'ın yeşil-mavi gradyanı, dikey olarak */
+            background: linear-gradient(to top, #4CAF50, #2196F3);
+            transition: height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Daha akıcı animasyon */
+            /* Suyun üst kenarını bardağın yuvarlaklığına uygun ayarladık */
+            border-radius: 8px 8px 38px 38px / 8px 8px 18px 18px; /* Kapsayıcı ile uyumlu */
+            display: flex;
+            align-items: center; /* Metni dikeyde ortala */
+            justify-content: center; /* Metni yatayda ortala */
+            flex-direction: column-reverse; /* Metni su seviyesinin üstünde tut */
+            text-align: center;
+        }
 
-.water-bottle-container {
-    position: relative;
-    width: 120px; /* Bardağın genişliği - biraz daha geniş yaptık */
-    height: 350px; /* Bardağın yüksekliği - daha uzun ve zarif */
-    background: #e0e0e0; /* Bardağın boş kısmı için arka plan rengi */
-    border: 2px solid #ccc; /* Bardağın kenarlığı - daha açık ve sade */
-    border-radius: 10px; /* Tüm köşeleri hafifçe yuvarlak - klasik bardak görünümü */
-    margin: 30px auto; /* Ortala ve boşluk bırak */
-    overflow: hidden; /* Taşmayı önle */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex; /* İçeriği hizalamak için */
-    align-items: flex-end; /* Su seviyesini alttan başlatmak için */
-    justify-content: center; /* Metni yatayda ortalamak için */
-}
+        /* Su doluluğu içindeki metin (sadece miktar) */
+        .water-fill-text {
+            color: #fff; /* Beyaz metin */
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6); /* Daha belirgin gölge */
+            font-size: 1.4em; /* Metni daha büyük yaptık */
+            margin-bottom: 10px; /* Metin ile suyun üstü arasında boşluk */
+            width: 100%; /* Metnin tam genişliği kullanmasını sağlar */
+            text-align: center;
+        }
+        /* YENİ BARDAK KODLARI BURADA SONA ERİYOR */
 
-/* Bardağın içindeki su doluluğu */
-.water-bottle-fill {
-    width: 100%;
-    height: 0; /* Başlangıçta 0 yükseklikte */
-    /* Eski progress bar'ın gradyanını dikey olarak uyguladık */
-    background: linear-gradient(to top, #4CAF50, #2196F3); /* Yeşil'den Mavi'ye yukarı doğru gradyan */
-    transition: height 0.6s ease-out; /* Dolum animasyonu */
-    border-radius: 8px; /* Suyun üst kenarını kapsayıcının yuvarlaklığından 2px (border) daha az ayarladık */
-    display: flex;
-    align-items: center; /* Metni dikeyde ortala */
-    justify-content: center; /* Metni yatayda ortala */
-    flex-direction: column-reverse; /* Metni su seviyesinin üstünde tutmak için */
-    text-align: center; /* Metin içindeki değeri ortalar */
-}
+        /* Eski progress bar metnini gizle (şişe formuna geçince artık gerek yok) */
+        #status {
+            display: none;
+        }
 
-/* Su doluluğu içindeki metin (sadece miktar) */
-.water-fill-text {
-    color: white; /* Su üzerinde beyaz metin */
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-    font-size: 1.3em; /* Metni biraz daha büyük yaptık */
-    margin-bottom: 8px; /* Metin ile suyun üstü arasında boşluğu artırdık */
-    width: 100%; /* Metnin tam genişliği kullanmasını sağlar */
-}
-}
+        /* Genel Buton Stili */
+        .app-button {
+            display: inline-block;
+            font-size: 18px;
+            padding: 12px 25px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #3399ff;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease,
+                        box-shadow 0.3s ease,
+                        transform 0.3s ease;
+            -webkit-tap-highlight-color: transparent; /* Mobil için dokunma efekti */
+            user-select: none; /* Metin seçimi engelleme */
+        }
 
-/* Genel Buton Stili (Drink Water butonu ve Ayarlar panelindeki OK butonu için temel stil) */
-.app-button {
-    display: inline-block;
-    font-size: 18px;
-    padding: 12px 25px;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    background-color: #3399ff;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease,
-                box-shadow 0.3s ease,
-                transform 0.3s ease;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
+        .app-button:hover {
+            background-color: #2a7acc;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
 
-/* Genel Buton Hover/Active Durumları */
-.app-button:hover {
-    background-color: #2a7acc;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-}
+        .app-button:active {
+            background-color: #2a7acc;
+            transform: translateY(2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
 
-.app-button:active {
-    background-color: #2a7acc;
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
+        /* Ayarlar Açma Butonu (Settings butonu) için Özel Stil */
+        .settings-button {
+            font-size: 14px;
+            padding: 8px 20px;
+            background-color: #a0a0a0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 15px; /* Drink Water butonu ile arasına boşluk */
+        }
 
-/* Ayarlar Açma Butonu (Settings butonu) için Özel Stil */
-.settings-button {
-    font-size: 14px;
-    padding: 8px 20px;
-    background-color: #a0a0a0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+        .settings-button:hover {
+            background-color: #888888;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
+        }
 
-/* Ayarlar Açma Butonu Hover/Active Durumları */
-.settings-button:hover {
-    background-color: #888888;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-    transform: translateY(-1px);
-}
+        .settings-button:active {
+            background-color: #888888;
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        }
 
-.settings-button:active {
-    background-color: #888888;
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-}
+        /* --- Ayarlar Paneli ve İçindeki Elemanların Stilleri --- */
+        #settingsPanel {
+            display: none;
+            margin: 15px auto;
+            padding: 20px; /* İç boşluğu artırdık */
+            border: 1px solid #ccc;
+            border-radius: 12px; /* Köşeleri daha yuvarlak */
+            background: #fff;
+            max-width: 280px; /* Panel genişliğini artırdık */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Daha belirgin gölge */
+        }
 
-/* Butonlar arasındaki boşluğu kontrol etmek için kapsayıcı sınıf */
-.button-wrapper {
-    margin-bottom: 10px;
-}
+        #settingsPanel h3 {
+            margin-top: 0;
+            color: #444;
+            margin-bottom: 20px; /* Başlık altındaki boşluğu artırdık */
+            font-size: 1.2em;
+        }
 
-/* --- Ayarlar Paneli ve İçindeki Elemanların Güncel Stilleri --- */
-#settingsPanel {
-    display: none;
-    margin: 15px auto;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background: #fff;
-    max-width: 260px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
+        .settings-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px; /* Seçenekler arası boşluğu artırdık */
+            flex-wrap: wrap;
+        }
 
-#settingsPanel h3 {
-    margin-top: 0;
-    color: #333;
-    margin-bottom: 15px;
-    font-size: 1.1em;
-}
+        .settings-option label {
+            flex-basis: 55%;
+            text-align: left;
+            color: #555;
+            font-size: 16px; /* Label font boyutunu biraz artırdık */
+            padding-right: 15px;
+        }
 
-.settings-option {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-}
+        /* Hem input hem de select için ortak temel stil (boyutlandırma) */
+        .settings-option input,
+        .settings-option select {
+            width: 100px; /* Her iki kutucuğu da büyüttük, 250ml sığmalı */
+            padding: 8px 10px; /* İç boşlukları artırdık */
+            border: 1px solid #bbb; /* Kenarlık rengini biraz koyulaştırdık */
+            border-radius: 6px; /* Köşeleri hafifçe yuvarlak */
+            text-align: center;
+            font-size: 16px; /* Font boyutunu artırdık */
+            height: 38px; /* Tutarlı ve rahat bir yükseklik */
+            background-color: #fcfcfc; /* Arka planı hafif renkli */
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            outline: none; /* Odaklandığında varsayılan çerçeveyi kaldır */
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08); /* Hafif iç gölge */
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
 
-.settings-option label {
-    flex-basis: 55%;
-    text-align: left;
-    color: #555;
-    font-size: 15px;
-    padding-right: 10px;
-}
+        .settings-option input:focus,
+        .settings-option select:focus {
+            border-color: #66afe9; /* Odaklandığında kenarlık rengi */
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08), 0 0 8px rgba(102,175,233,0.6); /* Hafif dış gölge */
+        }
 
-/* Hem input hem de select için ortak temel stil (boyutlandırma) */
-.settings-option input,
-.settings-option select {
-    width: 90px; /* Her iki kutucuğu da büyüttük, 250ml sığmalı */
-    padding: 6px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 15px;
-    height: 34px; /* Tutarlı yükseklik */
-    background-color: #fff;
-    -webkit-box-sizing: border-box; /* Kutu modelini düzeltir */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+        /* SADECE Günlük Hedef (maxAmount) input'unun yanındaki okları kaldır */
+        #maxAmount::-webkit-outer-spin-button,
+        #maxAmount::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
 
-/* SADECE Günlük Hedef (maxAmount) input'unun yanındaki okları kaldır */
-#maxAmount::-webkit-outer-spin-button,
-#maxAmount::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
+        #maxAmount { /* Firefox için ID'yi doğrudan hedefle */
+            -moz-appearance: textfield;
+        }
 
-#maxAmount { /* Firefox için ID'yi doğrudan hedefle */
-    -moz-appearance: textfield;
-}
+        /* Ayarlar panelindeki butonları içeren div */
+        .settings-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Butonlar arası boşluğu artırdık */
+            margin-top: 25px; /* Üst boşluğu artırdık */
+        }
 
-/* Ayarlar panelindeki butonları içeren div */
-.settings-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
+        /* Ayarlar panelindeki "OK!" butonu için özel stil */
+        .settings-buttons .app-button {
+            font-size: 16px;
+            padding: 10px 22px;
+        }
 
-/* Ayarlar panelindeki "OK!" butonu için özel stil */
-.settings-buttons .app-button {
-    font-size: 15px;
-    padding: 8px 18px;
-}
+        /* Ayarlar panelindeki "Reset Water" butonu için özel stil */
+        .settings-buttons .reset-button {
+            background-color: #ff6666;
+        }
 
-/* Ayarlar panelindeki "OK!" butonu Hover ve Active Stilleri */
-.settings-buttons .app-button:hover {
-    background-color: #2a7acc;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-    transform: translateY(-1px);
-}
-
-.settings-buttons .app-button:active {
-    background-color: #2a7acc;
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-/* Ayarlar panelindeki "Reset Water" butonu için özel stil */
-.settings-buttons .reset-button {
-    background-color: #ff6666;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Ayarlar panelindeki "Reset Water" butonu Hover ve Active Stilleri */
-.settings-buttons .reset-button:hover {
-    background-color: #cc4c4c;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-}
-
-.settings-buttons .reset-button:active {
-    background-color: #cc4c4c;
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}</style>
+        .settings-buttons .reset-button:hover {
+            background-color: #cc4c4c;
+        }
+    </style>
 </head>
 <body>
-    <img src="images/water.logo.png" alt="Su Bardağı İkonu" class="water-icon">
-    <h2>Water Tracker</h2>
-    <p id="status">0 ml / 2500 ml</p>
+    <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/glass-of-water_1f964.png" alt="Su Bardağı İkonu" class="water-icon">
 
-    <div class="water-bottle-container">
-    <div class="water-bottle-fill" id="progressBar">
-        <span id="waterAmountOnlyDisplay" class="water-fill-text"></span>
-    </div>
-</div>
-
-    <div class="button-wrapper">
-        <div class="app-button" id="addWaterButton" onclick="addWater()">Drink Water</div>
-    </div>
-
-    <div>
-        <div class="app-button settings-button" onclick="openSettings()">Settings</div>
-    </div>
-
-    <div id="settingsPanel">
-        <h3>Settings</h3>
-<div class="settings-option">
-    <label for="addAmount">İçilen Su (ml):</label>
-    <select id="addAmount">
-        <option value="250">250 ml</option>
-        <option value="300">200 ml</option>
-        <option value="350" selected>250 ml</option>
-        <option value="400">300 ml</option>
-        <option value="400">330 ml</option>
-        <option value="500">500 ml</option>
-        </select>
-</div>
-<div class="settings-option">
-    <label for="maxAmount">Günlük Hedef (ml):</label>
-    <input type="number" id="maxAmount" value="3300" min="100">
-</div>
-        <div class="settings-buttons">
-            <div class="app-button" onclick="saveAndCloseSettings()">Tamam</div>
-            <div class="app-button reset-button" onclick="resetWater()">Reset Water</div>
+    <div class="water-glass-container">
+        <div class="water-glass-fill" id="progressBar">
+            <span id="waterAmountOnlyDisplay" class="water-fill-text"></span>
         </div>
     </div>
+    <div id="status" style="display: none;"></div> 
 
-    <script>// JavaScript kodunu buraya taşıdık, HTML elementleri yüklendikten sonra çalışması için.
+    <button onclick="addWater()" class="app-button">Su İçtim!</button>
 
-// 1. Varsayılan Değerleri const ile tanımla
-const DEFAULT_MAX_WATER_AMOUNT = 2500; // Varsayılan günlük su hedefi (ml)
-const DEFAULT_ADD_AMOUNT = 250;       // Her tıklamada eklenecek varsayılan su miktarı (ml)
+    <br>
 
-// 2. Uygulama Durumunu Yansıtan Değişkenler (let ile)
-let currentWaterAmount = parseInt(localStorage.getItem("water")) || 0; // Mevcut içilen su miktarı
-
-// 3. Kullanıcının ayarladığı veya varsayılan hedef ve ekleme miktarları (let ile)
-let maxWaterGoal = parseInt(localStorage.getItem("maxWater")) || DEFAULT_MAX_WATER_AMOUNT;
-let addWaterAmount = parseInt(localStorage.getItem("addAmount")) || DEFAULT_ADD_AMOUNT;
-
-// 4. Diğer Uygulama Değişkenleri ve DOM Referansları
-const progressBar = document.getElementById("progressBar");
-const statusDisplay = document.getElementById("status");
-const waterAmountOnlyDisplay = document.getElementById("waterAmountOnlyDisplay");
-let lastResetDate = localStorage.getItem("lastResetDate");
-
-function getTodayDateString() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, '0');
-    const day = today.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-}
-
-function resetWaterIfNewDay() {
-    const todayDate = getTodayDateString();
-    if (lastResetDate !== todayDate) {
-        resetWater();
-        lastResetDate = todayDate;
-        localStorage.setItem("lastResetDate", lastResetDate);
-        console.log("Yeni güne geçildi, su miktarı sıfırlandı.");
-    }
-}
-
-function updateDisplay() {
-    let percent = (currentWaterAmount / maxWaterGoal) * 100;
-    if (percent > 100) percent = 100;
-    if (percent < 0) percent = 0;
-    const bottleHeight = document.querySelector('.water-bottle-container').clientHeight; // Şişenin gerçek yüksekliğini al
-    const fillHeight = (percent / 100) * bottleHeight; // Yüzdeye göre doluluk yüksekliği
-    progressBar.style.height = `${fillHeight}px`; // Yüksekliği ayarla
-
-    statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
-    
-    // Metnin suyun içinde görünebilmesi için opaklığını ayarla (isteğe bağlı)
-    if (currentWaterAmount > 0) {
-        waterAmountOnlyDisplay.style.opacity = 1;
-    } else {
-        waterAmountOnlyDisplay.style.opacity = 0; // Su yokken metni gizle
-    }
-
-    // Metnin kendisini güncelle
-    waterAmountOnlyDisplay.innerText = `${currentWaterAmount} ml`;
-}
-
-function addWater() {
-    if (currentWaterAmount < maxWaterGoal) {
-        currentWaterAmount += addWaterAmount;
-        if (currentWaterAmount > maxWaterGoal) currentWaterAmount = maxWaterGoal; // Hedefi aşmaması için kontrol
-        localStorage.setItem("water", currentWaterAmount);
-        updateDisplay();
-    }
-}
-
-function resetWater() {
-    currentWaterAmount = 0;
-    localStorage.setItem("water", currentWaterAmount);
-    updateDisplay();
-    // Ayarlar panelini kapat
-    document.getElementById("settingsPanel").style.display = "none";
-}
-
-function openSettings() {
-    const settingsPanel = document.getElementById("settingsPanel");
-    if (settingsPanel.style.display === "block") {
-        settingsPanel.style.display = "none";
-    } else {
-        settingsPanel.style.display = "block";
-        // Ayarlar inputlarını/select'ini mevcut değerlerle doldur
-        document.getElementById("addAmount").value = addWaterAmount; // <select> için de .value kullanılır
-        document.getElementById("maxAmount").value = maxWaterGoal;
-    }
-}
-
-function saveAndCloseSettings() {
-    // addAmount artık bir <select> elementi olduğu için value'sini doğrudan alıyoruz
-    const newAddAmount = parseInt(document.getElementById("addAmount").value);
-    if (!isNaN(newAddAmount) && newAddAmount > 0) {
-        addWaterAmount = newAddAmount;
-        localStorage.setItem("addAmount", addWaterAmount);
-        console.log("Yeni ekleme miktarı kaydedildi:", addWaterAmount);
-    } else {
-        // Bu uyarı <select> kullanıldığında muhtemelen gösterilmeyecektir çünkü her zaman geçerli bir değer seçilecektir
-        alert("Lütfen geçerli bir su ekleme miktarı seçin.");
-        return;
-    }
-
-    const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
-    if (!isNaN(newMaxAmount) && newMaxAmount > 0) {
-        maxWaterGoal = newMaxAmount;
-        localStorage.setItem("maxWater", maxWaterGoal);
-        console.log("Yeni günlük hedef miktarı kaydedildi:", newMaxAmount);
-    } else {
-        alert("Lütfen geçerli bir günlük hedef su miktarı girin (örneğin 2000, 3000).");
-        return;
-    }
-
-    document.getElementById("settingsPanel").style.display = "none";
-    console.log("Ayarlar kaydedildi ve panel kapatıldı.");
-    updateDisplay();
-}
-
-// Uygulama yüklendiğinde veya yenilendiğinde çalışacak ilk kodlar
-resetWaterIfNewDay();
-updateDisplay(); </script>
-</body>
-</html>
+    <button onclick
