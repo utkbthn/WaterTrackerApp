@@ -41,6 +41,7 @@
   </div>
   <button onclick="addWater()">+ 300 ml</button>
   <button onclick="resetWater()">Reset</button>
+  <button onclick="openSettings()">Settings</button>
 
   <script>
     let current = parseInt(localStorage.getItem("water")) || 0;
@@ -88,14 +89,12 @@
       localStorage.setItem("water", current);
       updateDisplay();
     }
-
-    // Sayfa yüklendiğinde hemen kontrol et
+   function openSettings() { 
+     alert("Ayarlar sayfası yakında!"); 
+   }
     resetWaterIfNewDay();
-
-    // SADECE BU SATIR KALDIRILDI:
-    // setInterval(resetWaterIfNewDay, 60 * 1000);
-
-    updateDisplay(); // Sayfa açıldığında ilk veriyi göster
+    
+    updateDisplay();
   </script>
 </body>
 </html>
