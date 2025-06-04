@@ -9,7 +9,7 @@
       text-align: center;
       background: #f0f8ff;
     }
-    img { /* Bu etiketi HTML'de kullanmıyorsunuz, isterseniz kaldırabiliriz */
+    img {
       width: 150px;
     }
     .progress {
@@ -52,22 +52,19 @@
 
     function getTodayDateString() {
       const today = new Date();
-      // Yıl, Ay ve Günü alıp "YYYY-MM-DD" formatında döndürürüz.
-      // Date objesi kullanıcının sistem saat dilimini kullanır, bu da Türkiye saati ayarlı cihazlarda istediğimiz gibi çalışır.
       const year = today.getFullYear();
-      const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Ay 0'dan başlar, bu yüzden +1
+      const month = (today.getMonth() + 1).toString().padStart(2, '0');
       const day = today.getDate().toString().padStart(2, '0');
       return `${year}-${month}-${day}`;
     }
 
     function resetWaterIfNewDay() {
       const todayDate = getTodayDateString();
-      // Eğer en son sıfırlanan tarih bugünden farklıysa (yani yeni bir güne geçilmişse), sıfırlama yap
       if (lastResetDate !== todayDate) {
-        resetWater(); // Su miktarını sıfırlayan mevcut fonksiyonu çağır
-        lastResetDate = todayDate; // lastResetDate'i bugünün tarihiyle güncelle
-        localStorage.setItem("lastResetDate", lastResetDate); // Yeni tarihi localStorage'a kaydet
-        console.log("Yeni güne geçildi, su miktarı sıfırlandı."); // Konsola mesaj (isteğe bağlı, geliştirme için)
+        resetWater();
+        lastResetDate = todayDate;
+        localStorage.setItem("lastResetDate", lastResetDate);
+        console.log("Yeni güne geçildi, su miktarı sıfırlandı.");
       }
     }
 
@@ -80,7 +77,7 @@
     function addWater() {
       if (current < max) {
         current += 300;
-        if (current > max) current = max; // Miktarın max'ı geçmemesini sağlar
+        if (current > max) current = max;
         localStorage.setItem("water", current);
         updateDisplay();
       }
@@ -95,10 +92,8 @@
     // Sayfa yüklendiğinde hemen kontrol et
     resetWaterIfNewDay();
 
-    // Her 60 saniyede (1 dakikada) bir kontrol et.
-    // Bu, sayfa açık kaldığında gece yarısı sıfırlamanın tetiklenmesini sağlar.
-    // ÖNEMLİ: Bu satır senin son verdiğin kodda eksikti, ekledim.
-    setInterval(resetWaterIfNewDay, 60 * 1000);
+    // SADECE BU SATIR KALDIRILDI:
+    // setInterval(resetWaterIfNewDay, 60 * 1000);
 
     updateDisplay(); // Sayfa açıldığında ilk veriyi göster
   </script>
