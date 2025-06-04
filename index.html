@@ -130,4 +130,255 @@
             border: 1px solid #ccc;
             border-radius: 10px;
             background: #fff;
-            max-width: 260px; /* Panel genişliğini küç
+            max-width: 260px; /* Panel genişliğini küçült */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        #settingsPanel h3 {
+            margin-top: 0;
+            color: #333;
+            margin-bottom: 15px; /* Başlık altındaki boşluğu azalt */
+            font-size: 1.1em; /* Başlık font boyutunu biraz küçült */
+        }
+
+        .settings-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap; /* Küçük ekranlarda sarmalama */
+        }
+
+        .settings-option label {
+            flex-basis: 55%; /* Label'ın genişliğini ayarla */
+            text-align: left;
+            color: #555;
+            font-size: 15px; /* Label font boyutunu küçült */
+            padding-right: 10px;
+        }
+
+        /* Hem input hem de select için ortak temel stil (boyutlandırma) */
+        /* Bu değerler 250ml'nin sığması ve butonların büyümesi için güncellendi */
+        .settings-option input,
+        .settings-option select {
+            width: 100px; /* Her iki kutucuğu da büyüttük */
+            padding: 8px 10px; /* İç boşlukları artırdık */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px; /* Font boyutunu artırdık */
+            height: 38px; /* Tutarlı ve rahat bir yükseklik */
+            background-color: #fff;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        /* SADECE Günlük Hedef (maxAmount) input'unun yanındaki okları kaldır */
+        #maxAmount::-webkit-outer-spin-button,
+        #maxAmount::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        #maxAmount { /* Firefox için ID'yi doğrudan hedefle */
+            -moz-appearance: textfield;
+        }
+
+        /* Ayarlar panelindeki butonları içeren div */
+        .settings-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Butonlar arası boşluğu azalt */
+            margin-top: 20px; /* Üst boşluğu azalt */
+        }
+
+        /* Ayarlar panelindeki "OK!" butonu için özel stil (genel app-button'dan boyut farkı) */
+        .settings-buttons .app-button {
+            font-size: 15px; /* Font boyutunu küçült */
+            padding: 8px 18px; /* İç boşluğu küçült */
+        }
+
+        /* Ayarlar panelindeki "OK!" butonu Hover ve Active Stilleri */
+        .settings-buttons .app-button:hover {
+            background-color: #2a7acc;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .settings-buttons .app-button:active {
+            background-color: #2a7acc;
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ayarlar panelindeki "Reset Water" butonu için özel stil */
+        .settings-buttons .reset-button {
+            background-color: #ff6666; /* Soluk kırmızı */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ayarlar panelindeki "Reset Water" butonu Hover ve Active Stilleri */
+        .settings-buttons .reset-button:hover {
+            background-color: #cc4c4c; /* Üzerine gelince biraz daha koyu kırmızı */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .settings-buttons .reset-button:active {
+            background-color: #cc4c4c;
+            transform: translateY(2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/glass-of-water_1f964.png" alt="Su Bardağı İkonu" class="water-icon">
+
+    <div class="progress">
+        <div class="progress-text" id="status"></div>
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <button onclick="addWater()" class="app-button">Su İçtim!</button>
+
+    <br>
+
+    <button onclick="openSettings()" class="app-button settings-button">Ayarlar</button>
+
+    <div id="settingsPanel">
+        <h3>Ayarlar</h3>
+        <div class="settings-option">
+            <label for="addAmount">İçilen Su Miktarı (ml):</label>
+            <select id="addAmount">
+                <option value="100">100 ml</option>
+                <option value="150">150 ml</option>
+                <option value="200">200 ml</option>
+                <option value="250">250 ml</option>
+                <option value="300">300 ml</option>
+                <option value="330">330 ml</option>
+                <option value="350">350 ml</option>
+                <option value="400">400 ml</option>
+                <option value="500">500 ml</option>
+            </select>
+        </div>
+        <div class="settings-option">
+            <label for="maxAmount">Günlük Hedef (ml):</label>
+            <input type="number" id="maxAmount" min="500" step="100">
+        </div>
+        <div class="settings-buttons">
+            <button onclick="saveAndCloseSettings()" class="app-button">Tamam</button>
+            <button onclick="resetWater()" class="app-button reset-button">Suyu Sıfırla</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript kodunu buraya taşıdık, HTML elementleri yüklendikten sonra çalışması için.
+
+        // 1. Varsayılan Değerleri const ile tanımla
+        const DEFAULT_MAX_WATER_AMOUNT = 2500; // Varsayılan günlük su hedefi (ml)
+        const DEFAULT_ADD_AMOUNT = 250;       // Her tıklamada eklenecek varsayılan su miktarı (ml)
+
+        // 2. Uygulama Durumunu Yansıtan Değişkenler (let ile)
+        let currentWaterAmount = parseInt(localStorage.getItem("water")) || 0; // Mevcut içilen su miktarı
+
+        // 3. Kullanıcının ayarladığı veya varsayılan hedef ve ekleme miktarları (let ile)
+        let maxWaterGoal = parseInt(localStorage.getItem("maxWater")) || DEFAULT_MAX_WATER_AMOUNT;
+        let addWaterAmount = parseInt(localStorage.getItem("addAmount")) || DEFAULT_ADD_AMOUNT;
+
+        // 4. Diğer Uygulama Değişkenleri ve DOM Referansları
+        const progressBar = document.getElementById("progressBar");
+        const statusDisplay = document.getElementById("status");
+        // waterAmountOnlyDisplay, dikey bardakta kullandığımız metin span'iydi.
+        // Yatay progress bar'da statusDisplay'in iç metnini kullanıyoruz,
+        // bu yüzden waterAmountOnlyDisplay referansına şimdilik ihtiyacımız yok.
+        // Ancak kodda hata vermemesi için yorum satırı yapabiliriz veya silebiliriz.
+        // const waterAmountOnlyDisplay = document.getElementById("waterAmountOnlyDisplay"); 
+        let lastResetDate = localStorage.getItem("lastResetDate");
+
+        function getTodayDateString() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = (today.getMonth() + 1).toString().padStart(2, '0');
+            const day = today.getDate().toString().padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function resetWaterIfNewDay() {
+            const todayDate = getTodayDateString();
+            if (lastResetDate !== todayDate) {
+                resetWater();
+                lastResetDate = todayDate;
+                localStorage.setItem("lastResetDate", lastResetDate);
+                console.log("Yeni güne geçildi, su miktarı sıfırlandı.");
+            }
+        }
+
+        function updateDisplay() {
+            let percent = (currentWaterAmount / maxWaterGoal) * 100;
+            if (percent > 100) percent = 100; // %100'ü geçmesin
+            if (percent < 0) percent = 0; // %0'ın altına inmesin
+
+            progressBar.style.width = percent + "%";
+            statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
+        }
+
+        function addWater() {
+            if (currentWaterAmount < maxWaterGoal) {
+                currentWaterAmount += addWaterAmount;
+                if (currentWaterAmount > maxWaterGoal) currentWaterAmount = maxWaterGoal; // Hedefi aşmaması için kontrol
+                localStorage.setItem("water", currentWaterAmount);
+                updateDisplay();
+            }
+        }
+
+        function resetWater() {
+            currentWaterAmount = 0;
+            localStorage.setItem("water", currentWaterAmount);
+            updateDisplay();
+            document.getElementById("settingsPanel").style.display = "none";
+        }
+
+        function openSettings() {
+            const settingsPanel = document.getElementById("settingsPanel");
+            if (settingsPanel.style.display === "block") {
+                settingsPanel.style.display = "none";
+            } else {
+                settingsPanel.style.display = "block";
+                document.getElementById("addAmount").value = addWaterAmount;
+                document.getElementById("maxAmount").value = maxWaterGoal;
+            }
+        }
+
+        function saveAndCloseSettings() {
+            const newAddAmount = parseInt(document.getElementById("addAmount").value);
+            if (!isNaN(newAddAmount) && newAddAmount > 0) {
+                addWaterAmount = newAddAmount;
+                localStorage.setItem("addAmount", addWaterAmount);
+                console.log("Yeni ekleme miktarı kaydedildi:", addWaterAmount);
+            } else {
+                alert("Lütfen geçerli bir su ekleme miktarı seçin.");
+                return;
+            }
+
+            const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
+            if (!isNaN(newMaxAmount) && newMaxAmount > 0) {
+                maxWaterGoal = newMaxAmount;
+                localStorage.setItem("maxWater", maxWaterGoal);
+                console.log("Yeni günlük hedef miktarı kaydedildi:", newMaxAmount);
+            } else {
+                alert("Lütfen geçerli bir günlük hedef su miktarı girin (örneğin 2000, 3000).");
+                return;
+            }
+
+            document.getElementById("settingsPanel").style.display = "none";
+            console.log("Ayarlar kaydedildi ve panel kapatıldı.");
+            updateDisplay();
+        }
+
+        // Uygulama yüklendiğinde veya yenilendiğinde çalışacak ilk kodlar
+        resetWaterIfNewDay();
+        updateDisplay();
+    </script>
+</body>
+</html>
