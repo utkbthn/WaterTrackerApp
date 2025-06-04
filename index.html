@@ -188,50 +188,63 @@ let lastResetDate = localStorage.getItem("lastResetDate");;
     }
 
     function updateDisplay() {
-      const percent = (current / max) * 100;
-      progress.style.width = percent + "%";
-      status.innerText = `${current} ml / ${max} ml`;
-    }
+  const percent = (currentWaterAmount / maxWaterGoal) * 100; // Yeni isimler
+  progressBar.style.width = percent + "%"; // progress yerine progressBar
+  statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`; // Yeni isimler
+}
     
     function addWater() {
-      if (current < max) {
-        current += currentAddAmount;
-        if (current > max) current = max;
-        localStorage.setItem("water", current);
-        updateDisplay();
-      }
-    }
+  if (currentWaterAmount < maxWaterGoal) { // Yeni isimler
+    currentWaterAmount += addWaterAmount; // Yeni isimler
+    if (currentWaterAmount > maxWaterGoal) currentWaterAmount = maxWaterGoal; // Yeni isimler
+    localStorage.setItem("water", currentWaterAmount); // Yeni isim
+    updateDisplay();
+  }
+}
     
     function resetWater() {
-  current = 0;
-  localStorage.setItem("water", current);
+  currentWaterAmount = 0; // Yeni isim
+  localStorage.setItem("water", currentWaterAmount); // Yeni isim
   updateDisplay();
-  // BURAYA EKLENECEK SATIR:
-  document.getElementById("settingsPanel").style.display = "none"; // Ayarlar panelini kapat
+  document.getElementById("settingsPanel").style.display = "none";
 }
     
     function openSettings() {
-      const settingsPanel = document.getElementById("settingsPanel");
-      if (settingsPanel.style.display === "block") {
-        settingsPanel.style.display = "none";
-      } else {
-        settingsPanel.style.display = "block";
-        document.getElementById("addAmount").value = currentAddAmount; // Su ekleme miktarını doldur
-        document.getElementById("maxAmount").value = max; // Günlük hedef miktarını doldur
-      }
-    }
+  const settingsPanel = document.getElementById("settingsPanel");
+  if (settingsPanel.style.display === "block") {
+    settingsPanel.style.display = "none";
+  } else {
+    settingsPanel.style.display = "block";
+    document.getElementById("addAmount").value = addWaterAmount; // Yeni isim
+    document.getElementById("maxAmount").value = maxWaterGoal; // Yeni isim
+  }
+}
 
     function saveAndCloseSettings() {
-      // Su Ekleme Miktarı için
-      const newAddAmount = parseInt(document.getElementById("addAmount").value);
-      if (!isNaN(newAddAmount) && newAddAmount > 0) { 
-        currentAddAmount = newAddAmount;
-        localStorage.setItem("addAmount", currentAddAmount);
-        console.log("Yeni ekleme miktarı kaydedildi:", currentAddAmount);
-      } else {
-        alert("Lütfen geçerli bir su ekleme miktarı girin (örneğin 100, 200).");
-        return; // Hata durumunda fonksiyonu sonlandır
-      }
+  const newAddAmount = parseInt(document.getElementById("addAmount").value);
+  if (!isNaN(newAddAmount) && newAddAmount > 0) {
+    addWaterAmount = newAddAmount; // Yeni isim
+    localStorage.setItem("addAmount", addWaterAmount); // Yeni isim
+    console.log("Yeni ekleme miktarı kaydedildi:", addWaterAmount);
+  } else {
+    alert("Lütfen geçerli bir su ekleme miktarı girin (örneğin 100, 200).");
+    return;
+  }
+
+  const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
+  if (!isNaN(newMaxAmount) && newMaxAmount > 0) {
+    maxWaterGoal = newMaxAmount; // Yeni isim
+    localStorage.setItem("maxWater", maxWaterGoal); // Yeni isim
+    console.log("Yeni günlük hedef miktarı kaydedildi:", maxWaterGoal);
+  } else {
+    alert("Lütfen geçerli bir günlük hedef su miktarı girin (örneğin 2000, 3000).");
+    return;
+  }
+
+  document.getElementById("settingsPanel").style.display = "none";
+  console.log("Ayarlar kaydedildi ve panel kapatıldı.");
+  updateDisplay();
+}
 
       // Yeni: Günlük Hedef Su Miktarı için
       const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
