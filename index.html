@@ -3,8 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Tracker</title>
-    <style>
-       body {
+    <style>body {
     font-family: sans-serif;
     text-align: center;
     background: #f0f8ff;
@@ -117,26 +116,26 @@
 
 /* Butonlar arasındaki boşluğu kontrol etmek için kapsayıcı sınıf */
 .button-wrapper {
-    margin-bottom: 10px; /* Drink Water ile Settings butonları arasındaki dikey boşluk */
+    margin-bottom: 10px;
 }
 
 /* --- Ayarlar Paneli ve İçindeki Elemanların Güncel Stilleri --- */
 #settingsPanel {
-    display: none; /* Varsayılan olarak gizli */
-    margin: 15px auto; /* Üst ve alttaki boşluğu azalt */
-    padding: 15px; /* İç boşluğu azalt */
+    display: none;
+    margin: 15px auto;
+    padding: 15px;
     border: 1px solid #ccc;
     border-radius: 10px;
     background: #fff;
-    max-width: 260px; /* Panel genişliğini küçült */
+    max-width: 260px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 #settingsPanel h3 {
     margin-top: 0;
     color: #333;
-    margin-bottom: 15px; /* Başlık altındaki boşluğu azalt */
-    font-size: 1.1em; /* Başlık font boyutunu biraz küçült */
+    margin-bottom: 15px;
+    font-size: 1.1em;
 }
 
 .settings-option {
@@ -144,61 +143,56 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    flex-wrap: wrap; /* Küçük ekranlarda sarmalama */
+    flex-wrap: wrap;
 }
 
 .settings-option label {
-    flex-basis: 55%; /* Label'ın genişliğini ayarla */
+    flex-basis: 55%;
     text-align: left;
     color: #555;
-    font-size: 15px; /* Label font boyutunu küçült */
+    font-size: 15px;
     padding-right: 10px;
 }
 
-/* Günlük Hedef (input type="number") kutucuğunun stili - OKLAR KALACAK */
-.settings-option input[type="number"] {
-    width: 70px; /* Input genişliğini küçült */
-    padding: 6px; /* Input iç boşluğunu azalt */
+/* Hem input hem de select için ortak temel stil (boyutlandırma) */
+.settings-option input,
+.settings-option select {
+    width: 90px; /* Her iki kutucuğu da büyüttük, 250ml sığmalı */
+    padding: 6px;
     border: 1px solid #ddd;
     border-radius: 5px;
     text-align: center;
-    font-size: 15px; /* Input font boyutunu küçült */
-    flex-basis: auto;
-    height: 33px; /* Input yüksekliğini sabitleyelim */
+    font-size: 15px;
+    height: 34px; /* Tutarlı yükseklik */
+    background-color: #fff;
     -webkit-box-sizing: border-box; /* Kutu modelini düzeltir */
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    /* Oklar kalacak, bu yüzden bu kısımda gizleme kodu yok */
 }
 
-/* İçilen Su (select) kutucuğunun stili - OKLAR GİTMEYECEK, BOYUT EŞİTLENECEK */
-.settings-option select {
-    width: 70px; /* Input ile aynı genişlik */
-    padding: 6px; /* Input ile aynı iç boşluk */
-    border: 1px solid #ddd; /* Input ile aynı kenarlık */
-    border-radius: 5px; /* Input ile aynı köşe yuvarlaklığı */
-    font-size: 15px; /* Input ile aynı font boyutu */
-    height: 33px; /* Input ile aynı yüksekliği sağlamak için deneysel değer */
-    background-color: #fff; /* Arka plan rengini belirginleştir */
-    -webkit-box-sizing: border-box; /* Kutu modelini düzeltir */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    /* SELECT için varsayılan okları kaldırmıyoruz, tarayıcının kendi okları kalsın */
-    /* appearance: none; gibi kodları bu kısımdan kaldırdık */
+/* SADECE Günlük Hedef (maxAmount) input'unun yanındaki okları kaldır */
+#maxAmount::-webkit-outer-spin-button,
+#maxAmount::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#maxAmount { /* Firefox için ID'yi doğrudan hedefle */
+    -moz-appearance: textfield;
 }
 
 /* Ayarlar panelindeki butonları içeren div */
 .settings-buttons {
     display: flex;
     justify-content: center;
-    gap: 10px; /* Butonlar arası boşluğu azalt */
-    margin-top: 20px; /* Üst boşluğu azalt */
+    gap: 10px;
+    margin-top: 20px;
 }
 
-/* Ayarlar panelindeki "OK!" butonu için özel stil (genel app-button'dan boyut farkı) */
+/* Ayarlar panelindeki "OK!" butonu için özel stil */
 .settings-buttons .app-button {
-    font-size: 15px; /* Font boyutunu küçült */
-    padding: 8px 18px; /* İç boşluğu küçült */
+    font-size: 15px;
+    padding: 8px 18px;
 }
 
 /* Ayarlar panelindeki "OK!" butonu Hover ve Active Stilleri */
@@ -216,13 +210,13 @@
 
 /* Ayarlar panelindeki "Reset Water" butonu için özel stil */
 .settings-buttons .reset-button {
-    background-color: #ff6666; /* Soluk kırmızı */
+    background-color: #ff6666;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Ayarlar panelindeki "Reset Water" butonu Hover ve Active Stilleri */
 .settings-buttons .reset-button:hover {
-    background-color: #cc4c4c; /* Üzerine gelince biraz daha koyu kırmızı */
+    background-color: #cc4c4c;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
@@ -231,11 +225,7 @@
     background-color: #cc4c4c;
     transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-/* Eskiden kalma, number inputlar için ok gizleme kodlarını SİLDİM */
-/* input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; } */
-/* input[type="number"] { -moz-appearance: textfield; } */
-    </style>
+}</style>
 </head>
 <body>
     <img src="images/water.logo.png" alt="Su Bardağı İkonu" class="water-icon">
