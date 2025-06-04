@@ -32,11 +32,19 @@
       }
     }
 
-    function updateDisplay() {
-      const percent = (currentWaterAmount / maxWaterGoal) * 100;
-      progressBar.style.width = percent + "%";
-      statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
-    }
+    // script.js dosyanızda updateDisplay fonksiyonunu bulun ve aşağıdaki gibi güncelleyin:
+
+function updateDisplay() {
+  const percent = (currentWaterAmount / maxWaterGoal) * 100;
+  progressBar.style.width = percent + "%";
+  
+  // En üstteki durum yazısı (statusDisplay ID'li p etiketi)
+  statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
+
+  // İlerleme çubuğu üzerindeki yazı (waterAmountOnlyDisplay ID'li span etiketi)
+  // Bu satırı ekliyoruz:
+  document.getElementById("waterAmountOnlyDisplay").innerText = `${currentWaterAmount} ml`;
+}
 
     function addWater() {
       if (currentWaterAmount < maxWaterGoal) {
