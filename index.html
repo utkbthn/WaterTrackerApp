@@ -24,37 +24,43 @@
     transform: scale(1.05);
 }
 
-.progress {
+/* Mevcut .progress, .progress-text, .progress-bar'ı bu kodlarla DEĞİŞTİRİN */
+
+.water-bottle-container {
     position: relative;
-    height: 25px;
-    background: #e0e0e0;
-    border-radius: 12px;
-    margin: 20px auto;
-    max-width: 320px;
-    overflow: hidden;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    width: 80px; /* Şişe genişliği */
+    height: 250px; /* Şişe yüksekliği */
+    background: #e0e0e0; /* Şişenin boş arka plan rengi */
+    border: 2px solid #a0c0e0; /* Şişe kenarlığı */
+    border-radius: 40px 40px 10px 10px; /* Üst kısımları daha yuvarlak, altı daha köşeli */
+    margin: 30px auto; /* Ortala ve boşluk bırak */
+    overflow: hidden; /* Taşmayı önle */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex; /* İçeriği ortalamak için */
+    align-items: flex-end; /* Su seviyesini alttan başlatmak için */
+    justify-content: center; /* Metni yatayda ortalamak için */
 }
 
-/* İlerleme Çubuğu İçindeki Metin */
-.progress-text {
-    position: absolute;
+/* Şişe içindeki su doluluğu */
+.water-bottle-fill {
     width: 100%;
-    text-align: center;
-    line-height: 25px;
-    color: white;
+    height: 0; /* Başlangıçta 0 yükseklikte */
+    background: linear-gradient(to top, #4a90e2, #70b7f8); /* Mavinin tonları (su rengi) */
+    transition: height 0.6s ease-out; /* Dolum animasyonu */
+    border-radius: 10px 10px 8px 8px; /* Suyun üst kenarını yuvarlak tutmak için */
+    display: flex;
+    align-items: center; /* Metni dikeyde ortala */
+    justify-content: center; /* Metni yatayda ortala */
+    flex-direction: column-reverse; /* Metni su seviyesinin üstünde tutmak için */
+}
+
+/* Su doluluğu içindeki metin (sadece miktar) */
+.water-fill-text {
+    color: white; /* Su üzerinde beyaz metin */
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-    z-index: 1;
-    top: 0;
-    left: 0;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(to right, #4CAF50, #2196F3);
-    transition: width 0.4s ease-out;
-    border-radius: 12px;
+    font-size: 1.2em; /* Biraz daha büyük font */
+    margin-bottom: 5px; /* Metin ile suyun üstü arasında boşluk */
 }
 
 /* Genel Buton Stili (Drink Water butonu ve Ayarlar panelindeki OK butonu için temel stil) */
@@ -232,11 +238,11 @@
     <h2>Water Tracker</h2>
     <p id="status">0 ml / 2500 ml</p>
 
-    <div class="progress">
-        <div class="progress-bar" id="progressBar">
-            <span id="waterAmountOnlyDisplay" class="progress-text"></span>
-        </div>
+    <div class="water-bottle-container">
+    <div class="water-bottle-fill" id="progressBar">
+        <span id="waterAmountOnlyDisplay" class="water-fill-text"></span>
     </div>
+</div>
 
     <div class="button-wrapper">
         <div class="app-button" id="addWaterButton" onclick="addWater()">Drink Water</div>
@@ -307,9 +313,23 @@ function resetWaterIfNewDay() {
 }
 
 function updateDisplay() {
-    const percent = (currentWaterAmount / maxWaterGoal) * 100;
-    progressBar.style.width = percent + "%";
+    let percent = (currentWaterAmount / maxWaterGoal) * 100;
+    if (percent > 100) percent = 100;
+    if (percent < 0) percent = 0;
+    const bottleHeight = document.querySelector('.water-bottle-container').clientHeight; // Şişenin gerçek yüksekliğini al
+    const fillHeight = (percent / 100) * bottleHeight; // Yüzdeye göre doluluk yüksekliği
+    progressBar.style.height = `${fillHeight}px`; // Yüksekliği ayarla
+
     statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
+    
+    // Metnin suyun içinde görünebilmesi için opaklığını ayarla (isteğe bağlı)
+    if (currentWaterAmount > 0) {
+        waterAmountOnlyDisplay.style.opacity = 1;
+    } else {
+        waterAmountOnlyDisplay.style.opacity = 0; // Su yokken metni gizle
+    }
+
+    // Metnin kendisini güncelle
     waterAmountOnlyDisplay.innerText = `${currentWaterAmount} ml`;
 }
 
