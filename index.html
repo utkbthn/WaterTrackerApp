@@ -167,103 +167,92 @@ let addWaterAmount = parseInt(localStorage.getItem("addAmount")) || DEFAULT_ADD_
 // 4. Diğer Uygulama Değişkenleri ve DOM Referansları
 const progressBar = document.getElementById("progressBar");
 const statusDisplay = document.getElementById("status");
-let lastResetDate = localStorage.getItem("lastResetDate");;
+let lastResetDate = localStorage.getItem("lastResetDate");
 
-    function getTodayDateString() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = (today.getMonth() + 1).toString().padStart(2, '0');
-      const day = today.getDate().toString().padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    }
-
-    function resetWaterIfNewDay() {
-      const todayDate = getTodayDateString();
-      if (lastResetDate !== todayDate) {
-        resetWater();
-        lastResetDate = todayDate;
-        localStorage.setItem("lastResetDate", lastResetDate);
-        console.log("Yeni güne geçildi, su miktarı sıfırlandı.");
-      }
-    }
-
-    function updateDisplay() {
-  const percent = (currentWaterAmount / maxWaterGoal) * 100; // Yeni isimler
-  progressBar.style.width = percent + "%"; // progress yerine progressBar
-  statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`; // Yeni isimler
+function getTodayDateString() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = (today.getMonth() + 1).toString().padStart(2, '0');
+  const day = today.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
-    
-    function addWater() {
-  if (currentWaterAmount < maxWaterGoal) { // Yeni isimler
-    currentWaterAmount += addWaterAmount; // Yeni isimler
-    if (currentWaterAmount > maxWaterGoal) currentWaterAmount = maxWaterGoal; // Yeni isimler
-    localStorage.setItem("water", currentWaterAmount); // Yeni isim
+
+function resetWaterIfNewDay() {
+  const todayDate = getTodayDateString();
+  if (lastResetDate !== todayDate) {
+    resetWater();
+    lastResetDate = todayDate;
+    localStorage.setItem("lastResetDate", lastResetDate);
+    console.log("Yeni güne geçildi, su miktarı sıfırlandı.");
+  }
+}
+
+function updateDisplay() {
+  const percent = (currentWaterAmount / maxWaterGoal) * 100;
+  progressBar.style.width = percent + "%";
+  statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
+}
+
+function addWater() {
+  if (currentWaterAmount < maxWaterGoal) {
+    currentWaterAmount += addWaterAmount;
+    if (currentWaterAmount > maxWaterGoal) currentWaterAmount = maxWaterGoal; // Hedefi aşmaması için kontrol
+    localStorage.setItem("water", currentWaterAmount);
     updateDisplay();
   }
 }
-    
-    function resetWater() {
-  currentWaterAmount = 0; // Yeni isim
-  localStorage.setItem("water", currentWaterAmount); // Yeni isim
+
+function resetWater() {
+  currentWaterAmount = 0;
+  localStorage.setItem("water", currentWaterAmount);
   updateDisplay();
+  // Ayarlar panelini kapat
   document.getElementById("settingsPanel").style.display = "none";
 }
-    
-    function openSettings() {
+
+function openSettings() {
   const settingsPanel = document.getElementById("settingsPanel");
   if (settingsPanel.style.display === "block") {
     settingsPanel.style.display = "none";
   } else {
     settingsPanel.style.display = "block";
-    document.getElementById("addAmount").value = addWaterAmount; // Yeni isim
-    document.getElementById("maxAmount").value = maxWaterGoal; // Yeni isim
+    // Ayarlar inputlarını mevcut değerlerle doldur
+    document.getElementById("addAmount").value = addWaterAmount;
+    document.getElementById("maxAmount").value = maxWaterGoal;
   }
 }
 
-    function saveAndCloseSettings() {
+function saveAndCloseSettings() {
+  // Su Ekleme Miktarı için
   const newAddAmount = parseInt(document.getElementById("addAmount").value);
   if (!isNaN(newAddAmount) && newAddAmount > 0) {
-    addWaterAmount = newAddAmount; // Yeni isim
-    localStorage.setItem("addAmount", addWaterAmount); // Yeni isim
+    addWaterAmount = newAddAmount;
+    localStorage.setItem("addAmount", addWaterAmount);
     console.log("Yeni ekleme miktarı kaydedildi:", addWaterAmount);
   } else {
     alert("Lütfen geçerli bir su ekleme miktarı girin (örneğin 100, 200).");
-    return;
+    return; // Hata durumunda fonksiyonu sonlandır
   }
 
+  // Günlük Hedef Su Miktarı için
   const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
   if (!isNaN(newMaxAmount) && newMaxAmount > 0) {
-    maxWaterGoal = newMaxAmount; // Yeni isim
-    localStorage.setItem("maxWater", maxWaterGoal); // Yeni isim
+    maxWaterGoal = newMaxAmount;
+    localStorage.setItem("maxWater", maxWaterGoal);
     console.log("Yeni günlük hedef miktarı kaydedildi:", maxWaterGoal);
   } else {
     alert("Lütfen geçerli bir günlük hedef su miktarı girin (örneğin 2000, 3000).");
-    return;
+    return; // Hata durumunda fonksiyonu sonlandır
   }
 
-  document.getElementById("settingsPanel").style.display = "none";
+  document.getElementById("settingsPanel").style.display = "none"; // Paneli gizle
   console.log("Ayarlar kaydedildi ve panel kapatıldı.");
-  updateDisplay();
+  updateDisplay(); // Tüm değişikliklerden sonra ekranı güncelle
 }
 
-      // Yeni: Günlük Hedef Su Miktarı için
-      const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
-      if (!isNaN(newMaxAmount) && newMaxAmount > 0) { 
-        max = newMaxAmount; // Yeni hedef miktarı ata
-        localStorage.setItem("maxWater", max); // localStorage'a kaydet
-        console.log("Yeni günlük hedef miktarı kaydedildi:", max);
-      } else {
-        alert("Lütfen geçerli bir günlük hedef su miktarı girin (örneğin 2000, 3000).");
-        return; // Hata durumunda fonksiyonu sonlandır
-      }
-      
-      document.getElementById("settingsPanel").style.display = "none"; // Paneli gizle
-      console.log("Ayarlar kaydedildi ve panel kapatıldı.");
-      updateDisplay(); // Tüm değişikliklerden sonra ekranı güncelle
-    }
-    
-    resetWaterIfNewDay(); 
-    updateDisplay();
+// Uygulama yüklendiğinde veya yenilendiğinde çalışacak ilk kodlar
+resetWaterIfNewDay();
+updateDisplay();
   </script>
 </body>
 </html>
