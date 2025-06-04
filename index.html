@@ -4,122 +4,124 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Water Tracker</title>
   <style>
-    body {
+   body {
   font-family: sans-serif;
   text-align: center;
   background: #f0f8ff;
-  padding-bottom: 50px; /* Sayfa altından biraz boşluk */
+  padding-bottom: 50px;
 }
 
 /* Water Tracker Başlık Görseli */
 img {
-  width: 120px; /* Görselin genişliğini biraz küçülttüm */
-  height: auto; /* Orantılı yüksekliği koru */
-  margin-top: 20px; /* Üstten boşluk */
-  margin-bottom: 10px; /* Başlıkla arasında boşluk */
+  width: 120px;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 /* İlerleme Çubuğu */
 .progress {
-  height: 25px; /* Yüksekliği biraz artırdım */
-  background: #e0e0e0; /* Arka plan rengini açık gri yaptım */
-  border-radius: 12px; /* Köşeleri biraz daha yuvarlak yaptım */
-  margin: 20px auto; /* Yanlardan otomatik boşlukla ortala */
-  max-width: 320px; /* Maksimum genişliğini belirle (mobil için) */
+  height: 25px;
+  background: #e0e0e0;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 320px;
   overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2); /* İçeriden hafif gölge */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .progress-bar {
   height: 100%;
   width: 0;
-  background: linear-gradient(to right, #4CAF50, #2196F3); /* Yeşil-mavi geçişli renk */
-  transition: width 0.4s ease-out; /* Daha yumuşak geçiş */
-  border-radius: 12px; /* Köşeleri yuvarlak kalsın */
+  background: linear-gradient(to right, #4CAF50, #2196F3);
+  transition: width 0.4s ease-out;
+  border-radius: 12px;
 }
 
 /* Butonlar */
 button {
-  font-size: 18px; /* Buton fontunu mobil için uygun yaptım */
-  padding: 12px 25px; /* Daha dolgun butonlar */
-  margin: 10px; /* Butonlar arasına boşluk */
+  font-size: 18px;
+  padding: 12px 25px;
+  margin: 10px;
   cursor: pointer;
   border: none;
   border-radius: 8px;
-  background-color: #3399ff; /* Mavi tonu */
+  background-color: #3399ff; /* Normal buton rengi */
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+  /* Sadece hover için renk ve gölge geçişi, transform yok */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+
+  /* Safari'nin dokunma anındaki varsayılan vurgu rengini kaldır */
+  -webkit-tap-highlight-color: transparent; 
 }
 
 button:hover {
-  background-color: #2a7acc; /* Daha koyu mavi */
+  background-color: #2a7acc; /* Fare üzerine gelince biraz daha koyu */
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  /* Tıklanma anı: Çok kısa süreli renk ve gölge değişimi VE kayma */
+  background-color: #2a7acc; /* Hover rengiyle aynı yaptım, böylece sadece kısa bir anlığına değişecek */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px); /* Bu sefer kayma efektini buraya ekledik */
+  /* Sadece active durumu için çok kısa bir geçiş süresi */
+  transition: background-color 0.05s ease, box-shadow 0.05s ease, transform 0.05s ease; 
 }
 
 /* Ayarlar Paneli Genel Düzeni */
 #settingsPanel {
   display: none;
-  margin: 30px auto; /* Paneli yatayda ortala */
+  margin: 30px auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
   background: #fff;
-  max-width: 300px; /* Panelin genişliğini sınırla (mobil için iyi) */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Hafif gölge */
+  max-width: 300px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 #settingsPanel h3 {
   margin-top: 0;
   color: #333;
-  margin-bottom: 25px; /* Başlık altına boşluk */
+  margin-bottom: 25px;
 }
 
 /* Her ayar seçeneği için (label ve input) */
 .settings-option {
-  display: flex; /* Elemanları yan yana getir */
-  justify-content: space-between; /* Aralarına boşluk koy */
-  align-items: center; /* Dikeyde ortala */
-  margin-bottom: 20px; /* Her seçenek arasına boşluk */
-  flex-wrap: wrap; /* Küçük ekranlarda alta geçmesini sağlar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .settings-option label {
-  flex-basis: 60%; /* Etiketin genişliğini belirle */
-  text-align: left; /* Metni sola hizala */
+  flex-basis: 60%;
+  text-align: left;
   color: #555;
   font-size: 16px;
-  padding-right: 10px; /* Input'tan biraz uzaklık */
+  padding-right: 10px;
 }
 
 .settings-option input[type="number"] {
-  width: 80px; /* Input genişliğini belirle */
+  width: 80px;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  text-align: center; /* Sayıyı ortala */
+  text-align: center;
   font-size: 16px;
-  flex-basis: auto; /* Kalan alanı kapla */
+  flex-basis: auto;
 }
 
 /* Butonları içeren div */
 .settings-buttons {
-  display: flex; /* Butonları yan yana getir */
-  justify-content: center; /* Ortala */
-  gap: 15px; /* Butonlar arasına boşluk */
-  margin-top: 30px; /* Yukarıdaki inputlardan boşluk */
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
 }
-
-/* Ayarlar panelindeki butonlar için özel stil (opsiyonel) */
-/* Eğer ana buton stilinden farklı olmasını istersen kullanabilirsin */
-/*
-#settingsPanel button {
-    background-color: #555;
-}
-#settingsPanel button:hover {
-    background-color: #444;
-}
-*/
   </style>
 </head>
 <body>
