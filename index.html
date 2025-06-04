@@ -91,8 +91,14 @@
       localStorage.setItem("water", current);
       updateDisplay();}
     
-    function openSettings() {
-  document.getElementById("settingsPanel").style.display = "block";}
+   function openSettings() {
+  const settingsPanel = document.getElementById("settingsPanel");
+  if (settingsPanel.style.display === "block") {
+    settingsPanel.style.display = "none";
+  } else {
+    settingsPanel.style.display = "block";
+  }
+}
 
   function saveAndCloseSettings() {
   const newAmount = parseInt(document.getElementById("addAmount").value);
