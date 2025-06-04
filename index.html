@@ -46,18 +46,25 @@
   <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff; text-align: center;">
   <h3>Settings</h3>
   <label for="addAmount">Su Ekleme Miktarı (ml):</label>
-  <input type="number" id="addAmount" value="300" min="1" style="width: 80px; padding: 5px; margin-left: 10px;">
+  <input type="number" id="addAmount" value="250" min="1" style="width: 80px; padding: 5px; margin-left: 10px;">
+  <br><br> <label for="maxAmount">Günlük Hedef Su Miktarı (ml):</label>
+  <input type="number" id="maxAmount" value="3300" min="100" style="width: 80px; padding: 5px; margin-left: 10px;">
   <button onclick="saveAndCloseSettings()" style="margin-left: 15px;">OK!</button>
   <button onclick="resetWater()" style="margin-left: 15px; margin-top: 20px;">Reset Water</button> 
   </div>
 
   <script>
     let current = parseInt(localStorage.getItem("water")) || 0;
-    const max = 3300;
+   
+    let max = parseInt(localStorage.getItem("maxWater")) || 3300;
+   
     const progress = document.getElementById("progressBar");
+    
     const status = document.getElementById("status");
+    
     let currentAddAmount = parseInt(localStorage.getItem("addAmount")) || 250;
-    let lastResetDate = localStorage.getItem("lastResetDate"); // En son sıfırlanan tarihi kaydettik
+    
+    let lastResetDate = localStorage.getItem("lastResetDate");
 
     function getTodayDateString() {
       const today = new Date();
@@ -91,26 +98,43 @@
       localStorage.setItem("water", current);
       updateDisplay();}
     
-   function openSettings() {
+  function openSettings() {
   const settingsPanel = document.getElementById("settingsPanel");
   if (settingsPanel.style.display === "block") {
     settingsPanel.style.display = "none";
   } else {
     settingsPanel.style.display = "block";
+    document.getElementById("addAmount").value = currentAddAmount; // Su ekleme miktarını doldur
+    document.getElementById("maxAmount").value = max; // Günlük hedef miktarını doldur
   }
 }
 
   function saveAndCloseSettings() {
-  const newAmount = parseInt(document.getElementById("addAmount").value);
-  if (!isNaN(newAmount) && newAmount > 0) { 
-    currentAddAmount = newAmount;
+  // Su Ekleme Miktarı için
+  const newAddAmount = parseInt(document.getElementById("addAmount").value);
+  if (!isNaN(newAddAmount) && newAddAmount > 0) { 
+    currentAddAmount = newAddAmount;
     localStorage.setItem("addAmount", currentAddAmount);
     console.log("Yeni ekleme miktarı kaydedildi:", currentAddAmount);
   } else {
     alert("Lütfen geçerli bir su ekleme miktarı girin (örneğin 100, 200).");
+    return; // Hata durumunda fonksiyonu sonlandır
   }
+
+  // Yeni: Günlük Hedef Su Miktarı için
+  const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
+  if (!isNaN(newMaxAmount) && newMaxAmount > 0) { 
+    max = newMaxAmount; // Yeni hedef miktarı ata
+    localStorage.setItem("maxWater", max); // localStorage'a kaydet
+    console.log("Yeni günlük hedef miktarı kaydedildi:", max);
+  } else {
+    alert("Lütfen geçerli bir günlük hedef su miktarı girin (örneğin 2000, 3000).");
+    return; // Hata durumunda fonksiyonu sonlandır
+  }
+  
   document.getElementById("settingsPanel").style.display = "none"; // Paneli gizle
   console.log("Ayarlar kaydedildi ve panel kapatıldı.");
+  updateDisplay(); // Tüm değişikliklerden sonra ekranı güncelle
 }
     
     resetWaterIfNewDay(); updateDisplay();
