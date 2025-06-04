@@ -3,8 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Water Tracker</title>
-  <style>
-   body {
+  <style>body {
   font-family: sans-serif;
   text-align: center;
   background: #f0f8ff;
@@ -62,12 +61,12 @@ button:hover {
 }
 
 button:active {
-  /* Tıklanma anı: Çok kısa süreli renk ve gölge değişimi VE kayma */
-  background-color: #2a7acc; /* Hover rengiyle aynı yaptım, böylece sadece kısa bir anlığına değişecek */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transform: translateY(2px); /* Bu sefer kayma efektini buraya ekledik */
-  /* Sadece active durumu için çok kısa bir geçiş süresi */
-  transition: background-color 0.05s ease, box-shadow 0.05s ease, transform 0.05s ease; 
+  /* Tıklanma anı: Hiçbir renk veya gölge değişimi olmasın */
+  background-color: #3399ff; /* Normal rengine geri dön, yani değişmesin */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Normal gölgesine geri dön, yani değişmesin */
+  transform: translateY(2px); /* Kayma efektini koru */
+  /* Çok kısa geçiş süresi, her şeyin hemen yerine oturmasını sağlar */
+  transition: background-color 0.01s ease, box-shadow 0.01s ease, transform 0.01s ease; 
 }
 
 /* Ayarlar Paneli Genel Düzeni */
