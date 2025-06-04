@@ -1,110 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Water Tracker</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      background: #f0f8ff;
-    }
-    img {
-      width: 150px;
-    }
-    .progress {
-      height: 20px;
-      background: #ccc;
-      border-radius: 10px;
-      margin: 20px;
-      overflow: hidden;
-    }
-    .progress-bar {
-      height: 100%;
-      width: 0;
-      background: #3399ff;
-      transition: width 0.3s;
-    }
-    button {
-      font-size: 20px;
-      padding: 10px 20px;
-      margin-top: 20px;
-      margin-right: 10px;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f0f8ff;
+    }
+    img {
+      width: 150px;
+    }
+    .progress {
+      height: 20px;
+      background: #ccc;
+      border-radius: 10px;
+      margin: 20px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: #3399ff;
+      transition: width 0.3s;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      margin-right: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h2>Water Tracker</h2>
-  <p id="status">0 ml / 3300 ml</p>
-  <div class="progress">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-  <button onclick="addWater()">💧Drink💧</button>
-  <button onclick="resetWater()">Reset</button>
-  <button onclick="openSettings()">Settings</button>
-  
-  <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff;">
-  <h3>Settings</h3>
-  <label for="addAmount">Su Ekleme Miktarı (ml):</label>
-  <input type="number" id="addAmount" value="300" min="1" style="width: 80px; padding: 5px; margin-left: 10px;">
-  <button onclick="saveAndCloseSettings()" style="margin-left: 15px;">OK</button> </div>
+  <h2>Water Tracker</h2>
+  <p id="status">0 ml / 3300 ml</p>
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <button onclick="addWater()">💧Drink💧</button>
+  <button onclick="resetWater()">Reset</button>
+  <button onclick="openSettings()">Settings</button>
+  
+  <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff;">
+  <h3>Settings</h3>
+  <label for="addAmount">Su Ekleme Miktarı (ml):</label>
+  <input type="number" id="addAmount" value="300" min="1" style="width: 80px; padding: 5px; margin-left: 10px;">
+  <button onclick="saveAndCloseSettings()" style="margin-left: 15px;">OK</button> </div>
 
-  <script>
-    let current = parseInt(localStorage.getItem("water")) || 0;
-    const max = 3300;
-    const progress = document.getElementById("progressBar");
-    const status = document.getElementById("status");
+  <script>
+    let current = parseInt(localStorage.getItem("water")) || 0;
+    const max = 3300;
+    const progress = document.getElementById("progressBar");
+    const status = document.getElementById("status");
 
-    let lastResetDate = localStorage.getItem("lastResetDate"); // En son sıfırlanan tarihi kaydettik
+    let lastResetDate = localStorage.getItem("lastResetDate"); // En son sıfırlanan tarihi kaydettik
 
-    function getTodayDateString() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = (today.getMonth() + 1).toString().padStart(2, '0');
-      const day = today.getDate().toString().padStart(2, '0');
-      return `${year}-${month}-${day}`;
+    function getTodayDateString() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = (today.getMonth() + 1).toString().padStart(2, '0');
+      const day = today.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function resetWaterIfNewDay() {
+      const todayDate = getTodayDateString();
+      if (lastResetDate !== todayDate) {
+        resetWater();
+        lastResetDate = todayDate;
+        localStorage.setItem("lastResetDate", lastResetDate);
+        console.log("Yeni güne geçildi, su miktarı sıfırlandı.");
+      }
+    }
+
+    function updateDisplay() {
+      const percent = (current / max) * 100;
+      progress.style.width = percent + "%";
+      status.innerText = `${current} ml / ${max} ml`;
+    }
+
+    function addWater() {
+      if (current < max) {
+        current += 300; // Bu miktar dinamik hale gelecek
+        if (current > max) current = max;
+        localStorage.setItem("water", current);
+        updateDisplay();
+      }
+    }
+
+    function resetWater() {
+      current = 0;
+      localStorage.setItem("water", current);
+      updateDisplay();
+    }
+   
+
+    function openSettings() {
+      document.getElementById("settingsPanel").style.display = "block"; 
     }
 
-    function resetWaterIfNewDay() {
-      const todayDate = getTodayDateString();
-      if (lastResetDate !== todayDate) {
-        resetWater();
-        lastResetDate = todayDate;
-        localStorage.setItem("lastResetDate", lastResetDate);
-        console.log("Yeni güne geçildi, su miktarı sıfırlandı.");
-      }
-    }
-
-    function updateDisplay() {
-      const percent = (current / max) * 100;
-      progress.style.width = percent + "%";
-      status.innerText = `${current} ml / ${max} ml`;
-    }
-
-    function addWater() {
-      if (current < max) {
-        current += 300;
-        if (current > max) current = max;
-        localStorage.setItem("water", current);
-        updateDisplay();
-      }
-    }
-
-    function resetWater() {
-      current = 0;
-      localStorage.setItem("water", current);
-      updateDisplay();
-    }
-   
     function saveAndCloseSettings() {
-  // AYARLARI KAYDETME KISMI BURAYA GELECEK (Bir sonraki adımda yapacağız)
-  // Şimdilik sadece paneli kapatacak:
-  document.getElementById("settingsPanel").style.display = "none"; // Paneli gizle
-  console.log("Ayarlar kaydedildi ve panel kapatıldı (Henüz kaydetme mantığı eklenmedi)."); // Konsola mesaj
-}
     
-    resetWaterIfNewDay();
-    updateDisplay();
-  </script>
+        document.getElementById("settingsPanel").style.display = "none"; // Paneli gizle
+        console.log("Ayarlar kaydedildi ve panel kapatıldı (Henüz kaydetme mantığı eklenmedi)."); // Konsola mesaj
+    }
+    
+    resetWaterIfNewDay();
+    updateDisplay();
+  </script>
 </body>
 </html>
