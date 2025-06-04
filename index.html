@@ -210,6 +210,17 @@
             transform: translateY(2px);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
+        /* Chrome, Safari, Edge, Opera gibi WebKit tabanlı tarayıcılar için */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox için */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
     </style>
 </head>
 <body>
