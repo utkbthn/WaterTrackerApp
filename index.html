@@ -221,6 +221,24 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+        /* SELECT elemanı için boyutlandırma */
+.settings-option select {
+    width: 70px; /* Input ile aynı genişlik */
+    padding: 6px; /* Input ile aynı iç boşluk */
+    border: 1px solid #ddd; /* Input ile aynı kenarlık */
+    border-radius: 5px; /* Input ile aynı köşe yuvarlaklığı */
+    text-align: center; /* Seçilen metnin ortalanması */
+    font-size: 15px; /* Input ile aynı font boyutu */
+    height: 33px; /* Input ile aynı yüksekliği sağlamak için deneysel değer */
+    -webkit-appearance: none; /* iOS'ta varsayılan görünümü kaldır */
+    -moz-appearance: none; /* Firefox'ta varsayılan görünümü kaldır */
+    appearance: none; /* Tüm tarayıcılarda varsayılan görünümü kaldır */
+    background-color: #fff; /* Arka plan rengi */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C143.5L150.3%2C6.8c-4.7-4.7-12.3-4.7-17%2C0l-7.3%2C7.3c-4.7%2C4.7-4.7%2C12.3%2C0%2C17L237.4%2C146l-111.4%2C111.4c-4.7%2C4.7-4.7%2C12.3%2C0%2C17l7.3%2C7.3c4.7%2C4.7%2C12.3%2C4.7%2C17%2C0l136.7-136.7C291.7%2C155.8%2C291.7%2C148.2%2C287%2C143.5z%22%2F%3E%3C%2Fsvg%3E'); /* Özel ok ikonu */
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 12px;
+}
     </style>
 </head>
 <body>
