@@ -147,6 +147,10 @@
       gap: 15px;
       margin-top: 30px;
     }
+        /* İki buton arasındaki boşluğu kontrol etmek için yeni sınıf */
+        .button-wrapper {
+        margin-bottom: 5px; /* İstediğin boşluk miktarını buradan ayarlayabilirsin */
+}
   </style>
 
 </head>
@@ -155,15 +159,17 @@
   <h2>Water Tracker</h2>
   <p id="status">0 ml / 2500 ml</p>
   <div class="progress">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-  <div style="margin-bottom: 10px;"> <div class="app-button" id="addWaterButton" onclick="addWater()">Drink Water</div>
-</div>
-<div> <div class="app-button settings-button" onclick="openSettings()">Settings</div>
-</div>
-    <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff;">
-    <h3>Settings</h3>
-    <div class="settings-option">
+  <div class="progress-bar" id="progressBar"></div>
+    
+ <div class="button-wrapper">
+ <div class="app-button" id="addWaterButton" onclick="addWater()">Drink Water</div>
+ </div>
+ <div class="app-button settings-button" onclick="openSettings()">Settings</div>
+    
+  <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff;">
+  
+  <h3>Settings</h3>
+  <div class="settings-option">
       <label for="addAmount">Su Ekleme Miktarı (ml):</label>
       <input type="number" id="addAmount" value="300" min="1">
     </div>
