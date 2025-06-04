@@ -9,7 +9,7 @@
       text-align: center;
       background: #f0f8ff;
     }
-    img {
+    img { /* Bu etiketi HTML'de kullanmıyorsunuz, isterseniz kaldırabiliriz */
       width: 150px;
     }
     .progress {
@@ -43,33 +43,64 @@
   <button onclick="resetWater()">Reset</button>
 
   <script>
-  let current = parseInt(localStorage.getItem("water")) || 0;
-  const max = 3300;
-  const progress = document.getElementById("progressBar");
-  const status = document.getElementById("status");
+    let current = parseInt(localStorage.getItem("water")) || 0;
+    const max = 3300;
+    const progress = document.getElementById("progressBar");
+    const status = document.getElementById("status");
 
-  function updateDisplay() {
-    const percent = (current / max) * 100;
-    progress.style.width = percent + "%";
-    status.innerText = `${current} ml / ${max} ml`;
-  }
+    let lastResetDate = localStorage.getItem("lastResetDate"); // En son sıfırlanan tarihi kaydettik
 
-  function addWater() {
-    if (current < max) {
-      current += 300;
-      if (current > max) current = max;
+    function getTodayDateString() {
+      const today = new Date();
+      // Yıl, Ay ve Günü alıp "YYYY-MM-DD" formatında döndürürüz.
+      // Date objesi kullanıcının sistem saat dilimini kullanır, bu da Türkiye saati ayarlı cihazlarda istediğimiz gibi çalışır.
+      const year = today.getFullYear();
+      const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Ay 0'dan başlar, bu yüzden +1
+      const day = today.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function resetWaterIfNewDay() {
+      const todayDate = getTodayDateString();
+      // Eğer en son sıfırlanan tarih bugünden farklıysa (yani yeni bir güne geçilmişse), sıfırlama yap
+      if (lastResetDate !== todayDate) {
+        resetWater(); // Su miktarını sıfırlayan mevcut fonksiyonu çağır
+        lastResetDate = todayDate; // lastResetDate'i bugünün tarihiyle güncelle
+        localStorage.setItem("lastResetDate", lastResetDate); // Yeni tarihi localStorage'a kaydet
+        console.log("Yeni güne geçildi, su miktarı sıfırlandı."); // Konsola mesaj (isteğe bağlı, geliştirme için)
+      }
+    }
+
+    function updateDisplay() {
+      const percent = (current / max) * 100;
+      progress.style.width = percent + "%";
+      status.innerText = `${current} ml / ${max} ml`;
+    }
+
+    function addWater() {
+      if (current < max) {
+        current += 300;
+        if (current > max) current = max; // Miktarın max'ı geçmemesini sağlar
+        localStorage.setItem("water", current);
+        updateDisplay();
+      }
+    }
+
+    function resetWater() {
+      current = 0;
       localStorage.setItem("water", current);
       updateDisplay();
     }
-  }
 
-  function resetWater() {
-    current = 0;
-    localStorage.setItem("water", current);
-    updateDisplay();
-  }
+    // Sayfa yüklendiğinde hemen kontrol et
+    resetWaterIfNewDay();
 
-  updateDisplay(); // Sayfa açıldığında veriyi göster
+    // Her 60 saniyede (1 dakikada) bir kontrol et.
+    // Bu, sayfa açık kaldığında gece yarısı sıfırlamanın tetiklenmesini sağlar.
+    // ÖNEMLİ: Bu satır senin son verdiğin kodda eksikti, ekledim.
+    setInterval(resetWaterIfNewDay, 60 * 1000);
+
+    updateDisplay(); // Sayfa açıldığında ilk veriyi göster
   </script>
 </body>
 </html>
