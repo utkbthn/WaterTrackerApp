@@ -238,6 +238,8 @@
     </div>
 
     <script>
+        // JavaScript kodunu buraya taşıdık, HTML elementleri yüklendikten sonra çalışması için.
+
         // 1. Varsayılan Değerleri const ile tanımla
         const DEFAULT_MAX_WATER_AMOUNT = 2500; // Varsayılan günlük su hedefi (ml)
         const DEFAULT_ADD_AMOUNT = 250;       // Her tıklamada eklenecek varsayılan su miktarı (ml)
@@ -274,24 +276,4 @@
         }
 
         function updateDisplay() {
-            const percent = (currentWaterAmount / maxWaterGoal) * 100;
-            progressBar.style.width = percent + "%";
-            statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
-            waterAmountOnlyDisplay.innerText = `${currentWaterAmount} ml`;
-        }
-
-        function addWater() {
-            if (currentWaterAmount < maxWaterGoal) {
-                currentWaterAmount += addWaterAmount;
-                if (currentWaterAmount > maxWaterGoal) currentWaterAmount = maxWaterGoal; // Hedefi aşmaması için kontrol
-                localStorage.setItem("water", currentWaterAmount);
-                updateDisplay();
-            }
-        }
-
-        function resetWater() {
-            currentWaterAmount = 0;
-            localStorage.setItem("water", currentWaterAmount);
-            updateDisplay();
-            // Ayarlar panelini kapat
-            document.getElementById("settings
+            const percent = (currentWaterAmount / maxWaterGoal
