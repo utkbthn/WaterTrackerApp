@@ -38,8 +38,9 @@
       border-radius: 12px;
     }
 
-    /* Butonlar */
-    button {
+    /* Butonları div olarak stilize ediyoruz */
+    .app-button { /* Yeni sınıf adı */
+      display: inline-block; /* div'in buton gibi davranması için */
       font-size: 18px;
       padding: 12px 25px;
       margin: 10px;
@@ -49,18 +50,26 @@
       background-color: #3399ff; /* Normal buton rengi */
       color: white;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Sadece hover için geçişler */
+      transition: background-color 0.3s ease, box-shadow 0.3s ease; 
 
-      -webkit-tap-highlight-color: transparent; /* Safari'nin dokunma anındaki varsayılan vurgu rengini kaldır */
+      /* Safari'nin dokunma anındaki varsayılan vurgu rengini kaldır */
+      -webkit-tap-highlight-color: transparent; 
+      /* İçerik seçimini engelle (mobil cihazlarda tıklanma anında metin seçimi olmasın) */
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
-    button:hover {
+    .app-button:hover {
       background-color: #2a7acc; /* Fare üzerine gelince biraz daha koyu */
       box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     }
 
     /* Tıklandığında (active durumdayken) hiçbir görsel değişiklik olmasın */
-    button:active {
+    .app-button:active {
       background-color: #3399ff; /* Normal rengiyle aynı */
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Normal gölgesiyle aynı */
       transform: translateY(0); /* Hiçbir kayma olmasın */
@@ -129,11 +138,7 @@
   <div class="progress">
     <div class="progress-bar" id="progressBar"></div>
   </div>
-  <button id="addWaterButton" onclick="addWater()">Drink Water</button>
-  
-  <button onclick="openSettings()">Settings</button>
-
-  <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff;">
+  <div class="app-button" id="addWaterButton" onclick="addWater()">Drink Water</div> <div class="app-button" onclick="openSettings()">Settings</div> <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff;">
     <h3>Settings</h3>
     <div class="settings-option">
       <label for="addAmount">Su Ekleme Miktarı (ml):</label>
@@ -144,9 +149,7 @@
       <input type="number" id="maxAmount" value="3300" min="100">
     </div>
     <div class="settings-buttons">
-      <button onclick="saveAndCloseSettings()">OK!</button>
-      <button onclick="resetWater()">Reset Water</button> 
-    </div>
+      <div class="app-button" onclick="saveAndCloseSettings()">OK!</div> <div class="app-button" onclick="resetWater()">Reset Water</div> </div>
   </div>
 
   <script>
