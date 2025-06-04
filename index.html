@@ -3,7 +3,8 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Water Tracker</title>
-  <style>body {
+  <style>
+    body {
   font-family: sans-serif;
   text-align: center;
   background: #f0f8ff;
@@ -48,11 +49,9 @@ button {
   background-color: #3399ff; /* Normal buton rengi */
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* Sadece hover için renk ve gölge geçişi, transform yok */
   transition: background-color 0.3s ease, box-shadow 0.3s ease; 
 
-  /* Safari'nin dokunma anındaki varsayılan vurgu rengini kaldır */
-  -webkit-tap-highlight-color: transparent; 
+  -webkit-tap-highlight-color: transparent; /* Safari'nin dokunma anındaki varsayılan vurgu rengini kaldır */
 }
 
 button:hover {
@@ -60,14 +59,14 @@ button:hover {
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-button:active {
-  /* Tıklanma anı: Hiçbir renk veya gölge değişimi olmasın */
-  background-color: #3399ff; /* Normal rengine geri dön, yani değişmesin */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Normal gölgesine geri dön, yani değişmesin */
-  transform: translateY(2px); /* Kayma efektini koru */
-  /* Çok kısa geçiş süresi, her şeyin hemen yerine oturmasını sağlar */
-  transition: background-color 0.01s ease, box-shadow 0.01s ease, transform 0.01s ease; 
+/* JavaScript ile eklenecek 'pressed' sınıfının stili */
+button.pressed {
+  /* BU KISIMDAKİ background-color VE box-shadow'U KALDIRDIK! */
+  /* Böylece basıldığında renk ve gölge değişmeyecek */
+  transform: translateY(2px); /* Kayma efekti kalsın */
+  transition: transform 0.05s ease; /* Sadece kayma için çok kısa geçiş */
 }
+
 
 /* Ayarlar Paneli Genel Düzeni */
 #settingsPanel {
