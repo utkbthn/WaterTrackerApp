@@ -5,231 +5,228 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Tracker</title> <style>
         body {
-            font-family: sans-serif;
-            text-align: center;
-            background: #f0f8ff;
-            padding-bottom: 50px;
-        }
+    font-family: sans-serif;
+    text-align: center;
+    background: #f0f8ff;
+    padding-bottom: 50px;
+}
 
-        .water-icon {
-            max-width: 100px;
-            height: auto;
-            display: block;
-            margin: 20px auto 30px auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease-in-out;
-        }
+.water-icon {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 20px auto 30px auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+}
 
-        .water-icon:hover {
-            transform: scale(1.05);
-        }
+.water-icon:hover {
+    transform: scale(1.05);
+}
 
-        /* YATAY PROGRESS BAR KODLARI - ESKİ HALİ */
-        .progress {
-            position: relative;
-            height: 25px;
-            background: #e0e0e0;
-            border-radius: 12px;
-            margin: 20px auto;
-            max-width: 320px;
-            overflow: hidden;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
+.progress {
+    position: relative;
+    height: 25px;
+    background: #e0e0e0;
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 320px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
 
-        /* İlerleme Çubuğu İçindeki Metin */
-        .progress-text {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            line-height: 25px;
-            color: white;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-            z-index: 1;
-            top: 0;
-            left: 0;
-        }
+/* İlerleme Çubuğu İçindeki Metin */
+.progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    line-height: 25px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
 
-        .progress-bar {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(to right, #4CAF50, #2196F3);
-            transition: width 0.4s ease-out;
-            border-radius: 12px;
-        }
-        /* YATAY PROGRESS BAR KODLARI SONA ERİYOR */
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(to right, #4CAF50, #2196F3);
+    transition: width 0.4s ease-out;
+    border-radius: 12px;
+}
 
-        /* Genel Buton Stili (Drink Water butonu ve Ayarlar panelindeki OK butonu için temel stil) */
-        .app-button {
-            display: inline-block;
-            font-size: 18px;
-            padding: 12px 25px;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            background-color: #3399ff;
-            color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease,
-                        box-shadow 0.3s ease,
-                        transform 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
+/* Genel Buton Stili (Drink Water butonu ve Ayarlar panelindeki OK butonu için temel stil) */
+.app-button {
+    display: inline-block;
+    font-size: 18px;
+    padding: 12px 25px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #3399ff;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
-        /* Genel Buton Hover/Active Durumları */
-        .app-button:hover {
-            background-color: #2a7acc;
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-            transform: translateY(-2px);
-        }
+/* Genel Buton Hover/Active Durumları */
+.app-button:hover {
+    background-color: #2a7acc;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
 
-        .app-button:active {
-            background-color: #2a7acc;
-            transform: translateY(2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-        }
+.app-button:active {
+    background-color: #2a7acc;
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
 
-        /* Ayarlar Açma Butonu (Settings butonu) için Özel Stil */
-        .settings-button {
-            font-size: 14px;
-            padding: 8px 20px;
-            background-color: #a0a0a0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+/* Ayarlar Açma Butonu (Settings butonu) için Özel Stil */
+.settings-button {
+    font-size: 14px;
+    padding: 8px 20px;
+    background-color: #a0a0a0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-        /* Ayarlar Açma Butonu Hover/Active Durumları */
-        .settings-button:hover {
-            background-color: #888888;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-            transform: translateY(-1px);
-        }
+/* Ayarlar Açma Butonu Hover/Active Durumları */
+.settings-button:hover {
+    background-color: #888888;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+}
 
-        .settings-button:active {
-            background-color: #888888;
-            transform: translateY(1px);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-        }
+.settings-button:active {
+    background-color: #888888;
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
 
-        /* Butonlar arasındaki boşluğu kontrol etmek için kapsayıcı sınıf */
-        .button-wrapper {
-            margin-bottom: 10px; /* Drink Water ile Settings butonları arasındaki dikey boşluk */
-        }
+/* Butonlar arasındaki boşluğu kontrol etmek için kapsayıcı sınıf */
+.button-wrapper {
+    margin-bottom: 10px;
+}
 
-        /* --- Ayarlar Paneli ve İçindeki Elemanların Güncel Stilleri --- */
-        #settingsPanel {
-            display: none; /* Varsayılan olarak gizli */
-            margin: 15px auto; /* Üst ve alttaki boşluğu azalt */
-            padding: 15px; /* İç boşluğu azalt */
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background: #fff;
-            max-width: 260px; /* Panel genişliğini küçült */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+/* --- Ayarlar Paneli ve İçindeki Elemanların Güncel Stilleri --- */
+#settingsPanel {
+    display: none;
+    margin: 15px auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+    max-width: 260px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
 
-        #settingsPanel h3 {
-            margin-top: 0;
-            color: #333;
-            margin-bottom: 15px; /* Başlık altındaki boşluğu azalt */
-            font-size: 1.1em; /* Başlık font boyutunu biraz küçült */
-        }
+#settingsPanel h3 {
+    margin-top: 0;
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
 
-        .settings-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            flex-wrap: wrap; /* Küçük ekranlarda sarmalama */
-        }
+.settings-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
 
-        .settings-option label {
-            flex-basis: 55%; /* Label'ın genişliğini ayarla */
-            text-align: left;
-            color: #555;
-            font-size: 15px; /* Label font boyutunu küçült */
-            padding-right: 10px;
-        }
+.settings-option label {
+    flex-basis: 55%;
+    text-align: left;
+    color: #555;
+    font-size: 15px;
+    padding-right: 10px;
+}
 
-        /* Hem input hem de select için ortak temel stil (boyutlandırma) */
-        /* Bu değerler 250ml'nin sığması ve butonların büyümesi için güncellendi */
-        .settings-option input,
-        .settings-option select {
-            width: 100px; /* Her iki kutucuğu da büyüttük */
-            padding: 8px 10px; /* İç boşlukları artırdık */
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 16px; /* Font boyutunu artırdık */
-            height: 38px; /* Tutarlı ve rahat bir yükseklik */
-            background-color: #fff;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-        }
+/* Hem input hem de select için ortak temel stil (boyutlandırma) */
+.settings-option input,
+.settings-option select {
+    width: 90px; /* Her iki kutucuğu da büyüttük, 250ml sığmalı */
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 15px;
+    height: 34px; /* Tutarlı yükseklik */
+    background-color: #fff;
+    -webkit-box-sizing: border-box; /* Kutu modelini düzeltir */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
-        /* SADECE Günlük Hedef (maxAmount) input'unun yanındaki okları kaldır */
-        #maxAmount::-webkit-outer-spin-button,
-        #maxAmount::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
+/* SADECE Günlük Hedef (maxAmount) input'unun yanındaki okları kaldır */
+#maxAmount::-webkit-outer-spin-button,
+#maxAmount::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
-        #maxAmount { /* Firefox için ID'yi doğrudan hedefle */
-            -moz-appearance: textfield;
-        }
+#maxAmount { /* Firefox için ID'yi doğrudan hedefle */
+    -moz-appearance: textfield;
+}
 
-        /* Ayarlar panelindeki butonları içeren div */
-        .settings-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px; /* Butonlar arası boşluğu azalt */
-            margin-top: 20px; /* Üst boşluğu azalt */
-        }
+/* Ayarlar panelindeki butonları içeren div */
+.settings-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
 
-        /* Ayarlar panelindeki "OK!" butonu için özel stil (genel app-button'dan boyut farkı) */
-        .settings-buttons .app-button {
-            font-size: 15px; /* Font boyutunu küçült */
-            padding: 8px 18px; /* İç boşluğu küçült */
-        }
+/* Ayarlar panelindeki "OK!" butonu için özel stil */
+.settings-buttons .app-button {
+    font-size: 15px;
+    padding: 8px 18px;
+}
 
-        /* Ayarlar panelindeki "OK!" butonu Hover ve Active Stilleri */
-        .settings-buttons .app-button:hover {
-            background-color: #2a7acc;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-            transform: translateY(-1px);
-        }
+/* Ayarlar panelindeki "OK!" butonu Hover ve Active Stilleri */
+.settings-buttons .app-button:hover {
+    background-color: #2a7acc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+}
 
-        .settings-buttons .app-button:active {
-            background-color: #2a7acc;
-            transform: translateY(1px);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
+.settings-buttons .app-button:active {
+    background-color: #2a7acc;
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
 
-        /* Ayarlar panelindeki "Reset Water" butonu için özel stil */
-        .settings-buttons .reset-button {
-            background-color: #ff6666; /* Soluk kırmızı */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+/* Ayarlar panelindeki "Reset Water" butonu için özel stil */
+.settings-buttons .reset-button {
+    background-color: #ff6666;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        /* Ayarlar panelindeki "Reset Water" butonu Hover ve Active Stilleri */
-        .settings-buttons .reset-button:hover {
-            background-color: #cc4c4c; /* Üzerine gelince biraz daha koyu kırmızı */
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-            transform: translateY(-2px);
-        }
+/* Ayarlar panelindeki "Reset Water" butonu Hover ve Active Stilleri */
+.settings-buttons .reset-button:hover {
+    background-color: #cc4c4c;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
 
-        .settings-buttons .reset-button:active {
-            background-color: #cc4c4c;
-            transform: translateY(2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-        }
+.settings-buttons .reset-button:active {
+    background-color: #cc4c4c;
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
     </style>
 </head>
 <body>
