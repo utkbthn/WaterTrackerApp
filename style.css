@@ -6,15 +6,31 @@
     }
 
     /* İlerleme Çubuğu */
-    .progress {
-      height: 25px;
-      background: #e0e0e0;
-      border-radius: 12px;
-      margin: 20px auto;
-      max-width: 320px;
-      overflow: hidden;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-    }
+    /* progress div'inin position: relative; olması gerekli ki .progress-text ona göre konumlansın */
+.progress {
+  position: relative; /* Bu satırın olduğundan emin ol */
+  height: 25px;
+  background: #e0e0e0;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 320px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* İlerleme Çubuğu İçindeki Metin İçin Stil */
+.progress-text {
+  position: absolute; /* .progress div'ine göre konumlandırmak için */
+  width: 100%; /* Tüm genişliği kaplasın */
+  text-align: center; /* Metni ortala */
+  line-height: 25px; /* .progress yüksekliği kadar satır yüksekliği vererek dikeyde ortala */
+  color: white; /* Beyaz metin rengi */
+  font-weight: bold; /* Kalın yazı */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4); /* Okunabilirliği artırmak için hafif gölge */
+  z-index: 1; /* Çubuğun üzerinde görünmesini sağla */
+  top: 0;
+  left: 0;
+}
 
     .progress-bar {
       height: 100%;
