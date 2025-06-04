@@ -54,7 +54,7 @@
     const max = 3300;
     const progress = document.getElementById("progressBar");
     const status = document.getElementById("status");
-
+    let currentAddAmount = parseInt(localStorage.getItem("addAmount")) || 250;
     let lastResetDate = localStorage.getItem("lastResetDate"); // En son sıfırlanan tarihi kaydettik
 
     function getTodayDateString() {
@@ -93,8 +93,17 @@
   document.getElementById("settingsPanel").style.display = "block";}
 
   function saveAndCloseSettings() {
-  document.getElementById("settingsPanel").style.display = "none";
-  console.log("Ayarlar kaydedildi ve panel kapatıldı (kaydetme mantığı henüz eklenmedi).");}
+  const newAmount = parseInt(document.getElementById("addAmount").value);
+  if (!isNaN(newAmount) && newAmount > 0) { 
+    currentAddAmount = newAmount;
+    localStorage.setItem("addAmount", currentAddAmount);
+    console.log("Yeni ekleme miktarı kaydedildi:", currentAddAmount);
+  } else {
+    alert("Lütfen geçerli bir su ekleme miktarı girin (örneğin 100, 200).");
+  }
+  document.getElementById("settingsPanel").style.display = "none"; // Paneli gizle
+  console.log("Ayarlar kaydedildi ve panel kapatıldı.");
+}
     
     resetWaterIfNewDay(); updateDisplay();
   </script>
