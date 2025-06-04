@@ -160,3 +160,22 @@
       gap: 15px; /* Butonlar arası boşluk */
       margin-top: 30px;
     }
+
+/* RESET BUTTON */
+
+.reset-button {
+  background-color: #ff6666; /* Soluk, biraz pastel bir kırmızı */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reset-button:hover {
+  background-color: #e05c5c; /* Üzerine gelince hafif koyulaşma */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.reset-button:active {
+  background-color: #e05c5c;
+  transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
