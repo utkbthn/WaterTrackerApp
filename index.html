@@ -203,10 +203,12 @@ let lastResetDate = localStorage.getItem("lastResetDate");;
     }
     
     function resetWater() {
-      current = 0;
-      localStorage.setItem("water", current);
-      updateDisplay();
-    }
+  current = 0;
+  localStorage.setItem("water", current);
+  updateDisplay();
+  // BURAYA EKLENECEK SATIR:
+  document.getElementById("settingsPanel").style.display = "none"; // Ayarlar panelini kapat
+}
     
     function openSettings() {
       const settingsPanel = document.getElementById("settingsPanel");
