@@ -89,7 +89,7 @@
 
     /* Butonlar arasındaki boşluğu kontrol etmek için kapsayıcı sınıf */
     .button-wrapper {
-      margin-bottom: 5px; /* Drink Water ile Settings butonları arasındaki dikey boşluk */
+      margin-bottom: 10px; /* Drink Water ile Settings butonları arasındaki dikey boşluk */
     }
 
     /* Ayarlar Paneli Genel Düzeni */
