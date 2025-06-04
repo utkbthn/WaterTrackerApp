@@ -60,7 +60,7 @@
             border-radius: 12px;
         }
 
-        /* Genel Buton Stili (Add Water butonu ve Ayarlar panelindeki OK butonu için temel stil) */
+        /* Genel Buton Stili (Drink Water butonu ve Ayarlar panelindeki OK butonu için temel stil) */
         .app-button {
             display: inline-block;
             font-size: 18px;
@@ -176,10 +176,22 @@
         }
 
         /* Ayarlar panelindeki "OK!" butonu için özel stil (genel app-button'dan boyut farkı) */
-        /* Genel app-button stillerini miras alır, sadece font ve padding override edilir */
         .settings-buttons .app-button {
             font-size: 15px; /* Font boyutunu küçült */
             padding: 8px 18px; /* İç boşluğu küçült */
+        }
+
+        /* Ayarlar panelindeki "OK!" butonu Hover ve Active Stilleri */
+        .settings-buttons .app-button:hover {
+            background-color: #2a7acc;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .settings-buttons .app-button:active {
+            background-color: #2a7acc;
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         /* Ayarlar panelindeki "Reset Water" butonu için özel stil */
@@ -254,7 +266,7 @@
         // 4. Diğer Uygulama Değişkenleri ve DOM Referansları
         const progressBar = document.getElementById("progressBar");
         const statusDisplay = document.getElementById("status");
-        const waterAmountOnlyDisplay = document.getElementById("waterAmountOnlyDisplay"); // Bu satır optimize edildi!
+        const waterAmountOnlyDisplay = document.getElementById("waterAmountOnlyDisplay");
         let lastResetDate = localStorage.getItem("lastResetDate");
 
         function getTodayDateString() {
@@ -262,7 +274,7 @@
             const year = today.getFullYear();
             const month = (today.getMonth() + 1).toString().padStart(2, '0');
             const day = today.getDate().toString().padStart(2, '0');
-            return `<span class="math-inline">\{year\}\-</span>{month}-${day}`;
+            return `${year}-${month}-${day}`;
         }
 
         function resetWaterIfNewDay() {
@@ -276,4 +288,70 @@
         }
 
         function updateDisplay() {
-            const percent = (currentWaterAmount / maxWaterGoal
+            const percent = (currentWaterAmount / maxWaterGoal) * 100;
+            progressBar.style.width = percent + "%";
+            statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
+            waterAmountOnlyDisplay.innerText = `${currentWaterAmount} ml`;
+        }
+
+        function addWater() {
+            if (currentWaterAmount < maxWaterGoal) {
+                currentWaterAmount += addWaterAmount;
+                if (currentWaterAmount > maxWaterGoal) currentWaterAmount = maxWaterGoal; // Hedefi aşmaması için kontrol
+                localStorage.setItem("water", currentWaterAmount);
+                updateDisplay();
+            }
+        }
+
+        function resetWater() {
+            currentWaterAmount = 0;
+            localStorage.setItem("water", currentWaterAmount);
+            updateDisplay();
+            // Ayarlar panelini kapat
+            document.getElementById("settingsPanel").style.display = "none";
+        }
+
+        function openSettings() {
+            const settingsPanel = document.getElementById("settingsPanel");
+            if (settingsPanel.style.display === "block") {
+                settingsPanel.style.display = "none";
+            } else {
+                settingsPanel.style.display = "block";
+                // Ayarlar inputlarını mevcut değerlerle doldur
+                document.getElementById("addAmount").value = addWaterAmount;
+                document.getElementById("maxAmount").value = maxWaterGoal;
+            }
+        }
+
+        function saveAndCloseSettings() {
+            const newAddAmount = parseInt(document.getElementById("addAmount").value);
+            if (!isNaN(newAddAmount) && newAddAmount > 0) {
+                addWaterAmount = newAddAmount;
+                localStorage.setItem("addAmount", addWaterAmount);
+                console.log("Yeni ekleme miktarı kaydedildi:", addWaterAmount);
+            } else {
+                alert("Lütfen geçerli bir su ekleme miktarı girin (örneğin 100, 200).");
+                return;
+            }
+
+            const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
+            if (!isNaN(newMaxAmount) && newMaxAmount > 0) {
+                maxWaterGoal = newMaxAmount;
+                localStorage.setItem("maxWater", maxWaterGoal);
+                console.log("Yeni günlük hedef miktarı kaydedildi:", newMaxAmount);
+            } else {
+                alert("Lütfen geçerli bir günlük hedef su miktarı girin (örneğin 2000, 3000).");
+                return;
+            }
+
+            document.getElementById("settingsPanel").style.display = "none";
+            console.log("Ayarlar kaydedildi ve panel kapatıldı.");
+            updateDisplay();
+        }
+
+        // Uygulama yüklendiğinde veya yenilendiğinde çalışacak ilk kodlar
+        resetWaterIfNewDay();
+        updateDisplay();
+    </script>
+</body>
+</html>
