@@ -47,9 +47,7 @@
   <h3>Settings</h3>
   <label for="addAmount">Su Ekleme Miktarı (ml):</label>
   <input type="number" id="addAmount" value="300" min="1" style="width: 80px; padding: 5px; margin-left: 10px;">
-  <button onclick="saveSettings()" style="margin-left: 15px;">Kaydet</button>
-  <button onclick="closeSettings()" style="margin-left: 10px;">Kapat</button>
-  </div>
+  <button onclick="saveAndCloseSettings()" style="margin-left: 15px;">OK</button> </div>
 
   <script>
     let current = parseInt(localStorage.getItem("water")) || 0;
@@ -98,14 +96,12 @@
       updateDisplay();
     }
    
-    function openSettings() {
-  document.getElementById("settingsPanel").style.display = "block"; // Paneli görünür yap
-  // Mevcut su ekleme miktarını input alanına yerleştir (bir sonraki adımda yapacağız)
-  document.getElementById("addAmount").value = currentAddAmount; // Bu satır bir sonraki adıma hazırlık, şimdilik böyle kalsın.
-    }
-  function closeSettings() {
+    function saveAndCloseSettings() {
+  // AYARLARI KAYDETME KISMI BURAYA GELECEK (Bir sonraki adımda yapacağız)
+  // Şimdilik sadece paneli kapatacak:
   document.getElementById("settingsPanel").style.display = "none"; // Paneli gizle
-    }
+  console.log("Ayarlar kaydedildi ve panel kapatıldı (Henüz kaydetme mantığı eklenmedi)."); // Konsola mesaj
+}
     
     resetWaterIfNewDay();
     updateDisplay();
