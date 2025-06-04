@@ -30,7 +30,7 @@
       border-radius: 12px;
     }
 
- /* Mevcut .app-button stilinizi güncelleyin */
+/* Mevcut .app-button stilinizi güncelleyin */
 .app-button {
   display: inline-block;
   font-size: 18px;
@@ -39,19 +39,15 @@
   cursor: pointer;
   border: none;
   border-radius: 8px;
-  background-color: #3399ff; /* Normal buton rengi */
+  background-color: #3399ff; /* Normal buton rengi (Drink Water için kalacak) */
   color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Normal gölge */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-  /* TÜM İLGİLİ ÖZELLİKLER İÇİN YUMUŞAK GEÇİŞLER */
-  /* Renk, gölge ve transform değişiklikleri 0.3 saniyede gerçekleşir. */
   transition: background-color 0.3s ease,
               box-shadow 0.3s ease,
               transform 0.3s ease;
 
-  /* Safari'nin dokunma anındaki varsayılan vurgu rengini kaldır */
   -webkit-tap-highlight-color: transparent;
-  /* İçerik seçimini engelle (mobil cihazlarda tıklanma anında metin seçimi olmasın) */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -61,20 +57,43 @@
 }
 
 /* Fareyle üzerine gelindiğinde (Hover durumu) */
-/* Buton hafifçe koyulaşır ve gölgesi belirginleşir. */
 .app-button:hover {
-  background-color: #2a7acc; /* Daha koyu mavi */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Daha belirgin gölge */
-  transform: translateY(-2px); /* Hafifçe yukarı kalkma efekti */
+  background-color: #2a7acc;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 /* Tıklandığında veya dokunulduğunda (Active durumu) */
-/* Buton koyulaşır, içe gömülür ve gölgesi azalır. */
 .app-button:active {
-  background-color: #2a7acc; /* Tıklandığında/dokunulduğunda daha koyu renk */
-  transform: translateY(2px); /* Buton 2 piksel aşağı kayar (basılma hissi) */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Gölgeyi küçültür ve içe gömülme hissi verir */
+  background-color: #2a7acc;
+  transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
+
+/* YENİ: Ayarlar butonu için özel stil */
+.settings-button {
+  /* Temel .app-button özelliklerini devralır */
+  font-size: 14px; /* Biraz küçültüldü */
+  padding: 8px 20px; /* İç boşlukları azaltıldı */
+  background-color: #a0a0a0; /* Gri tonu */
+  margin-top: 15px; /* Drink Water butonunun altına boşluk */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
+}
+
+/* YENİ: Ayarlar butonu hover efekti */
+.settings-button:hover {
+  background-color: #888888; /* Üzerine gelince biraz daha koyu gri */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12); /* Hafif belirginleşen gölge */
+  transform: translateY(-1px); /* Hafif yukarı kalkma */
+}
+
+/* YENİ: Ayarlar butonu active efekti */
+.settings-button:active {
+  background-color: #888888;
+  transform: translateY(1px); /* Hafif aşağı kayma */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); /* Daha da küçülen gölge */
+}
+
 
     /* Ayarlar Paneli Genel Düzeni */
     #settingsPanel {
@@ -129,14 +148,18 @@
       margin-top: 30px;
     }
   </style>
+
 </head>
-<body>
+
+  <body>
   <h2>Water Tracker</h2>
   <p id="status">0 ml / 2500 ml</p>
   <div class="progress">
     <div class="progress-bar" id="progressBar"></div>
   </div>
-  <div class="app-button" id="addWaterButton" onclick="addWater()">Drink Water</div> <div class="app-button" onclick="openSettings()">Settings</div> <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff;">
+  <div class="app-button" id="addWaterButton" onclick="addWater()">Drink Water</div> 
+    <div class="app-button settings-button" onclick="openSettings()">Settings</div>
+    <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff;">
     <h3>Settings</h3>
     <div class="settings-option">
       <label for="addAmount">Su Ekleme Miktarı (ml):</label>
