@@ -5,32 +5,127 @@
   <title>Water Tracker</title>
   <style>
     body {
-      font-family: sans-serif;
-      text-align: center;
-      background: #f0f8ff;
-    }
-    img {
-      width: 150px;
-    }
-    .progress {
-      height: 20px;
-      background: #ccc;
-      border-radius: 10px;
-      margin: 20px;
-      overflow: hidden;
-    }
-    .progress-bar {
-      height: 100%;
-      width: 0;
-      background: #3399ff;
-      transition: width 0.3s;
-    }
-    button {
-      font-size: 20px;
-      padding: 10px 20px;
-      margin-top: 20px;
-      margin-right: 10px;
-    }
+  font-family: sans-serif;
+  text-align: center;
+  background: #f0f8ff;
+  padding-bottom: 50px; /* Sayfa altından biraz boşluk */
+}
+
+/* Water Tracker Başlık Görseli */
+img {
+  width: 120px; /* Görselin genişliğini biraz küçülttüm */
+  height: auto; /* Orantılı yüksekliği koru */
+  margin-top: 20px; /* Üstten boşluk */
+  margin-bottom: 10px; /* Başlıkla arasında boşluk */
+}
+
+/* İlerleme Çubuğu */
+.progress {
+  height: 25px; /* Yüksekliği biraz artırdım */
+  background: #e0e0e0; /* Arka plan rengini açık gri yaptım */
+  border-radius: 12px; /* Köşeleri biraz daha yuvarlak yaptım */
+  margin: 20px auto; /* Yanlardan otomatik boşlukla ortala */
+  max-width: 320px; /* Maksimum genişliğini belirle (mobil için) */
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2); /* İçeriden hafif gölge */
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(to right, #4CAF50, #2196F3); /* Yeşil-mavi geçişli renk */
+  transition: width 0.4s ease-out; /* Daha yumuşak geçiş */
+  border-radius: 12px; /* Köşeleri yuvarlak kalsın */
+}
+
+/* Butonlar */
+button {
+  font-size: 18px; /* Buton fontunu mobil için uygun yaptım */
+  padding: 12px 25px; /* Daha dolgun butonlar */
+  margin: 10px; /* Butonlar arasına boşluk */
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background-color: #3399ff; /* Mavi tonu */
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background-color: #2a7acc; /* Daha koyu mavi */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  background-color: #216bbd; /* Daha da koyu mavi */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px);
+}
+
+/* Ayarlar Paneli Genel Düzeni */
+#settingsPanel {
+  display: none;
+  margin: 30px auto; /* Paneli yatayda ortala */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fff;
+  max-width: 300px; /* Panelin genişliğini sınırla (mobil için iyi) */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Hafif gölge */
+}
+
+#settingsPanel h3 {
+  margin-top: 0;
+  color: #333;
+  margin-bottom: 25px; /* Başlık altına boşluk */
+}
+
+/* Her ayar seçeneği için (label ve input) */
+.settings-option {
+  display: flex; /* Elemanları yan yana getir */
+  justify-content: space-between; /* Aralarına boşluk koy */
+  align-items: center; /* Dikeyde ortala */
+  margin-bottom: 20px; /* Her seçenek arasına boşluk */
+  flex-wrap: wrap; /* Küçük ekranlarda alta geçmesini sağlar */
+}
+
+.settings-option label {
+  flex-basis: 60%; /* Etiketin genişliğini belirle */
+  text-align: left; /* Metni sola hizala */
+  color: #555;
+  font-size: 16px;
+  padding-right: 10px; /* Input'tan biraz uzaklık */
+}
+
+.settings-option input[type="number"] {
+  width: 80px; /* Input genişliğini belirle */
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center; /* Sayıyı ortala */
+  font-size: 16px;
+  flex-basis: auto; /* Kalan alanı kapla */
+}
+
+/* Butonları içeren div */
+.settings-buttons {
+  display: flex; /* Butonları yan yana getir */
+  justify-content: center; /* Ortala */
+  gap: 15px; /* Butonlar arasına boşluk */
+  margin-top: 30px; /* Yukarıdaki inputlardan boşluk */
+}
+
+/* Ayarlar panelindeki butonlar için özel stil (opsiyonel) */
+/* Eğer ana buton stilinden farklı olmasını istersen kullanabilirsin */
+/*
+#settingsPanel button {
+    background-color: #555;
+}
+#settingsPanel button:hover {
+    background-color: #444;
+}
+*/
   </style>
 </head>
 <body>
@@ -44,15 +139,17 @@
  
   <button onclick="openSettings()">Settings</button>
 
-  <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff; text-align: center;">
-  <h3>Settings</h3>
-  <label for="addAmount">Su Ekleme Miktarı (ml):</label>
-  <input type="number" id="addAmount" value="250" min="1" style="width: 80px; padding: 5px; margin-left: 10px;">
-  <br><br> <label for="maxAmount">Günlük Hedef Su Miktarı (ml):</label>
-  <input type="number" id="maxAmount" value="3300" min="100" style="width: 80px; padding: 5px; margin-left: 10px;">
-  <button onclick="saveAndCloseSettings()" style="margin-left: 15px;">OK!</button>
-  <button onclick="resetWater()" style="margin-left: 15px; margin-top: 20px;">Reset Water</button> 
+  <div id="settingsPanel" style="display:none; margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background: #fff;"> <h3>Settings</h3>
+  <div class="settings-option"> <label for="addAmount">Su Ekleme Miktarı (ml):</label>
+    <input type="number" id="addAmount" value="300" min="1">
   </div>
+  <div class="settings-option"> <label for="maxAmount">Günlük Hedef Su Miktarı (ml):</label>
+    <input type="number" id="maxAmount" value="3300" min="100">
+  </div>
+  <div class="settings-buttons"> <button onclick="saveAndCloseSettings()">OK!</button>
+    <button onclick="resetWater()">Reset Water</button> 
+  </div>
+</div>
 
   <script>
     let current = parseInt(localStorage.getItem("water")) || 0;
