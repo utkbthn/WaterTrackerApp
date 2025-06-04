@@ -38,77 +38,218 @@
       <div class="app-button reset-button" onclick="resetWater()">Reset Water</div>
     </div>
   </div>
-<style>body {
-    font-family: sans-serif;
-    text-align: center;
-    background: #f0f8ff;
-    padding-bottom: 50px;
-}
+<style>  body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f0f8ff;
+      padding-bottom: 50px;
+    }
 
-/* Genel Buton Kapsayıcı (Drink Water ile Settings arasındaki boşluk için) */
-.button-wrapper {
-    margin-bottom: 10px;
-}
-
-/* Water İkonu Stili */
-.water-icon {
-    max-width: 100px; /* Resmin maksimum genişliğini belirler */
-    height: auto;    /* Yüksekliğin oranlı kalmasını sağlar */
-    display: block;  /* Resmi bir blok elementi yapar */
-    margin: 20px auto 30px auto; /* Üst, alt boşluk ve yatayda ortalama */
-    border-radius: 15px; /* Yuvarlatılmış köşeler */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Hafif bir gölge */
-    transition: transform 0.3s ease-in-out; /* Geçiş efekti */
+  .button-wrapper {
+      margin-bottom: 10px;
+    }
+  
+  .water-icon {
+    max-width: 100px; /* Resmin maksimum genişliğini belirler */
+    height: auto;    /* Yüksekliğin oranlı kalmasını sağlar */
+    display: block;  /* Resmi bir blok elementi yapar */
+    margin: 20px auto 30px auto; /* Üst, alt boşluk ve yatayda ortalama */
+    border-radius: 15px; /* Yuvarlatılmış köşeler */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Hafif bir gölge */
+    transition: transform 0.3s ease-in-out; /* Geçiş efekti */
 }
 
 .water-icon:hover {
-    transform: scale(1.05); /* Üzerine gelince büyüme efekti */
+    transform: scale(1.05); /* Üzerine gelince büyüme efekti */
 }
-
-/* İlerleme Çubuğu */
+    
 .progress {
-    position: relative; /* progress-text için gerekli */
-    height: 25px;
-    background: #e0e0e0;
-    border-radius: 12px;
-    margin: 20px auto;
-    max-width: 320px;
-    overflow: hidden;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  position: relative; /* Bu satırın olduğundan emin ol */
+  height: 25px;
+  background: #e0e0e0;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 320px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* İlerleme Çubuğu İçindeki Metin */
 .progress-text {
-    position: absolute; /* .progress div'ine göre konumlandırmak için */
-    width: 100%; /* Tüm genişliği kaplasın */
-    text-align: center; /* Metni ortala */
-    line-height: 25px; /* .progress yüksekliği kadar satır yüksekliği vererek dikeyde ortala */
-    color: white; /* Beyaz metin rengi */
-    font-weight: bold; /* Kalın yazı */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.4); /* Okunabilirliği artırmak için hafif gölge */
-    z-index: 1; /* Çubuğun üzerinde görünmesini sağla */
-    top: 0;
-    left: 0;
+  position: absolute; /* .progress div'ine göre konumlandırmak için */
+  width: 100%; /* Tüm genişliği kaplasın */
+  text-align: center; /* Metni ortala */
+  line-height: 25px; /* .progress yüksekliği kadar satır yüksekliği vererek dikeyde ortala */
+  color: white; /* Beyaz metin rengi */
+  font-weight: bold; /* Kalın yazı */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4); /* Okunabilirliği artırmak için hafif gölge */
+  z-index: 1; /* Çubuğun üzerinde görünmesini sağla */
+  top: 0;
+  left: 0;
 }
 
-.progress-bar {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(to right, #4CAF50, #2196F3);
-    transition: width 0.4s ease-out;
-    border-radius: 12px;
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(to right, #4CAF50, #2196F3);
+      transition: width 0.4s ease-out;
+      border-radius: 12px;
+    }
+
+    /* Genel Buton Stili */
+    .app-button {
+      display: inline-block;
+      font-size: 18px;
+      padding: 12px 25px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background-color: #3399ff; /* Normal buton rengi */
+      color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Normal gölge */
+
+      /* Tüm ilgili özellikler için yumuşak geçişler */
+      transition: background-color 0.3s ease,
+                  box-shadow 0.3s ease,
+                  transform 0.3s ease;
+
+      /* Mobil cihazlarda dokunma vurgusunu ve metin seçimini engelle */
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* Buton üzerine gelindiğinde (Hover durumu) */
+    .app-button:hover {
+      background-color: #2a7acc; /* Daha koyu mavi */
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Daha belirgin gölge */
+      transform: translateY(-2px); /* Hafifçe yukarı kalkma efekti */
+    }
+
+    /* Butona tıklandığında veya dokunulduğunda (Active durumu) */
+    .app-button:active {
+      background-color: #2a7acc; /* Tıklandığında/dokunulduğunda daha koyu renk */
+      transform: translateY(2px); /* Buton 2 piksel aşağı kayar (basılma hissi) */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Gölgeyi küçültür ve içe gömülme hissi verir */
+    }
+
+    /* Ayarlar butonu için özel stil (genel butondan farklı olması için) */
+    .settings-button {
+      font-size: 14px; /* Biraz küçültüldü */
+      padding: 8px 20px; /* İç boşlukları azaltıldı */
+      background-color: #a0a0a0; /* Gri tonu */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
+    }
+
+    /* Ayarlar butonu üzerine gelindiğinde (Hover efekti) */
+    .settings-button:hover {
+      background-color: #888888; /* Üzerine gelince biraz daha koyu gri */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12); /* Hafif belirginleşen gölge */
+      transform: translateY(-1px); /* Hafif yukarı kalkma */
+    }
+
+    /* Ayarlar butonu tıklandığında veya dokunulduğunda (Active efekti) */
+    .settings-button:active {
+      background-color: #888888;
+      transform: translateY(1px); /* Hafif aşağı kayma */
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    }
+
+  #settingsPanel {
+    display: none; /* Varsayılan olarak gizli */
+    margin: 15px auto; /* Üst ve alttaki boşluğu azalt */
+    padding: 15px; /* İç boşluğu azalt */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+    max-width: 260px; /* Panel genişliğini küçült */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* Genel Buton Stili (addWaterButton için) */
-.app-button {
-    display: inline-block;
-    font-size: 18px;
-    padding: 12px 25px;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    background-
-  
+#settingsPanel h3 {
+    margin-top: 0;
+    color: #333;
+    margin-bottom: 15px; /* Başlık altındaki boşluğu azalt */
+    font-size: 1.1em; /* Başlık font boyutunu biraz küçült */
+}
+
+.settings-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap; /* Küçük ekranlarda sarmalama */
+}
+
+.settings-option label {
+    flex-basis: 55%; /* Label'ın genişliğini ayarla */
+    text-align: left;
+    color: #555;
+    font-size: 15px; /* Label font boyutunu küçült */
+    padding-right: 10px;
+}
+
+.settings-option input[type="number"] {
+    width: 70px; /* Input genişliğini küçült */
+    padding: 6px; /* Input iç boşluğunu azalt */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 15px; /* Input font boyutunu küçült */
+    flex-basis: auto;
+}
+
+/* Ayarlar panelindeki butonları içeren div */
+.settings-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Butonlar arası boşluğu azalt */
+    margin-top: 20px; /* Üst boşluğu azalt */
+}
+
+/* Ayarlar panelindeki "OK!" butonu için özel stil (genel app-button'dan boyut farkı) */
+.settings-buttons .app-button {
+    font-size: 15px; /* Font boyutunu küçült */
+    padding: 8px 18px; /* İç boşluğu küçült */
+}
+
+/* Ayarlar panelindeki "OK!" butonu Hover ve Active Stilleri */
+.settings-buttons .app-button:hover {
+    background-color: #2a7acc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+}
+
+.settings-buttons .app-button:active {
+    background-color: #2a7acc;
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Ayarlar panelindeki "Reset Water" butonu için özel stil (tekrar edenler birleştirildi) */
+.settings-buttons .reset-button {
+    background-color: #ff6666; /* Soluk kırmızı */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ayarlar panelindeki "Reset Water" butonu Hover ve Active Stilleri (tekrar edenler birleştirildi) */
+.settings-buttons .reset-button:hover {
+    background-color: #cc4c4c; /* Üzerine gelince biraz daha koyu kırmızı */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.settings-buttons .reset-button:active {
+    background-color: #cc4c4c;
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+        
+  .button-wrapper {margin-bottom: 10px; }
+
 </style>
 <script>
 
