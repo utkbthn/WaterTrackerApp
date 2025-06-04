@@ -29,7 +29,6 @@
       display: inline-block;
       font-size: 18px;
       padding: 12px 25px;
-      margin: 10px; /* Dış boşluklar */
       cursor: pointer;
       border: none;
       border-radius: 8px;
@@ -90,13 +89,13 @@
 
     /* Butonlar arasındaki boşluğu kontrol etmek için kapsayıcı sınıf */
     .button-wrapper {
-      margin-bottom: 1px; /* Drink Water ile Settings butonları arasındaki dikey boşluk */
+      margin-bottom: 5px; /* Drink Water ile Settings butonları arasındaki dikey boşluk */
     }
 
     /* Ayarlar Paneli Genel Düzeni */
     #settingsPanel {
       display: none; /* Varsayılan olarak gizli */
-      margin: 30px auto;
+      margin: 20px auto;
       padding: 20px;
       border: 1px solid #ccc;
       border-radius: 10px;
@@ -116,7 +115,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       flex-wrap: wrap; /* Küçük ekranlarda sarmalama */
     }
 
