@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f0f8ff;
+    }
+    img {
+      width: 150px;
+    }
+    .progress {
+      height: 20px;
+      background: #ccc;
+      border-radius: 10px;
+      margin: 20px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: #3399ff;
+      transition: width 0.3s;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Water Tracker</h2>
+  <p id="status">0 ml / 3300 ml</p>
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <button onclick="addWater()">+ 300 ml</button>
+  <button onclick="resetWater()">Reset</button>
+
+  <script>
+  let current = parseInt(localStorage.getItem("water")) || 0;
+  const max = 3300;
+  const progress = document.getElementById("progressBar");
+  const status = document.getElementById("status");
+
+  function updateDisplay() {
+    const percent = (current / max) * 100;
+    progress.style.width = percent + "%";
+    status.innerText = `${current} ml / ${max} ml`;
+  }
+
+  function addWater() {
+    if (current < max) {
+      current += 300;
+      if (current > max) current = max;
+      localStorage.setItem("water", current);
+      updateDisplay();
+    }
+  }
+
+  function resetWater() {
+    current = 0;
+    localStorage.setItem("water", current);
+    updateDisplay();
+  }
+
+  updateDisplay(); // Sayfa açıldığında veriyi göster
+  </script>
+</body>
+</html>
