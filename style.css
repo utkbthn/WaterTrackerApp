@@ -138,37 +138,41 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* Ana butonları içeren kapsayıcı */
+/* Ana butonları içeren kapsayıcı (Güncellenmiş) */
 .main-buttons-container {
     margin-top: 15px;
-    margin-bottom: 5px;
-    /* Flexbox kullanarak butonları ortalayabiliriz, ancak alt alta durmasını istiyorsanız kaldırmalısınız */
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: center; */
-    /* gap: 5px; /* Butonlar arasına boşluk */
+    display: flex; /* Flexbox kullanarak butonları yan yana hizalar */
+    justify-content: center; /* Yatayda ortalar */
+    align-items: center; /* Dikeyde ortalar, bu sayede "Drink" ve "Settings" aynı hizaya gelir */
+    gap: 10px; /* "Drink" butonu ile "Settings" ikonu arasına 10px boşluk bırakır */
+    margin-bottom: 5px; /* Mevcut margin-bottom kuralını koru */
 }
 
-.main-buttons-container .app-button:first-child {
-    margin-bottom: 5px; /* "Drink" butonu ile "Settings" butonu arasına boşluk */
-}
+/* Bu kurala artık flexbox nedeniyle gerek kalmayabilir, ancak bırakmak sorun yaratmaz */
+/* .main-buttons-container .app-button:first-child {
+    margin-bottom: 0;
+} */
+
 
 /* Settings butonu için özel stiller (Güncellenmiş) */
 .settings-button {
-    /* Arka planı ve kenarlığı tamamen şeffaf yap */
-    background-color: transparent; /* Butonun gri arka planını kaldırır */
-    border: none; /* Butonun kenarlığını kaldırır */
-    padding: 0; /* Butonun iç boşluğunu sıfırlar */
-    box-shadow: none; /* Gölgeyi kaldır */
+    /* Başlangıçta şeffaf bir arka plan ve kenarlık yok */
+    background-color: transparent;
+    border: none;
+    padding: 5px; /* İkonun etrafına hafif bir padding ekle, hover'da gri alan oluşacak */
+    border-radius: 8px; /* App-button ile uyumlu, hafifçe yuvarlanmış köşeler */
+    box-shadow: none; /* Gölge yok */
     
     /* Temel buton özelliklerini koru */
-    display: inline-block;
+    display: inline-flex; /* İçeriği (ikonu) kendi içinde ortalamak için */
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     
-    /* Hover ve active efektleri için geçiş süresini ayarla */
-    transition: transform 0.3s ease; /* Sadece transform için geçiş, renk için ayrı */
+    /* Hover ve active efektleri için pürüzsüz geçişler */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     
-    /* Touch davranışını iyileştir */
+    /* Dokunmatik cihazlarda vurgulamayı ve metin seçimini engelle */
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -177,43 +181,45 @@ body {
     -ms-user-select: none;
     user-select: none;
     
-    /* Font size, eğer text olsaydı etkileyecekti, ikon için doğrudan .fas kullanılır */
-    font-size: 15px; /* Bu değer ikon için geçerli olacak, metin olmadığı için ikon boyutu alacak */
+    /* font-size, ikonu değil butonu etkiler, ikon boyutu .fas içinde ayarlanır */
+    font-size: 15px; 
 }
 
 .settings-button .fas {
-    /* Dişli ikonunun kendisinin rengini gri yap */
-    color: var(--secondary-gray); /* Çark ikonunu gri yapar */
+    /* Dişli ikonunun rengini gri yap */
+    color: var(--secondary-gray); 
     
     /* İkonun boyutunu ayarla */
-    font-size: 28px; /* İkonun boyutunu istediğiniz gibi ayarlayın (örn. 24px, 32px vb.) */
+    font-size: 28px; /* İkonun boyutunu buradan ayarlayabilirsin (örn. 24px, 32px vb.) */
     
-    /* Renk değişimleri için pürüzsüz geçiş */
-    transition: color 0.3s ease, transform 0.3s ease; /* Renk ve transform için geçiş */
+    /* Renk ve boyut değişimleri için pürüzsüz geçiş */
+    transition: color 0.3s ease, transform 0.3s ease; 
 }
 
+/* Settings butonu üzerine gelindiğinde (hover) efekti */
 .settings-button:hover {
-    /* Artık arka plan veya gölge değişimi olmayacak, sadece ikon efekti */
-    /* Eski background-color ve box-shadow kuralları artık uygulanmayacak */
-    /* Eğer butonun kendisi hareket etsin isterseniz bu kuralı kullanın,
-       aksi takdirde ikonun transform'unu kullanın. */
-    transform: translateY(0); /* Butonun kendi hareketini sıfırla, ikon hareket edecek */
+    background-color: var(--secondary-gray-hover); /* Hover'da arka planı gri yapar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12); /* Hafif bir gölge ekle */
+    transform: translateY(-1px); /* Hafifçe yukarı kaydırma efekti */
 }
 
+/* Settings butonu üzerine gelindiğinde ikonun efekti */
 .settings-button:hover .fas {
-    color: var(--secondary-gray-hover); /* Hover'da ikon rengini biraz koyulaştır */
-    transform: scale(1.1); /* Hafif bir büyütme efekti ekle */
+    color: var(--secondary-gray); /* İkon rengi hover'da da gri kalabilir */
+    transform: scale(1.05); /* İkonu hafifçe büyüt */
 }
 
+/* Settings butonu tıklandığında (active) efekti */
 .settings-button:active {
-    /* Artık arka plan veya gölge değişimi olmayacak */
-    /* Eski background-color ve box-shadow kuralları artık uygulanmayacak */
-    transform: translateY(0); /* Butonun kendi hareketini sıfırla, ikon hareket edecek */
+    background-color: var(--secondary-gray); /* Tıklanırken daha koyu bir gri olsun */
+    transform: translateY(1px); /* Hafifçe aşağı kaydırma efekti */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); /* Daha az belirgin bir gölge */
 }
 
+/* Settings butonu tıklandığında ikonun efekti */
 .settings-button:active .fas {
-    color: var(--secondary-gray); /* Tıklanırken orijinal rengine dönsün */
-    transform: scale(0.95); /* Hafif bir küçültme efekti ekle */
+    color: var(--secondary-gray-hover); /* İkon rengi active'de biraz koyulaşabilir */
+    transform: scale(0.95); /* İkonu hafifçe küçült */
 }
 
 
@@ -336,5 +342,14 @@ body {
         background-color: var(--settings-input-bg-dark);
         color: var(--settings-panel-text-dark);
         border-color: var(--settings-input-border-dark);
+    }
+    
+    /* Dark mode için settings butonu hover/active renkleri */
+    .settings-button:hover {
+        background-color: var(--secondary-gray-hover); /* Dark mode'da da gri hover */
+    }
+
+    .settings-button:active {
+        background-color: var(--secondary-gray); /* Dark mode'da da gri active */
     }
 }
