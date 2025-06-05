@@ -13,17 +13,18 @@ let isDarkMode = localStorage.getItem("darkMode") === "true";
 const progressBar = document.getElementById("progressBar");
 const statusDisplay = document.getElementById("status");
 const darkModeToggle = document.getElementById("darkModeToggle"); // HTML'den karanlık mod checkbox'ını al
-const body = document.body; // HTML'deki body etiketine referans
+// BURASI DEĞİŞTİ: body yerine <html> etiketine referans alıyoruz
+const rootElement = document.documentElement; 
 
 let lastResetDate = localStorage.getItem("lastResetDate");
 
 // --- Yeni Fonksiyon: applyTheme() ---
-// Bu fonksiyon, isDarkMode değişkenine göre body etiketine "dark-mode" sınıfını ekler veya kaldırır.
+// Bu fonksiyon, isDarkMode değişkenine göre <html> etiketine "dark-mode" sınıfını ekler veya kaldırır.
 function applyTheme() {
     if (isDarkMode) {
-        body.classList.add("dark-mode");
+        rootElement.classList.add("dark-mode"); // BURASI DEĞİŞTİ: body yerine rootElement kullanıldı
     } else {
-        body.classList.remove("dark-mode");
+        rootElement.classList.remove("dark-mode"); // BURASI DEĞİŞTİ: body yerine rootElement kullanıldı
     }
 }
 
@@ -50,7 +51,7 @@ function resetWaterIfNewDay() {
 function updateDisplay() {
     let percent = (currentWaterAmount / maxWaterGoal) * 100;
     if (percent > 100) percent = 100; // %100'ü geçmesin
-    if (percent < 0) percent = 0;   // %0'ın altına inmesin
+    if (percent < 0) percent = 0;    // %0'ın altına inmesin
 
     progressBar.style.width = percent + "%";
     statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
@@ -177,12 +178,12 @@ tipBubble.addEventListener('click', showNextTip);
 window.onload = function () {
     resetWaterIfNewDay(); // Yeni gün kontrolü ve sıfırlama
     updateDisplay(); // Ekranı güncelle
-    applyTheme(); // --- Yeni: Sayfa yüklendiğinde kaydedilmiş temayı uygula ---
+    applyTheme(); // Sayfa yüklendiğinde kaydedilmiş temayı uygula
     showNextTip(); // İlk ipucunu göster
     setInterval(showNextTip, 7200000); // 2 saatte bir ipucunu değiştir (7.200.000 ms)
 };
 
-// --- Yeni: Karanlık mod anahtarı değiştiğinde temayı güncelle ---
+// Karanlık mod anahtarı değiştiğinde temayı güncelle
 darkModeToggle.addEventListener("change", () => {
     isDarkMode = darkModeToggle.checked; // Checkbox'ın yeni durumunu al
     localStorage.setItem("darkMode", isDarkMode); // Durumu localStorage'a kaydet
