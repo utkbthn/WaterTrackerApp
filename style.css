@@ -155,10 +155,9 @@
 
         /* Settings butonu için özel stiller */
         .settings-button {
-            /* app-button'ın temel stillerini korurken, ikon için düzenlemeler */
-            padding: 12px 20px; /* Metinli butonlara benzer padding */
-            font-size: 18px; /* Bu değer ikon için geçerli olacak, metin olmadığı için ikon boyutu alacak */
-            background-color: var(--secondary-gray); /* Ayarlar butonunun kendi rengi */
+            padding: 12px 15px; /* Metinli butonlara benzer padding */
+            font-size: 15px; /* Bu değer ikon için geçerli olacak, metin olmadığı için ikon boyutu alacak */
+            background-color: var(--secondary-gray); 
         }
 
         .settings-button .fas {
