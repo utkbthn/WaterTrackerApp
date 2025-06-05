@@ -26,6 +26,7 @@
             transform: scale(1.05);
         }
 
+        /* YATAY PROGRESS BAR KODLARI */
         .progress {
             position: relative;
             height: 25px;
@@ -37,6 +38,7 @@
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
+        /* İlerleme Çubuğu İçindeki Metin */
         .progress-text {
             position: absolute;
             width: 100%;
@@ -341,7 +343,7 @@
                 maxWaterGoal = newMaxAmount;
                 localStorage.setItem("maxWater", maxWaterGoal);
             } else {
-                alert("Lütfen geçerli bir günlük hedef su miktarı girin (örneğin 2000, 3000).");
+                alert("Lütfen geçerli bir günlük hedef su miktarı girin.");
                 return;
             }
 
