@@ -310,15 +310,3 @@ body {
         background-color: var(--secondary-gray-active); /* Dark mode'da da gri active */
     }
 }
-
-/* TEST AMAÇLI - GEÇİCİ KODLAR */
-.app-button:active {
-    background-color: yellow !important; /* Sarıya döner mi? */
-    transform: scale(0.9) !important; /* Biraz küçülür mü? */
-}
-
-.settings-button:active {
-    background-color: blue !important; /* Maviye döner mi? */
-    transform: scale(0.9) !important; /* Biraz küçülür mü? */
-}
-/* TEST KODLARI BİTİŞ */
