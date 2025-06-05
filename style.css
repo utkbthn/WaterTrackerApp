@@ -35,21 +35,25 @@
     --settings-input-border-dark: #555;
 }
 
-/* Genel Body Stilleri ve Tema Geçişleri */
-body {
+/* Genel <html> Stilleri ve Tema Geçişleri */
+/* BURASI DEĞİŞTİRİLDİ: body yerine html selector'ını kullanıyoruz */
+html {
     font-family: sans-serif;
     text-align: center;
     padding-bottom: 50px;
-    background-color: var(--background-color); /* Yeni değişkeni kullanın */
-    color: var(--text-color); /* Yeni değişkeni kullanın */
+    background-color: var(--background-color); /* Ana arka plan rengi */
+    color: var(--text-color); /* Ana metin rengi */
     transition: background-color 0.3s ease, color 0.3s ease; /* Pürüzsüz geçiş için */
 }
 
-/* Karanlık mod sınıfı - JavaScript tarafından body'ye eklenir/kaldırılır */
-body.dark-mode {
-    --background-color: var(--dark-background);
-    --text-color: var(--dark-text-color);
-    /* Settings panel ve inputlar için dark mode renklerini set edin */
+/* Karanlık mod sınıfı - JavaScript tarafından <html> etiketine eklenir/kaldırılır */
+/* BURASI DEĞİŞTİRİLDİ: body.dark-mode yerine html.dark-mode kullanıyoruz */
+html.dark-mode { 
+    --background-color: var(--dark-background); /* Ana arka planı koyu moda geçir */
+    --text-color: var(--dark-text-color);     /* Ana metin rengini koyu moda geçir */
+
+    /* Ayarlar paneli ve input'lar için karanlık mod renklerini burada yeniden tanımlıyoruz */
+    /* Light değişkenlerini dark değişkenleriyle değiştiriyoruz */
     --settings-panel-bg-light: var(--settings-panel-bg-dark);
     --settings-panel-border-light: var(--settings-panel-border-dark);
     --settings-panel-text-light: var(--settings-panel-text-dark);
@@ -61,7 +65,7 @@ body.dark-mode {
 /* Aşağıdaki @media (prefers-color-scheme: dark) bloğu silinmiştir/pasifize edilmiştir.
    Çünkü karanlık mod kontrolünü artık JavaScript ve butonumuz yapmaktadır. */
 /* @media (prefers-color-scheme: dark) {
-    body {
+    html {
         background-color: var(--dark-background);
         color: var(--dark-text-color);
     }
@@ -115,7 +119,8 @@ body.dark-mode {
 }
 
 /* Water icon'un dark mode gölgesi */
-body.dark-mode .water-icon {
+/* BURASI DEĞİŞTİRİLDİ: body.dark-mode yerine html.dark-mode kullanıyoruz */
+html.dark-mode .water-icon {
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
@@ -138,7 +143,8 @@ body.dark-mode .water-icon {
 }
 
 /* Progress barın dark mode arka planı */
-body.dark-mode .progress {
+/* BURASI DEĞİŞTİRİLDİ: body.dark-mode yerine html.dark-mode kullanıyoruz */
+html.dark-mode .progress {
     background: #444; /* Dark modda daha koyu */
 }
 
@@ -157,7 +163,8 @@ body.dark-mode .progress {
 }
 
 /* Progress text dark mode rengi */
-body.dark-mode .progress-text {
+/* BURASI DEĞİŞTİRİLDİ: body.dark-mode yerine html.dark-mode kullanıyoruz */
+html.dark-mode .progress-text {
     color: white; /* Dark modda daha okunur olması için beyaz */
 }
 
@@ -405,15 +412,9 @@ body.dark-mode .progress-text {
 }
 
 /* Karanlık Mod İçin Tips Baloncuğu */
-body.dark-mode .tip-bubble {
+/* BURASI DEĞİŞTİRİLDİ: body.dark-mode yerine html.dark-mode kullanıyoruz */
+html.dark-mode .tip-bubble {
     background-color: #3a3a3a; /* Dark modda daha koyu bir gri */
     color: #e0e0e0; /* Dark modda daha açık metin */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Tips baloncuk içindeki paragraf etiketi */
-.tip-bubble p {
-    margin: 0; /* Paragrafın varsayılan marginini kaldırır */
-    word-wrap: break-word; /* Uzun kelimelerin kırılmasını sağlar */
-    white-space: normal; /* Metnin tek satırda kalmasını engeller, normal akışta sarmasını sağlar */
 }
