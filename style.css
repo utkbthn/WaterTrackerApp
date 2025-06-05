@@ -138,56 +138,74 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
 
-        /* Ana butonları içeren kapsayıcı */
-        .main-buttons-container {
-            margin-top: 15px;
-            margin-bottom: 5px;
-            /* Flexbox kullanarak butonları ortalayabiliriz, ancak alt alta durmasını istiyorsanız kaldırmalısınız */
-            /* display: flex; */
-            /* flex-direction: column; */
-            /* align-items: center; */
-            /* gap: 5px; /* Butonlar arasına boşluk */
-        }
+        /* Ana butonları içeren kapsayıcıyı flexbox yapıyoruz */
+.main-buttons-container {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    display: flex; /* İçindeki öğeleri yatayda sıralar */
+    justify-content: center; /* Öğeleri yatayda ortalar */
+    align-items: center; /* Öğeleri dikeyde ortalar */
+    gap: 10px; /* Butonlar arasına 10px boşluk ekler */
+}
 
-        .main-buttons-container .app-button:first-child {
-            margin-bottom: 5px; /* "Drink" butonu ile "Settings" butonu arasına boşluk */
-        }
+/* Drink butonu için özel margin artık gerekli değil, çünkü gap kullanıyoruz */
+.main-buttons-container .app-button:first-child {
+    margin-bottom: 0; /* Kaldırıldı veya 0 yapıldı */
+}
 
-        /* Settings butonu için özel stiller */
-        .settings-button {
-            /* app-button'ın temel stillerini korurken, ikon için düzenlemeler */
-            padding: 12px 20px; /* Metinli butonlara benzer padding */
-            font-size: 18px; /* Bu değer ikon için geçerli olacak, metin olmadığı için ikon boyutu alacak */
-            background-color: var(--secondary-gray); /* Ayarlar butonunun kendi rengi */
-        }
+/* Ayarlar butonu için yeni stil tanımları */
+.settings-button {
+    /* Eski settings-button stillerindeki padding ve font-size değerlerini geçersiz kılın */
+    padding: 0; /* Padding'i sıfırlıyoruz */
+    font-size: 0; /* Butonun kendi font-size'ını sıfırlıyoruz */
+    background-color: var(--secondary-gray); /* Butonun arka plan rengi */
+    border-radius: 8px; /* Köşeleri yuvarlak yapıyoruz, isterseniz 50% ile tam yuvarlak yapabilirsiniz */
+    width: 45px; /* Butonun genişliği */
+    height: 45px; /* Butonun yüksekliği (kare olması için genişlikle aynı) */
+    display: flex; /* İçindeki ikonu ortalamak için */
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Gölgelendirme ekledik */
+    border: none; /* Çerçeveyi kaldırıyoruz */
+    cursor: pointer; /* İmleci işaretçi yapıyoruz */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; /* Hover geçişleri */
+}
 
-        .settings-button .fas {
-            font-size: 20px; /* İkonun kendi boyutu, butona daha iyi uyması için */
-            color: white;
-        }
+/* Settings butonu içindeki ikonun stili */
+.settings-button .fas {
+    font-size: 22px; /* İkonun boyutu (butondan biraz daha büyük olabilir) */
+    color: white; /* İkonun rengi */
+}
 
-        .settings-button:hover {
-            background-color: var(--secondary-gray-hover);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-            transform: translateY(-1px);
-        }
+.settings-button:hover {
+    background-color: var(--secondary-gray-hover); /* Hover rengi */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
 
-        .settings-button:active {
-            background-color: var(--secondary-gray-hover);
-            transform: translateY(1px);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-        }
+.settings-button:active {
+    background-color: var(--secondary-gray-hover);
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
 
-        #settingsPanel {
-            display: none;
-            margin: 15px auto;
-            padding: 15px;
-            border: 1px solid var(--settings-panel-border-light);
-            border-radius: 10px;
-            background: var(--settings-panel-bg-light);
-            max-width: 260px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+/* Ayarlar paneli için koyu tema değişkenlerini ekledik */
+@media (prefers-color-scheme: dark) {
+    /* ... Diğer dark mode stilleri ... */
+    --settings-panel-bg-dark: #2a2a2a;
+    --settings-panel-border-dark: #444;
+    --settings-panel-text-dark: #eee;
+    --settings-panel-label-dark: #ccc;
+    --settings-input-bg-dark: #3a3a3a;
+    --settings-input-border-dark: #555;
+
+    #settingsPanel {
+        background: var(--settings-panel-bg-dark);
+        border-color: var(--settings-panel-border-dark);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    /* Diğer dark mode stilleri de burada olmalı */
+}
 
         #settingsPanel h3 {
             margin-top: 0;
