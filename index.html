@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Water Tracker</title>
     <style>
         /* CSS Değişkenleri */
@@ -26,6 +27,12 @@
             --settings-panel-label-light: #555;
             --settings-input-bg-light: #fff;
             --settings-input-border-light: #ddd;
+            --settings-panel-bg-dark: #2a2a2a; /* Dark mode için settings panel rengi */
+            --settings-panel-border-dark: #444;
+            --settings-panel-text-dark: #eee;
+            --settings-panel-label-dark: #ccc;
+            --settings-input-bg-dark: #3a3a3a;
+            --settings-input-border-dark: #555;
         }
 
         body {
@@ -139,11 +146,32 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
 
+        /* Ana butonları içeren kapsayıcı */
+        .main-buttons-container {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            /* Flexbox kullanarak butonları ortalayabiliriz, ancak alt alta durmasını istiyorsanız kaldırmalısınız */
+            /* display: flex; */
+            /* flex-direction: column; */
+            /* align-items: center; */
+            /* gap: 5px; /* Butonlar arasına boşluk */
+        }
+
+        .main-buttons-container .app-button:first-child {
+            margin-bottom: 5px; /* "Drink" butonu ile "Settings" butonu arasına boşluk */
+        }
+
+        /* Settings butonu için özel stiller */
         .settings-button {
-            font-size: 14px;
-            padding: 8px 20px;
-            background-color: var(--secondary-gray);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* app-button'ın temel stillerini korurken, ikon için düzenlemeler */
+            padding: 12px 20px; /* Metinli butonlara benzer padding */
+            font-size: 18px; /* Bu değer ikon için geçerli olacak, metin olmadığı için ikon boyutu alacak */
+            background-color: var(--secondary-gray); /* Ayarlar butonunun kendi rengi */
+        }
+
+        .settings-button .fas {
+            font-size: 20px; /* İkonun kendi boyutu, butona daha iyi uyması için */
+            color: white;
         }
 
         .settings-button:hover {
@@ -156,14 +184,6 @@
             background-color: var(--secondary-gray-hover);
             transform: translateY(1px);
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-        }
-
-        .main-buttons-container {
-            margin-top: 15px;
-            margin-bottom: 5px;
-        }
-        .main-buttons-container .app-button:first-child {
-            margin-bottom: 5px;
         }
 
         #settingsPanel {
@@ -208,7 +228,6 @@
             border-radius: 5px;
             text-align: center;
             font-size: 16px;
-            /* height: 38px; <-- Bu satır mobil duyarlılığı için kaldırılmıştı, önceki gibi kalsın */
             background-color: var(--settings-input-bg-light);
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
@@ -266,7 +285,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
 
-        /* Koyu tema için Ayarlar Paneli stilleri */
         @media (prefers-color-scheme: dark) {
             #settingsPanel {
                 background: var(--settings-panel-bg-dark);
@@ -303,9 +321,9 @@
     <div class="main-buttons-container">
         <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
         <br>
-        <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">Settings</button>
+        <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">
+            <i class="fas fa-gear"></i> </button>
     </div>
-
     <div id="settingsPanel">
         <div class="settings-option">
             <label for="addAmount">İçilen Su Miktarı (ml):</label>
@@ -369,11 +387,11 @@
             statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
 
             const drinkButton = document.getElementById("drinkButton");
-            if (drinkButton) { // Butonun varlığını kontrol ediyoruz
+            if (drinkButton) {
                 if (currentWaterAmount >= maxWaterGoal) {
                     drinkButton.innerText = "Afiyet Olsun! 🎉";
                     drinkButton.style.backgroundColor = "var(--success-green)";
-                    drinkButton.style.cursor = "pointer"; // Tıklanabilir kalsın
+                    drinkButton.style.cursor = "pointer";
                 } else {
                     drinkButton.innerText = "Drink";
                     drinkButton.style.backgroundColor = "var(--primary-blue)";
@@ -387,27 +405,25 @@
                 currentWaterAmount += addWaterAmount;
                 if (currentWaterAmount > maxWaterGoal) currentWaterAmount = maxWaterGoal;
                 localStorage.setItem("water", currentWaterAmount);
-                updateDisplay(); // Su eklendikten sonra ekranı güncelle
+                updateDisplay();
             }
         }
 
         function resetWater() {
             currentWaterAmount = 0;
             localStorage.setItem("water", currentWaterAmount);
-            // Sıfırlama sonrası "Drink" butonunun metnini ve rengini varsayılana döndür
             const drinkButton = document.getElementById("drinkButton");
             if (drinkButton) {
                 drinkButton.innerText = "Drink";
                 drinkButton.style.backgroundColor = "var(--primary-blue)";
                 drinkButton.style.cursor = "pointer";
             }
-            updateDisplay(); // Sıfırlama sonrası ekranı güncelle
+            updateDisplay();
             document.getElementById("settingsPanel").style.display = "none";
         }
 
         function openSettings() {
             const settingsPanel = document.getElementById("settingsPanel");
-            // Ayarlar panelini açmadan önce input değerlerini güncelliyoruz
             document.getElementById("maxAmount").value = maxWaterGoal;
             document.getElementById("addAmount").value = addWaterAmount;
 
@@ -424,7 +440,7 @@
 
             if (isNaN(newMax) || newMax < 500) {
                 alert("Günlük hedef en az 500 ml olmalı ve sayısal bir değer girilmelidir!");
-                document.getElementById("maxAmount").value = maxWaterGoal; // Geçersiz değeri geri yükle
+                document.getElementById("maxAmount").value = maxWaterGoal;
                 return;
             }
 
@@ -436,13 +452,13 @@
                 localStorage.setItem("addAmount", addWaterAmount);
             }
 
-            updateDisplay(); // Ayarlar kaydedildikten sonra ekranı güncelle
+            updateDisplay();
             document.getElementById("settingsPanel").style.display = "none";
         }
 
         window.onload = function () {
-            resetWaterIfNewDay(); // Sayfa yüklendiğinde günlük sıfırlama kontrolü yap
-            updateDisplay(); // Sayfa yüklendiğinde ekranı ilk kez güncelle
+            resetWaterIfNewDay();
+            updateDisplay();
         };
     </script>
 </body>
