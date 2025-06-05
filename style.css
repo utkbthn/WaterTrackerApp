@@ -62,44 +62,6 @@ html.dark-mode {
     --settings-input-border-light: var(--settings-input-border-dark);
 }
 
-/* Aşağıdaki @media (prefers-color-scheme: dark) bloğu silinmiştir/pasifize edilmiştir.
-   Çünkü karanlık mod kontrolünü artık JavaScript ve butonumuz yapmaktadır. */
-/* @media (prefers-color-scheme: dark) {
-    html {
-        background-color: var(--dark-background);
-        color: var(--dark-text-color);
-    }
-    .water-icon {
-        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-    }
-    #settingsPanel {
-        background: var(--settings-panel-bg-dark);
-        border-color: var(--settings-panel-border-dark);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-    #settingsPanel h3 {
-        color: var(--settings-panel-text-dark);
-    }
-    .settings-option label {
-        color: var(--settings-panel-label-dark);
-    }
-    .settings-option input,
-    .settings-option select {
-        background-color: var(--settings-input-bg-dark);
-        color: var(--settings-panel-text-dark);
-        border-color: var(--settings-input-border-dark);
-    }
-    .settings-button:active {
-        background-color: var(--secondary-gray-active);
-    }
-    .tip-bubble {
-        background-color: #3a3a3a;
-        color: #e0e0e0;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-} */
-
-
 .water-tracker-text {
     text-align: center;
     margin-top: 8px;
@@ -129,32 +91,30 @@ html.dark-mode .water-icon {
     transform: scale(1.05);
 }
 
-/* YATAY PROGRESS BAR KODLARI */
+/*
 .progress {
     position: relative;
     height: 25px;
-    background: #e0e0e0; /* Light modda sabit */
+    background: #e0e0e0;
     border-radius: 12px;
     margin: 20px auto;
     max-width: 320px;
     overflow: hidden;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease; /* Pürüzsüz geçiş için */
+    transition: background 0.3s ease;
 }
 
-/* Progress barın dark mode arka planı */
-/* BURASI DEĞİŞTİRİLDİ: body.dark-mode yerine html.dark-mode kullanıyoruz */
 html.dark-mode .progress {
-    background: #444; /* Dark modda daha koyu */
+    background: #444;
 }
 
-/* İlerleme Çubuğu İçindeki Metin */
+ İlerleme Çubuğu İçindeki Metin 
 .progress-text {
     position: absolute;
     width: 100%;
     text-align: center;
     line-height: 25px;
-    color: black; /* Metin rengi, progress barın üzerine gelecek */
+    color: black; 
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
     z-index: 1;
@@ -162,10 +122,8 @@ html.dark-mode .progress {
     left: 0;
 }
 
-/* Progress text dark mode rengi */
-/* BURASI DEĞİŞTİRİLDİ: body.dark-mode yerine html.dark-mode kullanıyoruz */
 html.dark-mode .progress-text {
-    color: white; /* Dark modda daha okunur olması için beyaz */
+    color: white;
 }
 
 .progress-bar {
@@ -174,7 +132,7 @@ html.dark-mode .progress-text {
     background: linear-gradient(to right, var(--progress-bar-start), var(--progress-bar-end));
     transition: width 0.4s ease-out;
     border-radius: 12px;
-}
+}  */
 
 .app-button {
     display: inline-block;
@@ -417,4 +375,69 @@ html.dark-mode .tip-bubble {
     background-color: #3a3a3a; /* Dark modda daha koyu bir gri */
     color: #e0e0e0; /* Dark modda daha açık metin */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+/* YENİ SU BARDAĞI GÖRSELİ STİLLERİ */
+.water-glass-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto; /* Ortalamak için */
+    height: 250px; /* Bardağın toplam yüksekliği */
+    max-width: 150px; /* Bardağın toplam genişliği */
+    position: relative;
+}
+
+.water-glass-outline {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 3px solid var(--text-color); /* Bardağın dış çizgisi */
+    border-radius: 0 0 40px 40px / 0 0 20px 20px; /* Alt köşeleri daha yuvarlak, üst kısım düz */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Suyun dışarı taşmasını engeller */
+    background-color: transparent; /* İçinin şeffaf olması için */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Tema geçişi için */
+}
+
+/* Karanlık modda bardağın dış çizgisi */
+html.dark-mode .water-glass-outline {
+    border-color: var(--dark-text-color); /* Koyu modda bardağın kenarı beyaz */
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1); /* Koyu modda daha belirgin beyaz gölge */
+}
+
+.water-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0; /* Başlangıçta su yok */
+    background: linear-gradient(to top, #2196F3, #4CAF50); /* Su rengi gradyan */
+    transition: height 0.6s ease-out; /* Dolma animasyonu */
+}
+
+/* Karanlık modda suyun rengi (isteğe bağlı, daha canlı olabilir) */
+html.dark-mode .water-fill {
+    background: linear-gradient(to top, #00BFFF, #1E90FF); /* Daha parlak bir mavi */
+}
+
+.water-level-text {
+    position: absolute;
+    width: 100%;
+    top: 50%; /* Dikeyde ortala */
+    transform: translateY(-50%); /* Kendi yüksekliğinin yarısı kadar yukarı kaydır */
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--text-color); /* Metin rengi, ana tema metin rengini takip eder */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Metni daha okunur yapar */
+    z-index: 10; /* Suyun üzerinde görünmesini sağlar */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Karanlık modda su seviyesi metni */
+html.dark-mode .water-level-text {
+    color: var(--dark-text-color); /* Koyu modda metin beyaz */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
 }
