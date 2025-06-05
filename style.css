@@ -343,14 +343,15 @@ html.dark-mode .progress-text {
     background-color: #f0f0f0;
     color: #333;
 
-    padding: 15px 25px;
+    /* Bu değerleri değiştireceğiz: */
+    padding: 8px 15px; /* Daha küçük padding */
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    max-width: 500px;
-    min-width: 300px;
+    max-width: 380px; /* Maksimum genişliği azalt */
+    min-width: 250px; /* Minimum genişliği azalt */
     text-align: center;
-    font-size: 15px;
-    line-height: 1.4;
+    font-size: 14px; /* Yazı boyutunu biraz küçültebiliriz */
+    line-height: 1.3; /* Satır yüksekliğini biraz azaltabiliriz */
 
     opacity: 0;
     visibility: hidden;
