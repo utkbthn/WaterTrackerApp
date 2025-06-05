@@ -258,7 +258,7 @@
     </div>
 
     <div class="main-buttons-container">
-        <button onclick="addWater()" class="app-button">Drink</button>
+        <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
         <br>
         <button onclick="openSettings()" class="app-button settings-button">Settings</button>
     </div>
@@ -329,17 +329,17 @@
     const drinkButton = document.getElementById("drinkButton");
 
     if (currentWaterAmount >= maxWaterGoal) {
-        // drinkButton.disabled = true; // <-- Bu satırı siliyoruz
-        drinkButton.innerText = "Afiyet Olsun! 🎉"; // Metni değiştir
-        drinkButton.style.backgroundColor = "#4CAF50"; // Örneğin yeşil yap
-        drinkButton.style.opacity = "0.8"; // Biraz soluklaştır (isteğe bağlı, kaldırabilirsiniz)
+        drinkButton.innerText = "Afiyet Olsun! 🎉";
+        drinkButton.style.backgroundColor = "#4CAF50"; // Yeşil yap
+     
     } else {
-        drinkButton.disabled = false; // Butonu etkinleştir
         drinkButton.innerText = "Drink"; // Metni "Drink" yap
         drinkButton.style.backgroundColor = "#3399ff"; // Varsayılan mavi rengine dön
-        drinkButton.style.cursor = "pointer";
-        drinkButton.style.opacity = "1";
+        // drinkButton.style.opacity = "1"; // Bu satırı da kaldırıyoruz
     }
+ 
+    drinkButton.style.cursor = "pointer";
+}
 }
 
         function addWater() {
