@@ -5,11 +5,11 @@
     --dark-background: #121212;
     --dark-text-color: white;
     --primary-blue: #3399ff;
-    --primary-blue-active: #2a7acc; /* Active durumu için yeni değişken */
+    --primary-blue-active: #2a7acc; /* Active durumu için koyu mavi */
     --secondary-gray: #a0a0a0;
-    --secondary-gray-active: #777777; /* Active durumu için yeni değişken */
+    --secondary-gray-active: #777777; /* Active durumu için koyu gri */
     --red-alert: #ff6666;
-    --red-alert-active: #cc4c4c; /* Active durumu için yeni değişken */
+    --red-alert-active: #cc4c4c; /* Active durumu için koyu kırmızı */
     --success-green: #4CAF50;
     --progress-bar-start: #4CAF50;
     --progress-bar-end: #2196F3;
@@ -63,11 +63,13 @@ body {
     margin: 20px auto 20px auto;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease-in-out; /* Sadece transform için geçiş */
+    /* Transition sadece transform için, çünkü rengi değişmiyor */
+    transition: transform 0.1s ease-in-out; 
 }
 
+/* Water icon'un aktif durumu (tıklanınca büyüme) */
 .water-icon:active {
-    transform: scale(1.05); /* Tıklama anında hafif büyüt */
+    transform: scale(1.05); 
 }
 
 /* YATAY PROGRESS BAR KODLARI */
@@ -114,10 +116,10 @@ body {
     background-color: var(--primary-blue); /* Normal durumdaki renk */
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.1s ease, /* Daha hızlı renk değişimi için */
-                box-shadow 0.1s ease,
-                transform 0.1s ease; /* Daha hızlı hareket için */
-    -webkit-tap-highlight-color: transparent;
+    /* TÜM İLGİLİ ÖZELLİKLER İÇİN KISA VE TEK BİR TRANSITION */
+    transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
+    
+    -webkit-tap-highlight-color: transparent; /* Mobil cihazlarda tıklama efekti */
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -148,7 +150,7 @@ body {
 .settings-button {
     background-color: transparent;
     border: none;
-    padding: 5px; /* Tıklama anında gri alan için padding */
+    padding: 5px; 
     border-radius: 8px;
     box-shadow: none;
     
@@ -157,9 +159,8 @@ body {
     align-items: center;
     cursor: pointer;
     
-    transition: background-color 0.1s ease, /* Hızlı geçişler */
-                box-shadow 0.1s ease,
-                transform 0.1s ease;
+    /* TÜM İLGİLİ ÖZELLİKLER İÇİN KISA VE TEK BİR TRANSITION */
+    transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
     
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -175,19 +176,20 @@ body {
 .settings-button .fas {
     color: var(--secondary-gray); 
     font-size: 28px; 
-    transition: color 0.1s ease, transform 0.1s ease; /* Hızlı geçişler */
+    /* Sadece ikonun renk ve transform geçişi */
+    transition: color 0.1s ease, transform 0.1s ease; 
 }
 
 /* Settings butonu tıklandığında (active) efekti */
 .settings-button:active {
     background-color: var(--secondary-gray-active); /* Tıklama anında daha koyu gri arka plan */
     transform: translateY(1px); /* Hafifçe aşağı kaydır */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); /* Daha az belirgin bir gölge */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); 
 }
 
 /* Settings butonu tıklandığında ikonun efekti */
 .settings-button:active .fas {
-    color: var(--secondary-gray); /* İkon rengi active'de de gri kalabilir */
+    color: var(--secondary-gray); /* İkon rengi active'de de gri kalabilir, veya biraz değişebilir */
     transform: scale(0.95); /* İkonu hafifçe küçült */
 }
 
