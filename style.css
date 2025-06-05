@@ -4,6 +4,11 @@
     --light-text-color: black;
     --dark-background: #121212;
     --dark-text-color: white;
+
+    /* Yeni ana tema değişkenleri */
+    --background-color: var(--light-background);
+    --text-color: var(--light-text-color);
+
     --primary-blue: #3399ff;
     --primary-blue-active: #2a7acc; /* Active durumu için koyu mavi */
     --secondary-gray: #a0a0a0;
@@ -13,12 +18,15 @@
     --success-green: #4CAF50;
     --progress-bar-start: #4CAF50;
     --progress-bar-end: #2196F3;
+
+    /* Ayarlar paneli için light ve dark mod renkleri */
     --settings-panel-bg-light: #fff;
     --settings-panel-border-light: #ccc;
     --settings-panel-text-light: #333;
     --settings-panel-label-light: #555;
     --settings-input-bg-light: #fff;
     --settings-input-border-light: #ddd;
+
     --settings-panel-bg-dark: #2a2a2a; /* Dark mode için settings panel rengi */
     --settings-panel-border-dark: #444;
     --settings-panel-text-dark: #eee;
@@ -27,33 +35,73 @@
     --settings-input-border-dark: #555;
 }
 
+/* Genel Body Stilleri ve Tema Geçişleri */
 body {
     font-family: sans-serif;
     text-align: center;
     padding-bottom: 50px;
-    background-color: var(--light-background);
-    color: var(--light-text-color);
+    background-color: var(--background-color); /* Yeni değişkeni kullanın */
+    color: var(--text-color); /* Yeni değişkeni kullanın */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Pürüzsüz geçiş için */
 }
 
-/* Koyu tema (dark mode) */
-@media (prefers-color-scheme: dark) {
+/* Karanlık mod sınıfı - JavaScript tarafından body'ye eklenir/kaldırılır */
+body.dark-mode {
+    --background-color: var(--dark-background);
+    --text-color: var(--dark-text-color);
+    /* Settings panel ve inputlar için dark mode renklerini set edin */
+    --settings-panel-bg-light: var(--settings-panel-bg-dark);
+    --settings-panel-border-light: var(--settings-panel-border-dark);
+    --settings-panel-text-light: var(--settings-panel-text-dark);
+    --settings-panel-label-light: var(--settings-panel-label-dark);
+    --settings-input-bg-light: var(--settings-input-bg-dark);
+    --settings-input-border-light: var(--settings-input-border-dark);
+}
+
+/* Aşağıdaki @media (prefers-color-scheme: dark) bloğu silinmiştir/pasifize edilmiştir.
+   Çünkü karanlık mod kontrolünü artık JavaScript ve butonumuz yapmaktadır. */
+/* @media (prefers-color-scheme: dark) {
     body {
         background-color: var(--dark-background);
         color: var(--dark-text-color);
     }
-}
+    .water-icon {
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    }
+    #settingsPanel {
+        background: var(--settings-panel-bg-dark);
+        border-color: var(--settings-panel-border-dark);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    #settingsPanel h3 {
+        color: var(--settings-panel-text-dark);
+    }
+    .settings-option label {
+        color: var(--settings-panel-label-dark);
+    }
+    .settings-option input,
+    .settings-option select {
+        background-color: var(--settings-input-bg-dark);
+        color: var(--settings-panel-text-dark);
+        border-color: var(--settings-input-border-dark);
+    }
+    .settings-button:active {
+        background-color: var(--secondary-gray-active);
+    }
+    .tip-bubble {
+        background-color: #3a3a3a;
+        color: #e0e0e0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+} */
+
 
 .water-tracker-text {
     text-align: center;
     margin-top: 8px;
     font-weight: bold;
-    color: var(--light-text-color);
-}
-
-@media (prefers-color-scheme: dark) {
-    .water-tracker-text {
-        color: var(--dark-text-color);
-    }
+    color: var(--text-color); /* Yeni değişkeni kullanın */
+    transition: color 0.3s ease; /* Pürüzsüz geçiş için */
 }
 
 .water-icon {
@@ -63,42 +111,35 @@ body {
     margin: 20px auto 20px auto;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    /* Transition sadece transform için, çünkü rengi değişmiyor */
-    transition: transform 0.1s ease-in-out; 
+    transition: transform 0.1s ease-in-out, box-shadow 0.3s ease; /* Gölge için de geçiş */
 }
 
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: var(--dark-background);
-        color: var(--dark-text-color);
-    }
-    /* BURAYA EKLENECEK */
-    .water-icon {
-        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1); /* Beyaza yakın, hafif saydam gölge */
-        /* Alternatif: */
-        /* box-shadow: 0 4px 12px rgba(100, 100, 100, 0.4); */ /* Orta gri, daha opak gölge */
-    }
-
-    /* ... Diğer dark mode kuralları ... */
+/* Water icon'un dark mode gölgesi */
+body.dark-mode .water-icon {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
+
 /* Water icon'un aktif durumu (tıklanınca büyüme) */
 .water-icon:active {
-    transform: scale(1.05); 
-
+    transform: scale(1.05);
 }
-
-
 
 /* YATAY PROGRESS BAR KODLARI */
 .progress {
     position: relative;
     height: 25px;
-    background: #e0e0e0;
+    background: #e0e0e0; /* Light modda sabit */
     border-radius: 12px;
     margin: 20px auto;
     max-width: 320px;
     overflow: hidden;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease; /* Pürüzsüz geçiş için */
+}
+
+/* Progress barın dark mode arka planı */
+body.dark-mode .progress {
+    background: #444; /* Dark modda daha koyu */
 }
 
 /* İlerleme Çubuğu İçindeki Metin */
@@ -107,12 +148,17 @@ body {
     width: 100%;
     text-align: center;
     line-height: 25px;
-    color: black;
+    color: black; /* Metin rengi, progress barın üzerine gelecek */
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
     z-index: 1;
     top: 0;
     left: 0;
+}
+
+/* Progress text dark mode rengi */
+body.dark-mode .progress-text {
+    color: white; /* Dark modda daha okunur olması için beyaz */
 }
 
 .progress-bar {
@@ -133,52 +179,7 @@ body {
     background-color: var(--primary-blue); /* Normal durumdaki renk */
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* TÜM İLGİLİ ÖZELLİKLER İÇİN KISA VE TEK BİR TRANSITION */
     transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
-    
-    -webkit-tap-highlight-color: transparent; /* Mobil cihazlarda tıklama efekti */
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* app-button için :active efekti */
-.app-button:active {
-    background-color: var(--primary-blue-active); /* Tıklama anında rengi koyulaştır */
-    transform: translateY(2px); /* Butonu aşağı kaydır */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Gölgeyi küçült */
-}
-
-
-/* Ana butonları içeren kapsayıcı */
-.main-buttons-container {
-    margin-top: 15px;
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    gap: 10px; 
-    margin-bottom: 5px; 
-}
-
-/* Settings butonu için özel stiller */
-.settings-button {
-    background-color: transparent;
-    border: none;
-    padding: 5px; 
-    border-radius: 8px;
-    box-shadow: none;
-    
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    
-    /* TÜM İLGİLİ ÖZELLİKLER İÇİN KISA VE TEK BİR TRANSITION */
-    transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
-    
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -186,47 +187,79 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    
-    font-size: 15px; 
+}
+
+.app-button:active {
+    background-color: var(--primary-blue-active);
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.main-buttons-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.settings-button {
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 15px;
 }
 
 .settings-button .fas {
-    color: var(--secondary-gray); 
-    font-size: 28px; 
-    /* Sadece ikonun renk ve transform geçişi */
-    transition: color 0.1s ease, transform 0.1s ease; 
+    color: var(--secondary-gray);
+    font-size: 28px;
+    transition: color 0.1s ease, transform 0.1s ease;
 }
 
-/* Settings butonu tıklandığında (active) efekti */
 .settings-button:active {
-    background-color: var(--secondary-gray-active); /* Tıklama anında daha koyu gri arka plan */
-    transform: translateY(1px); /* Hafifçe aşağı kaydır */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); 
+    background-color: var(--secondary-gray-active);
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-/* Settings butonu tıklandığında ikonun efekti */
 .settings-button:active .fas {
-    color: var(--secondary-gray); /* İkon rengi active'de de gri kalabilir, veya biraz değişebilir */
-    transform: scale(0.95); /* İkonu hafifçe küçült */
+    color: var(--secondary-gray);
+    transform: scale(0.95);
 }
-
 
 #settingsPanel {
     display: none;
     margin: 15px auto;
     padding: 15px;
-    border: 1px solid var(--settings-panel-border-light);
+    border: 1px solid var(--settings-panel-border-light); /* Değişkeni kullanın */
     border-radius: 10px;
-    background: var(--settings-panel-bg-light);
+    background: var(--settings-panel-bg-light); /* Değişkeni kullanın */
     max-width: 260px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Pürüzsüz geçiş için */
 }
 
 #settingsPanel h3 {
     margin-top: 0;
-    color: var(--settings-panel-text-light);
+    color: var(--settings-panel-text-light); /* Değişkeni kullanın */
     margin-bottom: 15px;
     font-size: 1.1em;
+    transition: color 0.3s ease;
 }
 
 .settings-option {
@@ -240,24 +273,63 @@ body {
 .settings-option label {
     flex-basis: 55%;
     text-align: left;
-    color: var(--settings-panel-label-light);
+    color: var(--settings-panel-label-light); /* Değişkeni kullanın */
     font-size: 15px;
     padding-right: 10px;
+    transition: color 0.3s ease;
 }
 
-.settings-option input,
+.settings-option input[type="number"],
 .settings-option select {
     width: 100px;
     padding: 8px 10px;
-    border: 1px solid var(--settings-input-border-light);
+    border: 1px solid var(--settings-input-border-light); /* Değişkeni kullanın */
     border-radius: 5px;
     text-align: center;
     font-size: 16px;
-    background-color: var(--settings-input-bg-light);
+    background-color: var(--settings-input-bg-light); /* Değişkeni kullanın */
+    color: var(--settings-panel-text-light); /* Input metin rengi */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
+
+/* Karanlık mod düğmesi için özel stiller (checkbox) */
+.settings-option input[type="checkbox"] {
+    position: relative;
+    width: 40px; /* Genişlik */
+    height: 20px; /* Yükseklik */
+    -webkit-appearance: none; /* Varsayılan checkbox stilini kaldır */
+    outline: none; /* Odaklandığında dış çizgiyi kaldır */
+    background-color: #ccc; /* Kapalıyken arka plan */
+    border-radius: 20px; /* Yuvarlak kenarlar */
+    transition: background-color 0.3s; /* Arka plan rengi değişimi için geçiş */
+    cursor: pointer;
+}
+
+.settings-option input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 18px; /* Düğme genişliği */
+    height: 18px; /* Düğme yüksekliği */
+    border-radius: 50%;
+    background-color: #fff; /* Düğme rengi */
+    top: 1px; /* Üstten boşluk */
+    left: 1px; /* Soldan boşluk */
+    transform: translateX(0); /* Varsayılan konumu */
+    transition: transform 0.3s; /* Kayma hareketi için geçiş */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Gölge */
+}
+
+.settings-option input[type="checkbox"]:checked {
+    background-color: var(--primary-blue); /* Açıkken arka plan */
+}
+
+.settings-option input[type="checkbox"]:checked::before {
+    transform: translateX(20px); /* Açıkken sağa kaydır */
+}
+
 
 #maxAmount::-webkit-outer-spin-button,
 #maxAmount::-webkit-inner-spin-button {
@@ -283,8 +355,8 @@ body {
 
 /* Ayar paneli butonları için :active efekti (save/close) */
 .settings-buttons .app-button:active {
-    background-color: var(--primary-blue-active); /* Tıklama anında rengi koyulaştır */
-    transform: translateY(1px); /* Hafifçe aşağı kaydır */
+    background-color: var(--primary-blue-active);
+    transform: translateY(1px);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -295,37 +367,9 @@ body {
 }
 
 .settings-buttons .reset-button:active {
-    background-color: var(--red-alert-active); /* Tıklama anında rengi koyulaştır */
-    transform: translateY(2px); /* Butonu aşağı kaydır */
+    background-color: var(--red-alert-active);
+    transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-@media (prefers-color-scheme: dark) {
-    #settingsPanel {
-        background: var(--settings-panel-bg-dark);
-        border-color: var(--settings-panel-border-dark);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    #settingsPanel h3 {
-        color: var(--settings-panel-text-dark);
-    }
-
-    .settings-option label {
-        color: var(--settings-panel-label-dark);
-    }
-
-    .settings-option input,
-    .settings-option select {
-        background-color: var(--settings-input-bg-dark);
-        color: var(--settings-panel-text-dark);
-        border-color: var(--settings-input-border-dark);
-    }
-    
-    /* Dark mode için settings butonu active renkleri */
-    .settings-button:active {
-        background-color: var(--secondary-gray-active); /* Dark mode'da da gri active */
-    }
 }
 
 /* Tips Baloncuğu Stilleri */
@@ -334,10 +378,10 @@ body {
     bottom: 20px; /* Alttan boşluk */
     left: 50%; /* Yatayda ortaya almak için başlangıç noktası */
     transform: translateX(-50%) translateY(20px); /* Kendi genişliğinin yarısı kadar sola, kendi yüksekliğinin 20px kadar aşağı kaydır */
-    
+
     background-color: #f0f0f0; /* Koyu beyaz / Açık gri */
     color: #333; /* Siyaha yakın bir gri */
-    
+
     padding: 15px 25px; /* Yatayda daha fazla boşluk */
     border-radius: 12px; /* Hafif daha yuvarlak köşeler */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Hafif daha belirgin gölge */
@@ -346,10 +390,11 @@ body {
     text-align: center;
     font-size: 15px; /* Font boyutunu biraz artırabiliriz */
     line-height: 1.4; /* Satır aralığı daha okunabilir */
-    
+
     opacity: 0; /* Başlangıçta gizli */
     visibility: hidden; /* Başlangıçta gizli */
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s;
+    /* Tema geçişlerini de buraya ekledik */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     z-index: 1000; /* Diğer öğelerin üzerinde görünmesini sağlar */
 }
 
@@ -360,12 +405,10 @@ body {
 }
 
 /* Karanlık Mod İçin Tips Baloncuğu */
-@media (prefers-color-scheme: dark) {
-    .tip-bubble {
-        background-color: #3a3a3a; /* Dark modda daha koyu bir gri */
-        color: #e0e0e0; /* Dark modda daha açık metin */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
+body.dark-mode .tip-bubble {
+    background-color: #3a3a3a; /* Dark modda daha koyu bir gri */
+    color: #e0e0e0; /* Dark modda daha açık metin */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Tips baloncuk içindeki paragraf etiketi */
