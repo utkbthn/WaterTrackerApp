@@ -104,7 +104,42 @@
             updateDisplay();
             document.getElementById("settingsPanel").style.display = "none";
         }
+// Tips Baloncuğu Fonksiyonları
+const tips = [
+    "Su içmeyi unutmayın! Günde en az 8 bardak su hedefini deneyin.",
+    "Susuzluk hissettiğinizde, vücudunuz zaten hafifçe susuz kalmıştır. Düzenli su için.",
+    "Egzersiz yapıyorsanız daha fazla suya ihtiyacınız olabilir.",
+    "Yemeklerden önce bir bardak su içmek iştahınızı kontrol etmenize yardımcı olabilir.",
+    "Sık sık baş ağrısı çekiyorsanız, dehidrasyonun bir nedeni olup olmadığını kontrol edin.",
+    "Meyve ve sebzeler de su içerir. Dengeli beslenmeye özen gösterin.",
+    "Kahve ve alkol vücudunuzdan su atılmasına neden olabilir, tüketiminizi dengeleyin.",
+    "Gün içinde küçük yudumlarla su içmek, büyük miktarlarda bir anda içmekten daha faydalıdır.",
+    "Su şişenizi yanınızda taşıyarak su içme alışkanlığınızı pekiştirin."
+];
 
+let currentTipIndex = 0;
+const tipBubble = document.getElementById("tipBubble");
+const tipContent = document.getElementById("tipContent");
+
+function showNextTip() {
+    tipBubble.classList.remove('show'); // Baloncuğu gizle
+    setTimeout(() => {
+        currentTipIndex = (currentTipIndex + 1) % tips.length; // Bir sonraki ipucuna geç
+        tipContent.innerText = tips[currentTipIndex]; // İçeriği güncelle
+        tipBubble.classList.add('show'); // Baloncuğu tekrar göster
+    }, 500); // Geçiş süresi kadar bekle (CSS transition ile aynı olmalı)
+}
+
+// Uygulama yüklendiğinde ilk ipucunu göster
+window.addEventListener('load', () => {
+    showNextTip(); // İlk ipucunu göster
+    // Her 2-3 saatte bir (7200000 ms = 2 saat, 10800000 ms = 3 saat) ipucunu değiştir
+    // Test için daha kısa bir süre kullanabilirsiniz, örn. 10000 ms = 10 saniye
+    setInterval(showNextTip, 7200000); // 2 saat (miliseconds cinsinden)
+});
+
+// Kullanıcı baloncuğa tıklarsa, bir sonraki ipucuna geçsin (isteğe bağlı özellik)
+tipBubble.addEventListener('click', showNextTip);
         window.onload = function () {
             resetWaterIfNewDay();
             updateDisplay();
