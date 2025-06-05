@@ -5,7 +5,7 @@
     --dark-background: #121212;
     --dark-text-color: white;
 
-    /* Yeni ana tema değişkenleri */
+    /* Ana tema değişkenleri */
     --background-color: var(--light-background);
     --text-color: var(--light-text-color);
 
@@ -63,8 +63,8 @@ html.dark-mode {
     text-align: center;
     margin-top: 8px;
     font-weight: bold;
-    color: var(--text-color); /* Yeni değişkeni kullanın */
-    transition: color 0.3s ease; /* Pürüzsüz geçiş için */
+    color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
 .water-icon {
@@ -74,7 +74,7 @@ html.dark-mode {
     margin: 20px auto 20px auto;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    transition: transform 0.1s ease-in-out, box-shadow 0.3s ease; /* Gölge için de geçiş */
+    transition: transform 0.1s ease-in-out, box-shadow 0.3s ease;
 }
 
 /* Water icon'un dark mode gölgesi */
@@ -87,7 +87,7 @@ html.dark-mode .water-icon {
     transform: scale(1.05);
 }
 
-/*
+/* Progress Bar Stilleri (Yorum satırları kaldırıldı ve geri getirildi) */
 .progress {
     position: relative;
     height: 25px;
@@ -104,6 +104,7 @@ html.dark-mode .progress {
     background: #444;
 }
 
+/* İlerleme Çubuğu İçindeki Metin */
 .progress-text {
     position: absolute;
     width: 100%;
@@ -112,7 +113,7 @@ html.dark-mode .progress {
     color: black;
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-    z-index: 1;
+    z-index: 1; /* Progress bar'ın üzerindeki metin */
     top: 0;
     left: 0;
 }
@@ -127,7 +128,7 @@ html.dark-mode .progress-text {
     background: linear-gradient(to right, var(--progress-bar-start), var(--progress-bar-end));
     transition: width 0.4s ease-out;
     border-radius: 12px;
-} */
+}
 
 .app-button {
     display: inline-block;
@@ -136,7 +137,7 @@ html.dark-mode .progress-text {
     cursor: pointer;
     border: none;
     border-radius: 8px;
-    background-color: var(--primary-blue); /* Normal durumdaki renk */
+    background-color: var(--primary-blue);
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
@@ -206,18 +207,18 @@ html.dark-mode .progress-text {
     display: none;
     margin: 15px auto;
     padding: 15px;
-    border: 1px solid var(--settings-panel-border-light); /* Değişkeni kullanın */
+    border: 1px solid var(--settings-panel-border-light);
     border-radius: 10px;
-    background: var(--settings-panel-bg-light); /* Değişkeni kullanın */
+    background: var(--settings-panel-bg-light);
     max-width: 260px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Pürüzsüz geçiş için */
-    z-index: 20; /* EKLEDİK/GÜNCELLEDİK */
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 20; /* Ayarlar paneli, ipucu balonundan daha yüksek bir z-index'e sahip olmalı */
 }
 
 #settingsPanel h3 {
     margin-top: 0;
-    color: var(--settings-panel-text-light); /* Değişkeni kullanın */
+    color: var(--settings-panel-text-light);
     margin-bottom: 15px;
     font-size: 1.1em;
     transition: color 0.3s ease;
@@ -234,7 +235,7 @@ html.dark-mode .progress-text {
 .settings-option label {
     flex-basis: 55%;
     text-align: left;
-    color: var(--settings-panel-label-light); /* Değişkeni kullanın */
+    color: var(--settings-panel-label-light);
     font-size: 15px;
     padding-right: 10px;
     transition: color 0.3s ease;
@@ -244,12 +245,12 @@ html.dark-mode .progress-text {
 .settings-option select {
     width: 100px;
     padding: 8px 10px;
-    border: 1px solid var(--settings-input-border-light); /* Değişkeni kullanın */
+    border: 1px solid var(--settings-input-border-light);
     border-radius: 5px;
     text-align: center;
     font-size: 16px;
-    background-color: var(--settings-input-bg-light); /* Değişkeni kullanın */
-    color: var(--settings-panel-text-light); /* Input metin rengi */
+    background-color: var(--settings-input-bg-light);
+    color: var(--settings-panel-text-light);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -290,7 +291,6 @@ html.dark-mode .progress-text {
 .settings-option input[type="checkbox"]:checked::before {
     transform: translateX(20px); /* Açıkken sağa kaydır */
 }
-
 
 #maxAmount::-webkit-outer-spin-button,
 #maxAmount::-webkit-inner-spin-button {
@@ -335,110 +335,38 @@ html.dark-mode .progress-text {
 
 /* Tips Baloncuğu Stilleri */
 .tip-bubble {
-    position: fixed; /* Sayfanın altına sabitler */
-    bottom: 20px; /* Alttan boşluk */
-    left: 50%; /* Yatayda ortaya almak için başlangıç noktası */
-    transform: translateX(-50%) translateY(20px); /* Kendi genişliğinin yarısı kadar sola, kendi yüksekliğinin 20px kadar aşağı kaydır */
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
 
-    background-color: #f0f0f0; /* Koyu beyaz / Açık gri */
-    color: #333; /* Siyaha yakın bir gri */
+    background-color: #f0f0f0;
+    color: #333;
 
-    padding: 15px 25px; /* Yatayda daha fazla boşluk */
-    border-radius: 12px; /* Hafif daha yuvarlak köşeler */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Hafif daha belirgin gölge */
-    max-width: 500px; /* Maksimum genişliği artırarak daha uzun metinlere olanak tanır */
-    min-width: 300px; /* Minimum genişlik */
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    min-width: 300px;
     text-align: center;
-    font-size: 15px; /* Font boyutunu biraz artırabiliriz */
-    line-height: 1.4; /* Satır aralığı daha okunabilir */
+    font-size: 15px;
+    line-height: 1.4;
 
-    opacity: 0; /* Başlangıçta gizli */
-    visibility: hidden; /* Başlangıçta gizli */
-    /* Tema geçişlerini de buraya ekledik */
+    opacity: 0;
+    visibility: hidden;
     transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-    z-index: 10; /* EKLEDİK/GÜNCELLEDİK */
+    z-index: 10; /* Ayarlar panelinden daha düşük bir z-index'e sahip olmalı */
 }
 
 .tip-bubble.show {
-    opacity: 1; /* Görünür hale gelir */
-    visibility: visible; /* Görünür hale gelir */
-    transform: translateX(-50%) translateY(0); /* Kendi pozisyonuna gelir (aşağıdan yukarıya hareket) */
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* Karanlık Mod İçin Tips Baloncuğu */
 html.dark-mode .tip-bubble {
-    background-color: #3a3a3a; /* Dark modda daha koyu bir gri */
-    color: #e0e0e0; /* Dark modda daha açık metin */
+    background-color: #3a3a3a;
+    color: #e0e0e0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* YENİ SU BARDAĞI GÖRSELİ STİLLERİ */
-.water-glass-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto; /* Ortalamak için */
-    height: 200px; /* Bardağın toplam yüksekliği */
-    max-width: 120px; /* Bardağın toplam genişliği */
-    position: relative;
-}
-@media screen and (max-width: 480px) {
-    .water-glass-container {
-        height: 180px; /* Daha küçük ekranlar için */
-        max-width: 100px; /* Daha küçük ekranlar için */
-    }
-}
-.water-glass-outline {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border: 3px solid var(--text-color); /* Bardağın dış çizgisi */
-    border-radius: 0 0 40px 40px / 0 0 20px 20px; /* Alt köşeleri daha yuvarlak, üst kısım düz */
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Suyun dışarı taşmasını engeller */
-    background-color: transparent; /* İçinin şeffaf olması için */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Tema geçişi için */
-}
-
-/* Karanlık modda bardağın dış çizgisi */
-html.dark-mode .water-glass-outline {
-    border-color: var(--dark-text-color); /* Koyu modda bardağın kenarı beyaz */
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1); /* Koyu modda daha belirgin beyaz gölge */
-}
-
-.water-fill {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 0; /* Başlangıçta su yok */
-    background: linear-gradient(to top, #2196F3, #4CAF50); /* Su rengi gradyan */
-    transition: height 0.6s ease-out; /* Dolma animasyonu */
-}
-
-/* Karanlık modda suyun rengi (isteğe bağlı, daha canlı olabilir) */
-html.dark-mode .water-fill {
-    background: linear-gradient(to top, #00BFFF, #1E90FF); /* Daha parlak bir mavi */
-}
-
-.water-level-text {
-    position: absolute;
-    width: 100%;
-    top: 50%; /* Dikeyde ortala */
-    transform: translateY(-50%); /* Kendi yüksekliğinin yarısı kadar yukarı kaydır */
-    text-align: center;
-    font-size: 1.1em;
-    font-weight: bold;
-    color: var(--text-color); /* Metin rengi, ana tema metin rengini takip eder */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Metni daha okunur yapar */
-    z-index: 15; /* Bu z-index'i 10'dan büyük, 20'den küçük yaptık. Su seviyesi metni suyun ve settings panelin arasında kalmamalı */
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-/* Karanlık modda su seviyesi metni */
-html.dark-mode .water-level-text {
-    color: var(--dark-text-color); /* Koyu modda metin beyaz */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
 }
