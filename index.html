@@ -28,13 +28,10 @@
     <img src="images/water.logo.png" alt="Su Takipçisi Logosu" class="water-icon">
     <p class="water-tracker-text">Water Tracker</p>
 
-    <div class="water-glass-container">
-    <div class="water-glass-outline">
-        <div class="water-fill" id="waterFill"></div>
-        <div class="water-level-text" id="status"></div>
+    <div class="progress">
+        <div class="progress-text" id="status"></div>
+        <div class="progress-bar" id="progressBar"></div>
     </div>
-</div>
-
     <div class="main-buttons-container">
         <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
         <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">
