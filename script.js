@@ -5,21 +5,15 @@ let currentWaterAmount = parseInt(localStorage.getItem("water")) || 0;
 let maxWaterGoal = parseInt(localStorage.getItem("maxWater")) || DEFAULT_MAX_WATER_AMOUNT;
 let addWaterAmount = parseInt(localStorage.getItem("addAmount")) || DEFAULT_ADD_AMOUNT;
 
-// Karanlık mod değişkeni ve localStorage'dan oku
-// Eğer 'darkMode' localStorage'da yoksa veya 'false' ise, isDarkMode da false olur.
 let isDarkMode = localStorage.getItem("darkMode") === "true";
 
-// HTML elementlerine referanslar
-const progressBar = document.getElementById("progressBar");
+const waterFill = document.getElementById("waterFill");
 const statusDisplay = document.getElementById("status");
-const darkModeToggle = document.getElementById("darkModeToggle"); // HTML'den karanlık mod checkbox'ını al
-// BURASI DEĞİŞTİ: body yerine <html> etiketine referans alıyoruz
+const darkModeToggle = document.getElementById("darkModeToggle"); 
 const rootElement = document.documentElement; 
 
 let lastResetDate = localStorage.getItem("lastResetDate");
 
-// --- Yeni Fonksiyon: applyTheme() ---
-// Bu fonksiyon, isDarkMode değişkenine göre <html> etiketine "dark-mode" sınıfını ekler veya kaldırır.
 function applyTheme() {
     if (isDarkMode) {
         rootElement.classList.add("dark-mode"); // BURASI DEĞİŞTİ: body yerine rootElement kullanıldı
@@ -47,24 +41,24 @@ function resetWaterIfNewDay() {
     }
 }
 
-// Ekranı güncelleyen fonksiyon (ilerleme çubuğu ve metin)
 function updateDisplay() {
     let percent = (currentWaterAmount / maxWaterGoal) * 100;
-    if (percent > 100) percent = 100; // %100'ü geçmesin
-    if (percent < 0) percent = 0;    // %0'ın altına inmesin
+    if (percent > 100) percent = 100;
+    if (percent < 0) percent = 0;
 
-    progressBar.style.width = percent + "%";
+    waterFill.style.height = percent + "%"; 
+    
     statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
 
     const drinkButton = document.getElementById("drinkButton");
     if (drinkButton) {
         if (currentWaterAmount >= maxWaterGoal) {
             drinkButton.innerText = "Afiyet Olsun! 🎉";
-            drinkButton.style.backgroundColor = "var(--success-green)"; // Hedefe ulaşıldığında yeşil buton
-            drinkButton.style.cursor = "default"; // Tıklanamaz yapsak daha iyi
+            drinkButton.style.backgroundColor = "var(--success-green)"; 
+            drinkButton.style.cursor = "default";
         } else {
             drinkButton.innerText = "Drink";
-            drinkButton.style.backgroundColor = "var(--primary-blue)"; // Normal mavi buton
+            drinkButton.style.backgroundColor = "var(--primary-blue)";
             drinkButton.style.cursor = "pointer";
         }
     }
