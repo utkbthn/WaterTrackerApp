@@ -313,20 +313,25 @@ body {
 
 /* Tips Baloncuğu Stilleri */
 .tip-bubble {
-    position: fixed; /* Sayfanın alt köşesine sabitler */
+    position: fixed; /* Sayfanın altına sabitler */
     bottom: 20px; /* Alttan boşluk */
-    right: 20px; /* Sağdan boşluk */
-    background-color: var(--primary-blue); /* Ana mavi rengi kullanır */
-    color: white;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    max-width: 250px; /* Maksimum genişlik */
+    left: 50%; /* Yatayda ortaya almak için başlangıç noktası */
+    transform: translateX(-50%) translateY(20px); /* Kendi genişliğinin yarısı kadar sola, kendi yüksekliğinin 20px kadar aşağı kaydır */
+    
+    background-color: #f0f0f0; /* Koyu beyaz / Açık gri */
+    color: #333; /* Siyaha yakın bir gri */
+    
+    padding: 15px 25px; /* Yatayda daha fazla boşluk */
+    border-radius: 12px; /* Hafif daha yuvarlak köşeler */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Hafif daha belirgin gölge */
+    max-width: 500px; /* Maksimum genişliği artırarak daha uzun metinlere olanak tanır */
+    min-width: 300px; /* Minimum genişlik */
     text-align: center;
-    font-size: 14px;
+    font-size: 15px; /* Font boyutunu biraz artırabiliriz */
+    line-height: 1.4; /* Satır aralığı daha okunabilir */
+    
     opacity: 0; /* Başlangıçta gizli */
     visibility: hidden; /* Başlangıçta gizli */
-    transform: translateY(20px); /* Alttan biraz aşağıda başlar */
     transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s;
     z-index: 1000; /* Diğer öğelerin üzerinde görünmesini sağlar */
 }
@@ -334,13 +339,21 @@ body {
 .tip-bubble.show {
     opacity: 1; /* Görünür hale gelir */
     visibility: visible; /* Görünür hale gelir */
-    transform: translateY(0); /* Kendi pozisyonuna gelir */
+    transform: translateX(-50%) translateY(0); /* Kendi pozisyonuna gelir (aşağıdan yukarıya hareket) */
 }
 
 /* Karanlık Mod İçin Tips Baloncuğu */
 @media (prefers-color-scheme: dark) {
     .tip-bubble {
-        background-color: #444; /* Dark modda daha koyu gri bir arka plan */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        background-color: #3a3a3a; /* Dark modda daha koyu bir gri */
+        color: #e0e0e0; /* Dark modda daha açık metin */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
+}
+
+/* Tips baloncuk içindeki paragraf etiketi */
+.tip-bubble p {
+    margin: 0; /* Paragrafın varsayılan marginini kaldırır */
+    word-wrap: break-word; /* Uzun kelimelerin kırılmasını sağlar */
+    white-space: normal; /* Metnin tek satırda kalmasını engeller, normal akışta sarmasını sağlar */
 }
