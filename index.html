@@ -318,41 +318,40 @@
         }
 
         function openSettings() {
-            const settingsPanel = document.getElementById("settingsPanel");
-            if (settingsPanel.style.display === "block") {
-                settingsPanel.style.display = "none";
-            } else {
-                settingsPanel.style.display = "block";
-                document.getElementById("addAmount").value = addWaterAmount;
-                document.getElementById("maxAmount").value = maxWaterGoal;
-            }
-        }
+    const settingsPanel = document.getElementById("settingsPanel");
+    if (settingsPanel.style.display === "none" || settingsPanel.style.display === "") {
+        document.getElementById("maxAmount").value = maxWaterGoal;
+        document.getElementById("addAmount").value = addWaterAmount;
+        settingsPanel.style.display = "block";
+    } else {
+        settingsPanel.style.display = "none";
+    }
+}
+
 
         function saveAndCloseSettings() {
-            const newAddAmount = parseInt(document.getElementById("addAmount").value);
-            if (!isNaN(newAddAmount) && newAddAmount > 0) {
-                addWaterAmount = newAddAmount;
-                localStorage.setItem("addAmount", addWaterAmount);
-            } else {
-                alert("Lütfen geçerli bir su ekleme miktarı seçin.");
-                return;
-            }
+    const newMax = parseInt(document.getElementById("maxAmount").value);
+    const newAdd = parseInt(document.getElementById("addAmount").value);
 
-            const newMaxAmount = parseInt(document.getElementById("maxAmount").value);
-            if (!isNaN(newMaxAmount) && newMaxAmount > 0) {
-                maxWaterGoal = newMaxAmount;
-                localStorage.setItem("maxWater", maxWaterGoal);
-            } else {
-                alert("Lütfen geçerli bir günlük hedef su miktarı girin.");
-                return;
-            }
+    if (!isNaN(newMax) && newMax >= 500) {
+        maxWaterGoal = newMax;
+        localStorage.setItem("maxWater", maxWaterGoal);
+    }
 
-            document.getElementById("settingsPanel").style.display = "none";
-            updateDisplay();
-        }
+    if (!isNaN(newAdd)) {
+        addWaterAmount = newAdd;
+        localStorage.setItem("addAmount", addWaterAmount);
+    }
 
-        resetWaterIfNewDay();
-        updateDisplay();
+    updateDisplay();
+    document.getElementById("settingsPanel").style.display = "none";
+}
+
+
+    window.onload = function () {
+    resetWaterIfNewDay();
+    updateDisplay();
+};
     </script>
 </body>
 </html>
