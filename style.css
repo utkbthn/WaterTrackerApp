@@ -1,301 +1,340 @@
 /* CSS Değişkenleri */
-        :root {
-            --light-background: white;
-            --light-text-color: black;
-            --dark-background: #121212;
-            --dark-text-color: white;
-            --primary-blue: #3399ff;
-            --primary-blue-hover: #2a7acc;
-            --secondary-gray: #a0a0a0;
-            --secondary-gray-hover: #888888;
-            --red-alert: #ff6666;
-            --red-alert-hover: #cc4c4c;
-            --success-green: #4CAF50;
-            --progress-bar-start: #4CAF50;
-            --progress-bar-end: #2196F3;
-            --settings-panel-bg-light: #fff;
-            --settings-panel-border-light: #ccc;
-            --settings-panel-text-light: #333;
-            --settings-panel-label-light: #555;
-            --settings-input-bg-light: #fff;
-            --settings-input-border-light: #ddd;
-            --settings-panel-bg-dark: #2a2a2a; /* Dark mode için settings panel rengi */
-            --settings-panel-border-dark: #444;
-            --settings-panel-text-dark: #eee;
-            --settings-panel-label-dark: #ccc;
-            --settings-input-bg-dark: #3a3a3a;
-            --settings-input-border-dark: #555;
-        }
+:root {
+    --light-background: white;
+    --light-text-color: black;
+    --dark-background: #121212;
+    --dark-text-color: white;
+    --primary-blue: #3399ff;
+    --primary-blue-hover: #2a7acc;
+    --secondary-gray: #a0a0a0;
+    --secondary-gray-hover: #888888;
+    --red-alert: #ff6666;
+    --red-alert-hover: #cc4c4c;
+    --success-green: #4CAF50;
+    --progress-bar-start: #4CAF50;
+    --progress-bar-end: #2196F3;
+    --settings-panel-bg-light: #fff;
+    --settings-panel-border-light: #ccc;
+    --settings-panel-text-light: #333;
+    --settings-panel-label-light: #555;
+    --settings-input-bg-light: #fff;
+    --settings-input-border-light: #ddd;
+    --settings-panel-bg-dark: #2a2a2a; /* Dark mode için settings panel rengi */
+    --settings-panel-border-dark: #444;
+    --settings-panel-text-dark: #eee;
+    --settings-panel-label-dark: #ccc;
+    --settings-input-bg-dark: #3a3a3a;
+    --settings-input-border-dark: #555;
+}
 
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            padding-bottom: 50px;
-            background-color: var(--light-background);
-            color: var(--light-text-color);
-        }
+body {
+    font-family: sans-serif;
+    text-align: center;
+    padding-bottom: 50px;
+    background-color: var(--light-background);
+    color: var(--light-text-color);
+}
 
-        /* Koyu tema (dark mode) */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: var(--dark-background);
-                color: var(--dark-text-color);
-            }
-        }
+/* Koyu tema (dark mode) */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--dark-background);
+        color: var(--dark-text-color);
+    }
+}
 
-        .water-tracker-text {
-            text-align: center;
-            margin-top: 8px;
-            font-weight: bold;
-            color: var(--light-text-color);
-        }
+.water-tracker-text {
+    text-align: center;
+    margin-top: 8px;
+    font-weight: bold;
+    color: var(--light-text-color);
+}
 
-        @media (prefers-color-scheme: dark) {
-            .water-tracker-text {
-                color: var(--dark-text-color);
-            }
-        }
+@media (prefers-color-scheme: dark) {
+    .water-tracker-text {
+        color: var(--dark-text-color);
+    }
+}
 
-        .water-icon {
-            max-width: 100px;
-            height: auto;
-            display: block;
-            margin: 20px auto 20px auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease-in-out;
-        }
+.water-icon {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 20px auto 20px auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+}
 
-        .water-icon:hover {
-            transform: scale(1.05);
-        }
+.water-icon:hover {
+    transform: scale(1.05);
+}
 
-        /* YATAY PROGRESS BAR KODLARI */
-        .progress {
-            position: relative;
-            height: 25px;
-            background: #e0e0e0;
-            border-radius: 12px;
-            margin: 20px auto;
-            max-width: 320px;
-            overflow: hidden;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
+/* YATAY PROGRESS BAR KODLARI */
+.progress {
+    position: relative;
+    height: 25px;
+    background: #e0e0e0;
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 320px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
 
-        /* İlerleme Çubuğu İçindeki Metin */
-        .progress-text {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            line-height: 25px;
-            color: white;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-            z-index: 1;
-            top: 0;
-            left: 0;
-        }
+/* İlerleme Çubuğu İçindeki Metin */
+.progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    line-height: 25px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
 
-        .progress-bar {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(to right, var(--progress-bar-start), var(--progress-bar-end));
-            transition: width 0.4s ease-out;
-            border-radius: 12px;
-        }
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(to right, var(--progress-bar-start), var(--progress-bar-end));
+    transition: width 0.4s ease-out;
+    border-radius: 12px;
+}
 
-        .app-button {
-            display: inline-block;
-            font-size: 18px;
-            padding: 12px 25px;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            background-color: var(--primary-blue);
-            color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease,
-                        box-shadow 0.3s ease,
-                        transform 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
+.app-button {
+    display: inline-block;
+    font-size: 18px;
+    padding: 12px 25px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-blue);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
-        .app-button:hover {
-            background-color: var(--primary-blue-hover);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-            transform: translateY(-2px);
-        }
+.app-button:hover {
+    background-color: var(--primary-blue-hover);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
 
-        .app-button:active {
-            background-color: var(--primary-blue-hover);
-            transform: translateY(2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-        }
+.app-button:active {
+    background-color: var(--primary-blue-hover);
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
 
-        /* Ana butonları içeren kapsayıcı */
-        .main-buttons-container {
-            margin-top: 15px;
-            margin-bottom: 5px;
-            /* Flexbox kullanarak butonları ortalayabiliriz, ancak alt alta durmasını istiyorsanız kaldırmalısınız */
-            /* display: flex; */
-            /* flex-direction: column; */
-            /* align-items: center; */
-            /* gap: 5px; /* Butonlar arasına boşluk */
-        }
+/* Ana butonları içeren kapsayıcı */
+.main-buttons-container {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    /* Flexbox kullanarak butonları ortalayabiliriz, ancak alt alta durmasını istiyorsanız kaldırmalısınız */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* gap: 5px; /* Butonlar arasına boşluk */
+}
 
-        .main-buttons-container .app-button:first-child {
-            margin-bottom: 5px; /* "Drink" butonu ile "Settings" butonu arasına boşluk */
-        }
+.main-buttons-container .app-button:first-child {
+    margin-bottom: 5px; /* "Drink" butonu ile "Settings" butonu arasına boşluk */
+}
 
-        /* Settings butonu için özel stiller */
-        .settings-button {
-            padding: 12px 15px; /* Metinli butonlara benzer padding */
-            font-size: 15px; /* Bu değer ikon için geçerli olacak, metin olmadığı için ikon boyutu alacak */
-            background-color: var(--secondary-gray); 
-        }
-
-        .settings-button .fas {
-            font-size: 20px; /* İkonun kendi boyutu, butona daha iyi uyması için */
-            color: white;
-        }
-
-        .settings-button:hover {
-            background-color: var(--secondary-gray-hover);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-            transform: translateY(-1px);
-        }
-
-        .settings-button:active {
-            background-color: var(--secondary-gray-hover);
-            transform: translateY(1px);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-        }
-
-        #settingsPanel {
-            display: none;
-            margin: 15px auto;
-            padding: 15px;
-            border: 1px solid var(--settings-panel-border-light);
-            border-radius: 10px;
-            background: var(--settings-panel-bg-light);
-            max-width: 260px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        #settingsPanel h3 {
-            margin-top: 0;
-            color: var(--settings-panel-text-light);
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-
-        .settings-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-
-        .settings-option label {
-            flex-basis: 55%;
-            text-align: left;
-            color: var(--settings-panel-label-light);
-            font-size: 15px;
-            padding-right: 10px;
-        }
-
-        .settings-option input,
-        .settings-option select {
-            width: 100px;
-            padding: 8px 10px;
-            border: 1px solid var(--settings-input-border-light);
-            border-radius: 5px;
-            text-align: center;
-            font-size: 16px;
-            background-color: var(--settings-input-bg-light);
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-
-        #maxAmount::-webkit-outer-spin-button,
-        #maxAmount::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        #maxAmount {
-            -moz-appearance: textfield;
-        }
-
-        .settings-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .settings-buttons .app-button {
-            font-size: 15px;
-            padding: 8px 18px;
-        }
-
-        .settings-buttons .app-button:hover {
-            background-color: var(--primary-blue-hover);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-            transform: translateY(-1px);
-        }
-
-        .settings-buttons .app-button:active {
-            background-color: var(--primary-blue-hover);
-            transform: translateY(1px);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .settings-buttons .reset-button {
-            background-color: var(--red-alert);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .settings-buttons .reset-button:hover {
-            background-color: var(--red-alert-hover);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .settings-buttons .reset-button:active {
-            background-color: var(--red-alert-hover);
-            transform: translateY(2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            #settingsPanel {
-                background: var(--settings-panel-bg-dark);
-                border-color: var(--settings-panel-border-dark);
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            }
-
-            #settingsPanel h3 {
-                color: var(--settings-panel-text-dark);
-            }
-
-            .settings-option label {
-                color: var(--settings-panel-label-dark);
-            }
-
-            .settings-option input,
-            .settings-option select {
-                background-color: var(--settings-input-bg-dark);
-                color: var(--settings-panel-text-dark);
-                border-color: var(--settings-input-border-dark);
-            }
-        }
+/* Settings butonu için özel stiller (Güncellenmiş) */
+.settings-button {
+    /* Arka planı ve kenarlığı tamamen şeffaf yap */
+    background-color: transparent; /* Butonun gri arka planını kaldırır */
+    border: none; /* Butonun kenarlığını kaldırır */
+    padding: 0; /* Butonun iç boşluğunu sıfırlar */
+    box-shadow: none; /* Gölgeyi kaldır */
     
+    /* Temel buton özelliklerini koru */
+    display: inline-block;
+    cursor: pointer;
+    
+    /* Hover ve active efektleri için geçiş süresini ayarla */
+    transition: transform 0.3s ease; /* Sadece transform için geçiş, renk için ayrı */
+    
+    /* Touch davranışını iyileştir */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    /* Font size, eğer text olsaydı etkileyecekti, ikon için doğrudan .fas kullanılır */
+    font-size: 15px; /* Bu değer ikon için geçerli olacak, metin olmadığı için ikon boyutu alacak */
+}
+
+.settings-button .fas {
+    /* Dişli ikonunun kendisinin rengini gri yap */
+    color: var(--secondary-gray); /* Çark ikonunu gri yapar */
+    
+    /* İkonun boyutunu ayarla */
+    font-size: 28px; /* İkonun boyutunu istediğiniz gibi ayarlayın (örn. 24px, 32px vb.) */
+    
+    /* Renk değişimleri için pürüzsüz geçiş */
+    transition: color 0.3s ease, transform 0.3s ease; /* Renk ve transform için geçiş */
+}
+
+.settings-button:hover {
+    /* Artık arka plan veya gölge değişimi olmayacak, sadece ikon efekti */
+    /* Eski background-color ve box-shadow kuralları artık uygulanmayacak */
+    /* Eğer butonun kendisi hareket etsin isterseniz bu kuralı kullanın,
+       aksi takdirde ikonun transform'unu kullanın. */
+    transform: translateY(0); /* Butonun kendi hareketini sıfırla, ikon hareket edecek */
+}
+
+.settings-button:hover .fas {
+    color: var(--secondary-gray-hover); /* Hover'da ikon rengini biraz koyulaştır */
+    transform: scale(1.1); /* Hafif bir büyütme efekti ekle */
+}
+
+.settings-button:active {
+    /* Artık arka plan veya gölge değişimi olmayacak */
+    /* Eski background-color ve box-shadow kuralları artık uygulanmayacak */
+    transform: translateY(0); /* Butonun kendi hareketini sıfırla, ikon hareket edecek */
+}
+
+.settings-button:active .fas {
+    color: var(--secondary-gray); /* Tıklanırken orijinal rengine dönsün */
+    transform: scale(0.95); /* Hafif bir küçültme efekti ekle */
+}
+
+
+#settingsPanel {
+    display: none;
+    margin: 15px auto;
+    padding: 15px;
+    border: 1px solid var(--settings-panel-border-light);
+    border-radius: 10px;
+    background: var(--settings-panel-bg-light);
+    max-width: 260px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#settingsPanel h3 {
+    margin-top: 0;
+    color: var(--settings-panel-text-light);
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.settings-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.settings-option label {
+    flex-basis: 55%;
+    text-align: left;
+    color: var(--settings-panel-label-light);
+    font-size: 15px;
+    padding-right: 10px;
+}
+
+.settings-option input,
+.settings-option select {
+    width: 100px;
+    padding: 8px 10px;
+    border: 1px solid var(--settings-input-border-light);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    background-color: var(--settings-input-bg-light);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#maxAmount::-webkit-outer-spin-button,
+#maxAmount::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#maxAmount {
+    -moz-appearance: textfield;
+}
+
+.settings-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.settings-buttons .app-button {
+    font-size: 15px;
+    padding: 8px 18px;
+}
+
+.settings-buttons .app-button:hover {
+    background-color: var(--primary-blue-hover);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+}
+
+.settings-buttons .app-button:active {
+    background-color: var(--primary-blue-hover);
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.settings-buttons .reset-button {
+    background-color: var(--red-alert);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.settings-buttons .reset-button:hover {
+    background-color: var(--red-alert-hover);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.settings-buttons .reset-button:active {
+    background-color: var(--red-alert-hover);
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+    #settingsPanel {
+        background: var(--settings-panel-bg-dark);
+        border-color: var(--settings-panel-border-dark);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    #settingsPanel h3 {
+        color: var(--settings-panel-text-dark);
+    }
+
+    .settings-option label {
+        color: var(--settings-panel-label-dark);
+    }
+
+    .settings-option input,
+    .settings-option select {
+        background-color: var(--settings-input-bg-dark);
+        color: var(--settings-panel-text-dark);
+        border-color: var(--settings-input-border-dark);
+    }
+}
