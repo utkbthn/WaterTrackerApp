@@ -23,9 +23,20 @@ body {
     background-color: #121212;
     color: white;
   }
-  
 
+.water-tracker-text {
+  text-align: center;
+  margin-top: 8px;
+  font-weight: bold;
+  color: black; /* Açık tema için default renk */
+}
 
+/* Koyu tema için renk */
+@media (prefers-color-scheme: dark) {
+  .water-tracker-text {
+    color: white;
+  }
+}
         .water-icon {
             max-width: 100px;
             height: auto;
@@ -239,6 +250,7 @@ body {
 </head>
 <body>
     <img src="images/water.logo.png" alt="Su Takipçisi Logosu" class="water-icon">
+    <p class="water-tracker-text">Water Tracker</p>
 
     <div class="progress">
         <div class="progress-text" id="status"></div>
