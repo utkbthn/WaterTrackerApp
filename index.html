@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script>
+        // Bu küçük betik, sayfa yüklenirken ilk rengi ayarlamak için çalışır.
+        // Kullanıcının localStorage'da kaydettiği tema tercihini kontrol eder.
+        const savedTheme = localStorage.getItem('darkMode');
+        if (savedTheme === 'true') {
+            // Eğer karanlık mod kaydedilmişse, hemen <html> etiketine 'dark-mode' sınıfını ekler.
+            document.documentElement.classList.add('dark-mode');
+        } else if (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // Eğer daha önce bir tercih kaydedilmemişse VE kullanıcının işletim sistemi karanlık moddaysa,
+            // <html> etiketine 'dark-mode' sınıfını ekler.
+            document.documentElement.classList.add('dark-mode');
+            // İsteğe bağlı: Sistem tercihini başlangıçta localStorage'a kaydetmek isterseniz bu satırı yorumdan çıkarın.
+            // localStorage.setItem('darkMode', 'true');
+        }
+    </script>
+    
     <link rel="stylesheet" href="style.css">
     <title>Water Tracker</title>
 </head>
@@ -17,43 +34,43 @@
     </div>
 
     <div class="main-buttons-container">
-    <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
-    <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">
-        <i class="fas fa-gear"></i>
-    </button>
-</div>
+        <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
+        <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">
+            <i class="fas fa-gear"></i>
+        </button>
+    </div>
     <div id="settingsPanel">
-    <div class="settings-option">
-        <label for="addAmount">İçilen Su Miktarı (ml):</label>
-        <select id="addAmount">
-            <option value="100">100 ml</option>
-            <option value="150">150 ml</option>
-            <option value="200">200 ml</option>
-            <option value="250">250 ml</option>
-            <option value="300">300 ml</option>
-            <option value="330">330 ml</option>
-            <option value="350">350 ml</option>
-            <option value="400">400 ml</option>
-            <option value="500">500 ml</option>
-        </select>
+        <div class="settings-option">
+            <label for="addAmount">İçilen Su Miktarı (ml):</label>
+            <select id="addAmount">
+                <option value="100">100 ml</option>
+                <option value="150">150 ml</option>
+                <option value="200">200 ml</option>
+                <option value="250">250 ml</option>
+                <option value="300">300 ml</option>
+                <option value="330">330 ml</option>
+                <option value="350">350 ml</option>
+                <option value="400">400 ml</option>
+                <option value="500">500 ml</option>
+            </select>
+        </div>
+        <div class="settings-option">
+            <label for="maxAmount">Günlük Hedef (ml):</label>
+            <input type="number" id="maxAmount" min="500" step="100">
+        </div>
+        <div class="settings-option">
+            <label for="darkModeToggle">Karanlık Mod:</label>
+            <input type="checkbox" id="darkModeToggle">
+        </div>
+        <div class="settings-buttons">
+            <button onclick="saveAndCloseSettings()" class="app-button">Tamam</button>
+            <button onclick="resetWater()" class="app-button reset-button">Sıfırla</button>
+        </div>
     </div>
-    <div class="settings-option">
-        <label for="maxAmount">Günlük Hedef (ml):</label>
-        <input type="number" id="maxAmount" min="500" step="100">
-    </div>
-    <div class="settings-option">
-        <label for="darkModeToggle">Karanlık Mod:</label>
-        <input type="checkbox" id="darkModeToggle">
-    </div>
-    <div class="settings-buttons">
-        <button onclick="saveAndCloseSettings()" class="app-button">Tamam</button>
-        <button onclick="resetWater()" class="app-button reset-button">Sıfırla</button>
-    </div>
-</div>
 
-<div id="tipBubble" class="tip-bubble">
-    <p id="tipContent"></p>
-</div>
-<script src="script.js"></script> 
+    <div id="tipBubble" class="tip-bubble">
+        <p id="tipContent"></p>
+    </div>
+    <script src="script.js"></script>    
 </body>
 </html>
