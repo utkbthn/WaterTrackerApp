@@ -23,16 +23,15 @@
     --settings-panel-bg-light: #fff;
     --settings-panel-border-light: #ccc;
     --settings-panel-text-light: #333;
-    --settings-panel-label-light: #555;
     --settings-input-bg-light: #fff;
     --settings-input-border-light: #ddd;
 
     --settings-panel-bg-dark: #2a2a2a; /* Dark mode için settings panel rengi */
     --settings-panel-border-dark: #444;
     --settings-panel-text-dark: #eee;
-    --settings-panel-label-dark: #ccc;
     --settings-input-bg-dark: #3a3a3a;
     --settings-input-border-dark: #555;
+    --settings-panel-label-light: #555; /* Label rengini buraya ekledim */
 }
 
 /* Genel <html> Stilleri ve Tema Geçişleri */
@@ -54,7 +53,7 @@ html.dark-mode {
     --settings-panel-bg-light: var(--settings-panel-bg-dark);
     --settings-panel-border-light: var(--settings-panel-border-dark);
     --settings-panel-text-light: var(--settings-panel-text-dark);
-    --settings-panel-label-light: var(--settings-panel-label-dark);
+    --settings-panel-label-light: var(--settings-panel-label-dark); /* Dark mod label rengi */
     --settings-input-bg-light: var(--settings-input-bg-dark);
     --settings-input-border-light: var(--settings-input-border-dark);
 }
@@ -87,7 +86,7 @@ html.dark-mode .water-icon {
     transform: scale(1.05);
 }
 
-/* Progress Bar Stilleri (Yorum satırları kaldırıldı ve geri getirildi) */
+/* Progress Bar Stilleri (Şimdi aktif) */
 .progress {
     position: relative;
     height: 25px;
