@@ -3,40 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Tracker</title> 
+    <title>Water Tracker</title>
     <style>
+        /* CSS Değişkenleri */
+        :root {
+            --light-background: white;
+            --light-text-color: black;
+            --dark-background: #121212;
+            --dark-text-color: white;
+            --primary-blue: #3399ff;
+            --primary-blue-hover: #2a7acc;
+            --secondary-gray: #a0a0a0;
+            --secondary-gray-hover: #888888;
+            --red-alert: #ff6666;
+            --red-alert-hover: #cc4c4c;
+            --success-green: #4CAF50;
+            --progress-bar-start: #4CAF50;
+            --progress-bar-end: #2196F3;
+            --settings-panel-bg-light: #fff;
+            --settings-panel-border-light: #ccc;
+            --settings-panel-text-light: #333;
+            --settings-panel-label-light: #555;
+            --settings-input-bg-light: #fff;
+            --settings-input-border-light: #ddd;
+        }
+
         body {
-  font-family: sans-serif;
-  text-align: center;
-  padding-bottom: 50px;
+            font-family: sans-serif;
+            text-align: center;
+            padding-bottom: 50px;
+            background-color: var(--light-background);
+            color: var(--light-text-color);
+        }
 
-  /* Açık tema (varsayılan) */
-  background-color: white;
-  color: black;
-}
+        /* Koyu tema (dark mode) */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--dark-background);
+                color: var(--dark-text-color);
+            }
+        }
 
-/* Koyu tema (dark mode) */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #121212;
-    color: white;
-  }
-}
+        .water-tracker-text {
+            text-align: center;
+            margin-top: 8px;
+            font-weight: bold;
+            color: var(--light-text-color);
+        }
 
+        @media (prefers-color-scheme: dark) {
+            .water-tracker-text {
+                color: var(--dark-text-color);
+            }
+        }
 
-.water-tracker-text {
-  text-align: center;
-  margin-top: 8px;
-  font-weight: bold;
-  color: black; /* Açık tema için default renk */
-}
-
-/* Koyu tema için renk */
-@media (prefers-color-scheme: dark) {
-  .water-tracker-text {
-    color: white;
-  }
-}
         .water-icon {
             max-width: 100px;
             height: auto;
@@ -80,7 +100,7 @@
         .progress-bar {
             height: 100%;
             width: 0;
-            background: linear-gradient(to right, #4CAF50, #2196F3);
+            background: linear-gradient(to right, var(--progress-bar-start), var(--progress-bar-end));
             transition: width 0.4s ease-out;
             border-radius: 12px;
         }
@@ -92,7 +112,7 @@
             cursor: pointer;
             border: none;
             border-radius: 8px;
-            background-color: #3399ff;
+            background-color: var(--primary-blue);
             color: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease,
@@ -108,13 +128,13 @@
         }
 
         .app-button:hover {
-            background-color: #2a7acc;
+            background-color: var(--primary-blue-hover);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
             transform: translateY(-2px);
         }
 
         .app-button:active {
-            background-color: #2a7acc;
+            background-color: var(--primary-blue-hover);
             transform: translateY(2px);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
@@ -122,45 +142,44 @@
         .settings-button {
             font-size: 14px;
             padding: 8px 20px;
-            background-color: #a0a0a0;
+            background-color: var(--secondary-gray);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .settings-button:hover {
-            background-color: #888888;
+            background-color: var(--secondary-gray-hover);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
             transform: translateY(-1px);
         }
 
         .settings-button:active {
-            background-color: #888888;
+            background-color: var(--secondary-gray-hover);
             transform: translateY(1px);
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
         }
-        
+
         .main-buttons-container {
-            margin-top: 15px; 
-            margin-bottom: 5px; 
+            margin-top: 15px;
+            margin-bottom: 5px;
         }
         .main-buttons-container .app-button:first-child {
-            margin-bottom: 5px; 
+            margin-bottom: 5px;
         }
-
 
         #settingsPanel {
             display: none;
             margin: 15px auto;
             padding: 15px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--settings-panel-border-light);
             border-radius: 10px;
-            background: #fff;
+            background: var(--settings-panel-bg-light);
             max-width: 260px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         #settingsPanel h3 {
             margin-top: 0;
-            color: #333;
+            color: var(--settings-panel-text-light);
             margin-bottom: 15px;
             font-size: 1.1em;
         }
@@ -176,7 +195,7 @@
         .settings-option label {
             flex-basis: 55%;
             text-align: left;
-            color: #555;
+            color: var(--settings-panel-label-light);
             font-size: 15px;
             padding-right: 10px;
         }
@@ -185,12 +204,12 @@
         .settings-option select {
             width: 100px;
             padding: 8px 10px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--settings-input-border-light);
             border-radius: 5px;
             text-align: center;
             font-size: 16px;
-            height: 38px;
-            background-color: #fff;
+            /* height: 38px; <-- Bu satır mobil duyarlılığı için kaldırılmıştı, önceki gibi kalsın */
+            background-color: var(--settings-input-bg-light);
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -219,32 +238,56 @@
         }
 
         .settings-buttons .app-button:hover {
-            background-color: #2a7acc;
+            background-color: var(--primary-blue-hover);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
             transform: translateY(-1px);
         }
 
         .settings-buttons .app-button:active {
-            background-color: #2a7acc;
+            background-color: var(--primary-blue-hover);
             transform: translateY(1px);
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .settings-buttons .reset-button {
-            background-color: #ff6666;
+            background-color: var(--red-alert);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .settings-buttons .reset-button:hover {
-            background-color: #cc4c4c;
+            background-color: var(--red-alert-hover);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
             transform: translateY(-2px);
         }
 
         .settings-buttons .reset-button:active {
-            background-color: #cc4c4c;
+            background-color: var(--red-alert-hover);
             transform: translateY(2px);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Koyu tema için Ayarlar Paneli stilleri */
+        @media (prefers-color-scheme: dark) {
+            #settingsPanel {
+                background: var(--settings-panel-bg-dark);
+                border-color: var(--settings-panel-border-dark);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            #settingsPanel h3 {
+                color: var(--settings-panel-text-dark);
+            }
+
+            .settings-option label {
+                color: var(--settings-panel-label-dark);
+            }
+
+            .settings-option input,
+            .settings-option select {
+                background-color: var(--settings-input-bg-dark);
+                color: var(--settings-panel-text-dark);
+                border-color: var(--settings-input-border-dark);
+            }
         }
     </style>
 </head>
@@ -260,11 +303,10 @@
     <div class="main-buttons-container">
         <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
         <br>
-        <button onclick="openSettings()" class="app-button settings-button">Settings</button>
+        <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">Settings</button>
     </div>
 
     <div id="settingsPanel">
-        <h3></h3>
         <div class="settings-option">
             <label for="addAmount">İçilen Su Miktarı (ml):</label>
             <select id="addAmount">
@@ -319,80 +361,89 @@
         }
 
         function updateDisplay() {
-    let percent = (currentWaterAmount / maxWaterGoal) * 100;
-    if (percent > 100) percent = 100;
-    if (percent < 0) percent = 0;
+            let percent = (currentWaterAmount / maxWaterGoal) * 100;
+            if (percent > 100) percent = 100;
+            if (percent < 0) percent = 0;
 
-    progressBar.style.width = percent + "%";
-    statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
+            progressBar.style.width = percent + "%";
+            statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
 
-    const drinkButton = document.getElementById("drinkButton");
-
-    if (currentWaterAmount >= maxWaterGoal) {
-        drinkButton.innerText = "Afiyet Olsun! 🎉";
-        drinkButton.style.backgroundColor = "#4CAF50"; // Yeşil yap
-     
-    } else {
-        drinkButton.innerText = "Drink"; // Metni "Drink" yap
-        drinkButton.style.backgroundColor = "#3399ff"; // Varsayılan mavi rengine dön
-        // drinkButton.style.opacity = "1"; // Bu satırı da kaldırıyoruz
-    }
- 
-    drinkButton.style.cursor = "pointer";
-}
-}
+            const drinkButton = document.getElementById("drinkButton");
+            if (drinkButton) { // Butonun varlığını kontrol ediyoruz
+                if (currentWaterAmount >= maxWaterGoal) {
+                    drinkButton.innerText = "Afiyet Olsun! 🎉";
+                    drinkButton.style.backgroundColor = "var(--success-green)";
+                    drinkButton.style.cursor = "pointer"; // Tıklanabilir kalsın
+                } else {
+                    drinkButton.innerText = "Drink";
+                    drinkButton.style.backgroundColor = "var(--primary-blue)";
+                    drinkButton.style.cursor = "pointer";
+                }
+            }
+        }
 
         function addWater() {
             if (currentWaterAmount < maxWaterGoal) {
                 currentWaterAmount += addWaterAmount;
                 if (currentWaterAmount > maxWaterGoal) currentWaterAmount = maxWaterGoal;
                 localStorage.setItem("water", currentWaterAmount);
-                updateDisplay();
+                updateDisplay(); // Su eklendikten sonra ekranı güncelle
             }
         }
 
         function resetWater() {
             currentWaterAmount = 0;
             localStorage.setItem("water", currentWaterAmount);
-            updateDisplay();
+            // Sıfırlama sonrası "Drink" butonunun metnini ve rengini varsayılana döndür
+            const drinkButton = document.getElementById("drinkButton");
+            if (drinkButton) {
+                drinkButton.innerText = "Drink";
+                drinkButton.style.backgroundColor = "var(--primary-blue)";
+                drinkButton.style.cursor = "pointer";
+            }
+            updateDisplay(); // Sıfırlama sonrası ekranı güncelle
             document.getElementById("settingsPanel").style.display = "none";
         }
 
         function openSettings() {
-    const settingsPanel = document.getElementById("settingsPanel");
-    if (settingsPanel.style.display === "none" || settingsPanel.style.display === "") {
-        document.getElementById("maxAmount").value = maxWaterGoal;
-        document.getElementById("addAmount").value = addWaterAmount;
-        settingsPanel.style.display = "block";
-    } else {
-        settingsPanel.style.display = "none";
-    }
-}
+            const settingsPanel = document.getElementById("settingsPanel");
+            // Ayarlar panelini açmadan önce input değerlerini güncelliyoruz
+            document.getElementById("maxAmount").value = maxWaterGoal;
+            document.getElementById("addAmount").value = addWaterAmount;
 
+            if (settingsPanel.style.display === "none" || settingsPanel.style.display === "") {
+                settingsPanel.style.display = "block";
+            } else {
+                settingsPanel.style.display = "none";
+            }
+        }
 
         function saveAndCloseSettings() {
-    const newMax = parseInt(document.getElementById("maxAmount").value);
-    const newAdd = parseInt(document.getElementById("addAmount").value);
+            const newMax = parseInt(document.getElementById("maxAmount").value);
+            const newAdd = parseInt(document.getElementById("addAmount").value);
 
-    if (!isNaN(newMax) && newMax >= 500) {
-        maxWaterGoal = newMax;
-        localStorage.setItem("maxWater", maxWaterGoal);
-    }
+            if (isNaN(newMax) || newMax < 500) {
+                alert("Günlük hedef en az 500 ml olmalı ve sayısal bir değer girilmelidir!");
+                document.getElementById("maxAmount").value = maxWaterGoal; // Geçersiz değeri geri yükle
+                return;
+            }
 
-    if (!isNaN(newAdd)) {
-        addWaterAmount = newAdd;
-        localStorage.setItem("addAmount", addWaterAmount);
-    }
+            maxWaterGoal = newMax;
+            localStorage.setItem("maxWater", maxWaterGoal);
 
-    updateDisplay();
-    document.getElementById("settingsPanel").style.display = "none";
-}
+            if (!isNaN(newAdd)) {
+                addWaterAmount = newAdd;
+                localStorage.setItem("addAmount", addWaterAmount);
+            }
 
+            updateDisplay(); // Ayarlar kaydedildikten sonra ekranı güncelle
+            document.getElementById("settingsPanel").style.display = "none";
+        }
 
-    window.onload = function () {
-    resetWaterIfNewDay();
-    updateDisplay();
-};
+        window.onload = function () {
+            resetWaterIfNewDay(); // Sayfa yüklendiğinde günlük sıfırlama kontrolü yap
+            updateDisplay(); // Sayfa yüklendiğinde ekranı ilk kez güncelle
+        };
     </script>
 </body>
 </html>
