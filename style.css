@@ -83,6 +83,11 @@ body {
     overflow: hidden;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+@media (prefers-color-scheme: dark) {
+    .progress-text {
+        color: var(--dark-text-color);
+    }
+}
 
 /* İlerleme Çubuğu İçindeki Metin */
 .progress-text {
