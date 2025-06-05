@@ -83,25 +83,44 @@ body {
     overflow: hidden;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+/* YATAY PROGRESS BAR KODLARI */
+.progress {
+    position: relative;
+    height: 25px;
+    background: #e0e0e0;
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 320px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* İlerleme Çubuğu İçindeki Metin */
 .progress-text {
     position: absolute;
     width: 100%;
     text-align: center;
-    line-height: 25px;
-    color: black;
+    /* Önceki line-height yerine Flexbox veya transform ile dikey ortalama */
+    /* line-height: 25px; /* Bu satırı kaldırıyoruz */
+    
+    color: white; /* Varsayılan olarak beyaz kalır (açık mod için) */
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
     z-index: 1;
-    top: 0;
-    left: 0;
+    
+    /* Dikey ortalama için yeni eklenen satırlar */
+    top: 50%; /* Üstten %50 konumlandır */
+    transform: translateY(-50%); /* Kendi yüksekliğinin %50'si kadar yukarı kaydır */
+    
+    left: 0; /* Yatayda sola hizalı kalsın (width: 100% ile zaten ortalı) */
 }
 
-.progress-bar {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(to right, var(--progress-bar-start), var(--progress-bar-end));
-    transition: width 0.4s ease-out;
-    border-radius: 12px;
+/* Koyu tema (dark mode) için progress bar yazısı */
+@media (prefers-color-scheme: dark) {
+    .progress-text {
+        color: black; /* Dark mode'da metin rengini doğrudan siyaha ayarlar */
+        text-shadow: none; /* İsteğe bağlı: Gölgeyi kaldırabiliriz */
+    }
 }
 
 .app-button {
