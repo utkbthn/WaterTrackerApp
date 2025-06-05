@@ -310,3 +310,37 @@ body {
         background-color: var(--secondary-gray-active); /* Dark mode'da da gri active */
     }
 }
+
+/* Tips Baloncuğu Stilleri */
+.tip-bubble {
+    position: fixed; /* Sayfanın alt köşesine sabitler */
+    bottom: 20px; /* Alttan boşluk */
+    right: 20px; /* Sağdan boşluk */
+    background-color: var(--primary-blue); /* Ana mavi rengi kullanır */
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 250px; /* Maksimum genişlik */
+    text-align: center;
+    font-size: 14px;
+    opacity: 0; /* Başlangıçta gizli */
+    visibility: hidden; /* Başlangıçta gizli */
+    transform: translateY(20px); /* Alttan biraz aşağıda başlar */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s;
+    z-index: 1000; /* Diğer öğelerin üzerinde görünmesini sağlar */
+}
+
+.tip-bubble.show {
+    opacity: 1; /* Görünür hale gelir */
+    visibility: visible; /* Görünür hale gelir */
+    transform: translateY(0); /* Kendi pozisyonuna gelir */
+}
+
+/* Karanlık Mod İçin Tips Baloncuğu */
+@media (prefers-color-scheme: dark) {
+    .tip-bubble {
+        background-color: #444; /* Dark modda daha koyu gri bir arka plan */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+}
