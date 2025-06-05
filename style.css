@@ -66,10 +66,6 @@ body {
     transition: transform 0.3s ease-in-out;
 }
 
-.water-icon:hover {
-    transform: scale(1.05);
-}
-
 /* YATAY PROGRESS BAR KODLARI */
 .progress {
     position: relative;
@@ -126,10 +122,9 @@ body {
     user-select: none;
 }
 
-.app-button:hover {
-    background-color: var(--primary-blue-hover);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+/* Sadece :active efekti */
+.water-icon:active {
+    transform: scale(1.05); /* Tıklama anında hafif büyüt */
 }
 
 .app-button:active {
@@ -138,7 +133,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* Ana butonları içeren kapsayıcı (Güncellenmiş) */
+/* Ana butonları içeren kapsayıcı */
 .main-buttons-container {
     margin-top: 15px;
     display: flex; /* Flexbox kullanarak butonları yan yana hizalar */
@@ -148,31 +143,21 @@ body {
     margin-bottom: 5px; /* Mevcut margin-bottom kuralını koru */
 }
 
-/* Bu kurala artık flexbox nedeniyle gerek kalmayabilir, ancak bırakmak sorun yaratmaz */
-/* .main-buttons-container .app-button:first-child {
-    margin-bottom: 0;
-} */
-
-
 /* Settings butonu için özel stiller (Güncellenmiş) */
 .settings-button {
-    /* Başlangıçta şeffaf bir arka plan ve kenarlık yok */
-    background-color: transparent;
+    background-color: transparent; /* Başlangıçta şeffaf */
     border: none;
-    padding: 5px; /* İkonun etrafına hafif bir padding ekle, hover'da gri alan oluşacak */
-    border-radius: 8px; /* App-button ile uyumlu, hafifçe yuvarlanmış köşeler */
-    box-shadow: none; /* Gölge yok */
+    padding: 5px; /* Tıklama anında gri alan için padding */
+    border-radius: 8px;
+    box-shadow: none;
     
-    /* Temel buton özelliklerini koru */
-    display: inline-flex; /* İçeriği (ikonu) kendi içinde ortalamak için */
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     
-    /* Hover ve active efektleri için pürüzsüz geçişler */
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     
-    /* Dokunmatik cihazlarda vurgulamayı ve metin seçimini engelle */
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -181,47 +166,27 @@ body {
     -ms-user-select: none;
     user-select: none;
     
-    /* font-size, ikonu değil butonu etkiler, ikon boyutu .fas içinde ayarlanır */
     font-size: 15px; 
 }
 
 .settings-button .fas {
-    /* Dişli ikonunun rengini gri yap */
     color: var(--secondary-gray); 
-    
-    /* İkonun boyutunu ayarla */
-    font-size: 28px; /* İkonun boyutunu buradan ayarlayabilirsin (örn. 24px, 32px vb.) */
-    
-    /* Renk ve boyut değişimleri için pürüzsüz geçiş */
+    font-size: 28px; 
     transition: color 0.3s ease, transform 0.3s ease; 
-}
-
-/* Settings butonu üzerine gelindiğinde (hover) efekti */
-.settings-button:hover {
-    background-color: var(--secondary-gray-hover); /* Hover'da arka planı gri yapar */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12); /* Hafif bir gölge ekle */
-    transform: translateY(-1px); /* Hafifçe yukarı kaydırma efekti */
-}
-
-/* Settings butonu üzerine gelindiğinde ikonun efekti */
-.settings-button:hover .fas {
-    color: var(--secondary-gray); /* İkon rengi hover'da da gri kalabilir */
-    transform: scale(1.05); /* İkonu hafifçe büyüt */
 }
 
 /* Settings butonu tıklandığında (active) efekti */
 .settings-button:active {
-    background-color: var(--secondary-gray); /* Tıklanırken daha koyu bir gri olsun */
-    transform: translateY(1px); /* Hafifçe aşağı kaydırma efekti */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); /* Daha az belirgin bir gölge */
+    background-color: var(--secondary-gray-hover); /* Tıklama anında gri arka plan */
+    transform: translateY(1px); /* Hafifçe aşağı kaydır */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 /* Settings butonu tıklandığında ikonun efekti */
 .settings-button:active .fas {
-    color: var(--secondary-gray-hover); /* İkon rengi active'de biraz koyulaşabilir */
+    color: var(--secondary-gray); /* İkon rengi active'de de gri kalabilir */
     transform: scale(0.95); /* İkonu hafifçe küçült */
 }
-
 
 #settingsPanel {
     display: none;
@@ -293,12 +258,6 @@ body {
     padding: 8px 18px;
 }
 
-.settings-buttons .app-button:hover {
-    background-color: var(--primary-blue-hover);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-    transform: translateY(-1px);
-}
-
 .settings-buttons .app-button:active {
     background-color: var(--primary-blue-hover);
     transform: translateY(1px);
@@ -308,12 +267,6 @@ body {
 .settings-buttons .reset-button {
     background-color: var(--red-alert);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.settings-buttons .reset-button:hover {
-    background-color: var(--red-alert-hover);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
 }
 
 .settings-buttons .reset-button:active {
@@ -344,12 +297,8 @@ body {
         border-color: var(--settings-input-border-dark);
     }
     
-    /* Dark mode için settings butonu hover/active renkleri */
-    .settings-button:hover {
-        background-color: var(--secondary-gray-hover); /* Dark mode'da da gri hover */
-    }
-
+    /* Dark mode için settings butonu active renkleri */
     .settings-button:active {
-        background-color: var(--secondary-gray); /* Dark mode'da da gri active */
+        background-color: var(--secondary-gray-hover); /* Dark mode'da da gri active */
     }
 }
