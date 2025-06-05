@@ -7,18 +7,18 @@ let addWaterAmount = parseInt(localStorage.getItem("addAmount")) || DEFAULT_ADD_
 
 let isDarkMode = localStorage.getItem("darkMode") === "true";
 
-const waterFill = document.getElementById("waterFill");
+const progressBar = document.getElementById("progressBar"); // BURASI DEĞİŞTİ: waterFill yerine progressBar
 const statusDisplay = document.getElementById("status");
-const darkModeToggle = document.getElementById("darkModeToggle"); 
-const rootElement = document.documentElement; 
+const darkModeToggle = document.getElementById("darkModeToggle");    
+const rootElement = document.documentElement;    
 
 let lastResetDate = localStorage.getItem("lastResetDate");
 
 function applyTheme() {
     if (isDarkMode) {
-        rootElement.classList.add("dark-mode"); // BURASI DEĞİŞTİ: body yerine rootElement kullanıldı
+        rootElement.classList.add("dark-mode");
     } else {
-        rootElement.classList.remove("dark-mode"); // BURASI DEĞİŞTİ: body yerine rootElement kullanıldı
+        rootElement.classList.remove("dark-mode");
     }
 }
 
@@ -46,7 +46,7 @@ function updateDisplay() {
     if (percent > 100) percent = 100;
     if (percent < 0) percent = 0;
 
-    waterFill.style.height = percent + "%"; 
+    progressBar.style.width = percent + "%"; // BURASI DEĞİŞTİ: height yerine width kullandık
     
     statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
 
@@ -66,13 +66,13 @@ function updateDisplay() {
 
 // Su ekleme fonksiyonu
 function addWater() {
-    if (currentWaterAmount < maxWaterGoal) { // Hedefe ulaşılmadıysa ekleme yap
+    if (currentWaterAmount < maxWaterGoal) {
         currentWaterAmount += addWaterAmount;
-        if (currentWaterAmount > maxWaterGoal) { // Hedefi aşarsa hedef miktarına sabitle
+        if (currentWaterAmount > maxWaterGoal) {
             currentWaterAmount = maxWaterGoal;
         }
-        localStorage.setItem("water", currentWaterAmount); // localStorage'a kaydet
-        updateDisplay(); // Ekranı güncelle
+        localStorage.setItem("water", currentWaterAmount);
+        updateDisplay();
     }
 }
 
@@ -86,8 +86,7 @@ function resetWater() {
         drinkButton.style.backgroundColor = "var(--primary-blue)";
         drinkButton.style.cursor = "pointer";
     }
-    updateDisplay(); // Ekranı güncelle
-    // Ayarlar paneli açıksa kapat
+    updateDisplay();
     if (document.getElementById("settingsPanel").style.display === "block") {
         document.getElementById("settingsPanel").style.display = "none";
     }
@@ -99,13 +98,12 @@ function openSettings() {
     document.getElementById("maxAmount").value = maxWaterGoal;
     document.getElementById("addAmount").value = addWaterAmount;
 
-    // --- Güncelleme: Karanlık mod anahtarının durumunu güncelle ---
-    darkModeToggle.checked = isDarkMode; // Checkbox'ın mevcut tema durumunu yansıtmasını sağlar
+    darkModeToggle.checked = isDarkMode;
 
     if (settingsPanel.style.display === "none" || settingsPanel.style.display === "") {
-        settingsPanel.style.display = "block"; // Paneli göster
+        settingsPanel.style.display = "block";
     } else {
-        settingsPanel.style.display = "none"; // Paneli gizle
+        settingsPanel.style.display = "none";
     }
 }
 
@@ -114,29 +112,26 @@ function saveAndCloseSettings() {
     const newMax = parseInt(document.getElementById("maxAmount").value);
     const newAdd = parseInt(document.getElementById("addAmount").value);
 
-    // Günlük hedef doğrulama
     if (isNaN(newMax) || newMax < 500) {
         alert("Günlük hedef en az 500 ml olmalı ve sayısal bir değer girilmelidir!");
-        document.getElementById("maxAmount").value = maxWaterGoal; // Geçersiz değeri geri yükle
-        return; // Fonksiyondan çık
+        document.getElementById("maxAmount").value = maxWaterGoal;
+        return;
     }
 
     maxWaterGoal = newMax;
-    localStorage.setItem("maxWater", maxWaterGoal); // localStorage'a kaydet
+    localStorage.setItem("maxWater", maxWaterGoal);
 
-    // İçilecek miktar doğrulama
     if (!isNaN(newAdd)) {
         addWaterAmount = newAdd;
-        localStorage.setItem("addAmount", addWaterAmount); // localStorage'a kaydet
+        localStorage.setItem("addAmount", addWaterAmount);
     }
 
-    // --- Güncelleme: Karanlık mod tercihini kaydet ve uygula ---
-    isDarkMode = darkModeToggle.checked; // Checkbox'ın mevcut durumunu al
-    localStorage.setItem("darkMode", isDarkMode); // Durumu localStorage'a kaydet
-    applyTheme(); // Yeni temayı hemen uygula
+    isDarkMode = darkModeToggle.checked;
+    localStorage.setItem("darkMode", isDarkMode);
+    applyTheme();
 
-    updateDisplay(); // Ekranı güncelle
-    document.getElementById("settingsPanel").style.display = "none"; // Paneli kapat
+    updateDisplay();
+    document.getElementById("settingsPanel").style.display = "none";
 }
 
 // Tips Baloncuğu Fonksiyonları
@@ -157,29 +152,28 @@ const tipBubble = document.getElementById("tipBubble");
 const tipContent = document.getElementById("tipContent");
 
 function showNextTip() {
-    tipBubble.classList.remove('show'); // Baloncuğu gizle
+    tipBubble.classList.remove('show');
     setTimeout(() => {
-        currentTipIndex = (currentTipIndex + 1) % tips.length; // Bir sonraki ipucuna geç
-        tipContent.innerText = tips[currentTipIndex]; // İçeriği güncelle
-        tipBubble.classList.add('show'); // Baloncuğu tekrar göster
-    }, 500); // Geçiş süresi kadar bekle (CSS transition ile aynı olmalı)
+        currentTipIndex = (currentTipIndex + 1) % tips.length;
+        tipContent.innerText = tips[currentTipIndex];
+        tipBubble.classList.add('show');
+    }, 500);
 }
 
-// Kullanıcı baloncuğa tıklarsa, bir sonraki ipucuna geçsin
 tipBubble.addEventListener('click', showNextTip);
 
 // Sayfa yüklendiğinde çalışacak fonksiyon
 window.onload = function () {
-    resetWaterIfNewDay(); // Yeni gün kontrolü ve sıfırlama
-    updateDisplay(); // Ekranı güncelle
-    applyTheme(); // Sayfa yüklendiğinde kaydedilmiş temayı uygula
-    showNextTip(); // İlk ipucunu göster
+    resetWaterIfNewDay();
+    updateDisplay();
+    applyTheme();
+    showNextTip();
     setInterval(showNextTip, 7200000); // 2 saatte bir ipucunu değiştir (7.200.000 ms)
 };
 
 // Karanlık mod anahtarı değiştiğinde temayı güncelle
 darkModeToggle.addEventListener("change", () => {
-    isDarkMode = darkModeToggle.checked; // Checkbox'ın yeni durumunu al
-    localStorage.setItem("darkMode", isDarkMode); // Durumu localStorage'a kaydet
-    applyTheme(); // Yeni temayı hemen uygula
+    isDarkMode = darkModeToggle.checked;
+    localStorage.setItem("darkMode", isDarkMode);
+    applyTheme();
 });
