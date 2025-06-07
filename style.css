@@ -133,7 +133,7 @@ html.dark-mode .progress-text {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    **width: 140px; /* Drink butonu için sabit genişlik ayarlandı */**
+    **width: 140px; /* Drink butonu için sabit genişlik */**
     **box-sizing: border-box; /* Padding dahil genişliği hesapla */**
 }
 
@@ -148,7 +148,7 @@ html.dark-mode .progress-text {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* Boşluk artırıldı, butona genişlik verdiğimiz için daha iyi durabilir */
+    **gap: 10px; /* Butonlar sabit genişlikte olduğu için boşluk 10px'e geri alındı */**
     margin-bottom: 5px;
 }
 
