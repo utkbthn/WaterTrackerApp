@@ -1,18 +1,40 @@
 const DEFAULT_MAX_WATER_AMOUNT = 2500;
 const DEFAULT_ADD_AMOUNT = 250;
 
-let currentWaterAmount = parseInt(localStorage.getItem("water")) || 0;
-let maxWaterGoal = parseInt(localStorage.getItem("maxWater")) || DEFAULT_MAX_WATER_AMOUNT;
-let addWaterAmount = parseInt(localStorage.getItem("addAmount")) || DEFAULT_ADD_AMOUNT;
+let currentWaterAmount;
+let maxWaterGoal;
+let addWaterAmount;
+let isDarkMode;
 
-let isDarkMode = localStorage.getItem("darkMode") === "true";
-
-const progressBar = document.getElementById("progressBar"); // Burası progressBar olarak doğru ayarlandı
+const progressBar = document.getElementById("progressBar");
 const statusDisplay = document.getElementById("status");
-const darkModeToggle = document.getElementById("darkModeToggle");    
-const rootElement = document.documentElement;    
+const darkModeToggle = document.getElementById("darkModeToggle");
+const rootElement = document.documentElement;
+const settingsPanel = document.getElementById("settingsPanel");
+const addAmountSelect = document.getElementById("addAmount");
+const maxAmountInput = document.getElementById("maxAmount");
+const drinkButton = document.getElementById("drinkButton");
+const settingsButton = document.getElementById("settingsButton");
+const saveSettingsButton = document.getElementById("saveSettingsButton");
+const resetWaterButton = document.getElementById("resetWaterButton");
+const tipBubble = document.getElementById("tipBubble");
+const tipContent = document.getElementById("tipContent");
 
-let lastResetDate = localStorage.getItem("lastResetDate");
+let lastResetDate;
+
+function loadInitialSettings() {
+    currentWaterAmount = Number(localStorage.getItem("water"));
+    if (isNaN(currentWaterAmount)) currentWaterAmount = 0;
+
+    maxWaterGoal = Number(localStorage.getItem("maxWater"));
+    if (isNaN(maxWaterGoal) || maxWaterGoal < 500) maxWaterGoal = DEFAULT_MAX_WATER_AMOUNT;
+
+    addWaterAmount = Number(localStorage.getItem("addAmount"));
+    if (isNaN(addWaterAmount)) addWaterAmount = DEFAULT_ADD_AMOUNT;
+
+    isDarkMode = localStorage.getItem("darkMode") === "true";
+    lastResetDate = localStorage.getItem("lastResetDate");
+}
 
 function applyTheme() {
     if (isDarkMode) {
@@ -20,9 +42,11 @@ function applyTheme() {
     } else {
         rootElement.classList.remove("dark-mode");
     }
+    if (darkModeToggle) {
+        darkModeToggle.checked = isDarkMode;
+    }
 }
 
-// Tarihi YYYY-MM-DD formatında string olarak döndüren yardımcı fonksiyon
 function getTodayDateString() {
     const today = new Date();
     const year = today.getFullYear();
@@ -31,30 +55,26 @@ function getTodayDateString() {
     return `${year}-${month}-${day}`;
 }
 
-// Gün değiştiyse su miktarını sıfırlayan fonksiyon
 function resetWaterIfNewDay() {
     const todayDate = getTodayDateString();
     if (lastResetDate !== todayDate) {
-        resetWater(); // Su miktarını sıfırla
-        lastResetDate = todayDate; // Son sıfırlama tarihini bugünün tarihi yap
-        localStorage.setItem("lastResetDate", lastResetDate); // localStorage'a kaydet
+        resetWater(true);
+        lastResetDate = todayDate;
+        localStorage.setItem("lastResetDate", lastResetDate);
     }
 }
 
 function updateDisplay() {
     let percent = (currentWaterAmount / maxWaterGoal) * 100;
-    if (percent > 100) percent = 100;
-    if (percent < 0) percent = 0;
+    percent = Math.min(Math.max(percent, 0), 100);
 
-    progressBar.style.width = percent + "%"; // ProgressBar için 'width' kullanıldı
-    
+    progressBar.style.width = percent + "%";
     statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
 
-    const drinkButton = document.getElementById("drinkButton");
     if (drinkButton) {
         if (currentWaterAmount >= maxWaterGoal) {
             drinkButton.innerText = "Afiyet Olsun! 🎉";
-            drinkButton.style.backgroundColor = "var(--success-green)"; 
+            drinkButton.style.backgroundColor = "var(--success-green)";
             drinkButton.style.cursor = "default";
         } else {
             drinkButton.innerText = "Drink";
@@ -64,7 +84,6 @@ function updateDisplay() {
     }
 }
 
-// Su ekleme fonksiyonu
 function addWater() {
     if (currentWaterAmount < maxWaterGoal) {
         currentWaterAmount += addWaterAmount;
@@ -76,45 +95,38 @@ function addWater() {
     }
 }
 
-// Suyu sıfırlama fonksiyonu
-function resetWater() {
+function resetWater(isAutoReset = false) {
     currentWaterAmount = 0;
     localStorage.setItem("water", currentWaterAmount);
-    const drinkButton = document.getElementById("drinkButton");
     if (drinkButton) {
         drinkButton.innerText = "Drink";
         drinkButton.style.backgroundColor = "var(--primary-blue)";
         drinkButton.style.cursor = "pointer";
     }
     updateDisplay();
-    if (document.getElementById("settingsPanel").style.display === "block") {
-        document.getElementById("settingsPanel").style.display = "none";
+    if (!isAutoReset && settingsPanel.style.display === "block") {
+        settingsPanel.style.display = "none";
     }
 }
 
-// Ayarlar panelini açma/kapatma fonksiyonu
-function openSettings() {
-    const settingsPanel = document.getElementById("settingsPanel");
-    document.getElementById("maxAmount").value = maxWaterGoal;
-    document.getElementById("addAmount").value = addWaterAmount;
-
-    darkModeToggle.checked = isDarkMode;
-
+function toggleSettings() {
     if (settingsPanel.style.display === "none" || settingsPanel.style.display === "") {
+        maxAmountInput.value = maxWaterGoal;
+        addAmountSelect.value = addWaterAmount;
+        darkModeToggle.checked = isDarkMode;
         settingsPanel.style.display = "block";
     } else {
         settingsPanel.style.display = "none";
     }
 }
 
-// Ayarları kaydetme ve paneli kapatma fonksiyonu
 function saveAndCloseSettings() {
-    const newMax = parseInt(document.getElementById("maxAmount").value);
-    const newAdd = parseInt(document.getElementById("addAmount").value);
+    const newMax = Number(maxAmountInput.value);
+    const newAdd = Number(addAmountSelect.value);
 
     if (isNaN(newMax) || newMax < 500) {
         alert("Günlük hedef en az 500 ml olmalı ve sayısal bir değer girilmelidir!");
-        document.getElementById("maxAmount").value = maxWaterGoal;
+        maxAmountInput.value = maxWaterGoal;
         return;
     }
 
@@ -125,16 +137,15 @@ function saveAndCloseSettings() {
         addWaterAmount = newAdd;
         localStorage.setItem("addAmount", addWaterAmount);
     }
-
+    
     isDarkMode = darkModeToggle.checked;
     localStorage.setItem("darkMode", isDarkMode);
     applyTheme();
 
     updateDisplay();
-    document.getElementById("settingsPanel").style.display = "none";
+    settingsPanel.style.display = "none";
 }
 
-// Tips Baloncuğu Fonksiyonları
 const tips = [
     "Su içmeyi unutmayın! Günde en az 8 bardak su hedefini deneyin.",
     "Susuzluk hissettiğinizde, vücudunuz zaten hafifçe susuz kalmıştır. Düzenli su için.",
@@ -148,8 +159,6 @@ const tips = [
 ];
 
 let currentTipIndex = 0;
-const tipBubble = document.getElementById("tipBubble");
-const tipContent = document.getElementById("tipContent");
 
 function showNextTip() {
     tipBubble.classList.remove('show');
@@ -160,20 +169,18 @@ function showNextTip() {
     }, 500);
 }
 
+drinkButton.addEventListener('click', addWater);
+settingsButton.addEventListener('click', toggleSettings);
+saveSettingsButton.addEventListener('click', saveAndCloseSettings);
+resetWaterButton.addEventListener('click', () => resetWater(false));
+darkModeToggle.addEventListener("change", applyTheme);
 tipBubble.addEventListener('click', showNextTip);
 
-// Sayfa yüklendiğinde çalışacak fonksiyon
 window.onload = function () {
+    loadInitialSettings();
     resetWaterIfNewDay();
     updateDisplay();
     applyTheme();
     showNextTip();
-    setInterval(showNextTip, 7200000); // 2 saatte bir ipucunu değiştir (7.200.000 ms)
+    setInterval(showNextTip, 7200000);
 };
-
-// Karanlık mod anahtarı değiştiğinde temayı güncelle
-darkModeToggle.addEventListener("change", () => {
-    isDarkMode = darkModeToggle.checked;
-    localStorage.setItem("darkMode", isDarkMode);
-    applyTheme();
-});
