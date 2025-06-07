@@ -130,7 +130,6 @@ html.dark-mode .progress-text {
     color: var(--dark-text-color);
 }
 
-/* Ana Drink butonu */
 .app-button {
     display: inline-block;
     font-size: 18px;
@@ -152,7 +151,6 @@ html.dark-mode .progress-text {
     width: 108px;
     height: 37px;
     box-sizing: border-box;
-    margin-right: 0;
     line-height: 37px;
     text-align: center;
 }
@@ -169,30 +167,29 @@ html.dark-mode .progress-text {
     justify-content: center;
     align-items: center;
     gap: 0;
-    margin-bottom: 10px; /* Yeni buton ile arasındaki boşluğu artırdık */
+    margin-bottom: 10px;
 }
 
-/* Eski settings-button (çark ikonu) stilleri kaldırıldı */
-/* .settings-button ve .settings-button .fas ile başlayan tüm bloklar kaldırıldı */
-
-/* Yeni Ana Ayarlar Butonu */
 .settings-main-button {
-    background-color: var(--secondary-gray); /* Gri renk */
-    color: white; /* Beyaz yazı */
-    width: calc(108px / 2); /* Drink butonunun yarısı genişlik */
-    height: calc(37px / 2); /* Drink butonunun yarısı yükseklik */
-    font-size: 14px; /* Boyutuna uygun font */
-    line-height: calc(37px / 2); /* Yükseklikle aynı line-height */
-    margin-top: 10px; /* Drink butonu ile arasındaki boşluk */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
-    border-radius: 6px; /* Biraz daha küçük border-radius */
-    padding: 0 10px; /* İç padding'i küçülttük */
+    background-color: var(--secondary-gray);
+    color: white;
+    width: calc(108px / 2);
+    height: calc(37px / 2);
+    font-size: 14px;
+    line-height: calc(37px / 2);
+    margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    padding: 0 10px;
+    display: block; /* Bu satırı ekledik */
+    margin-left: auto; /* Bu satırı ekledik */
+    margin-right: auto; /* Bu satırı ekledik */
 }
 
 .settings-main-button:active {
-    background-color: var(--secondary-gray-active); /* Aktif gri renk */
-    transform: translateY(1px); /* Hafif aşağı kayma */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    background-color: var(--secondary-gray-active);
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 #settingsPanel {
