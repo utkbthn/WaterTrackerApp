@@ -42,7 +42,7 @@ html {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-html.dark-mode {
+html.dark-mode { 
     --background-color: var(--dark-background);
     --text-color: var(--dark-text-color);
 
@@ -57,13 +57,13 @@ html.dark-mode {
 body {
     position: relative;
     min-height: 100vh;
-    margin: 0; /* Yeni eklendi */
-    padding: 0; /* Yeni eklendi */
+    margin: 0;
+    padding: 0;
 }
 
 .water-tracker-text {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 60px; /* Bu değer güncellendi */
     margin-bottom: 20px;
     font-weight: bold;
     font-size: 24px;
@@ -87,7 +87,7 @@ body {
 }
 
 html.dark-mode .water-icon {
-    box-shadow: none;
+    box-shadow: none; 
 }
 
 .water-icon:active {
@@ -176,7 +176,7 @@ html.dark-mode .progress-status-display {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0px;
+    gap: 0px; 
     margin-bottom: 5px;
 }
 
@@ -202,9 +202,9 @@ html.dark-mode .progress-status-display {
 }
 
 .top-right-settings-button {
-    position: fixed; /* Değişiklik burada! */
-    top: 10px; /* Daha küçük değer */
-    right: 10px; /* Daha küçük değer */
+    position: fixed;
+    top: 10px;
+    right: 10px;
     z-index: 100;
     background-color: transparent !important;
     box-shadow: none !important;
@@ -352,37 +352,4 @@ html.dark-mode .progress-status-display {
     background-color: var(--red-alert-active);
     transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-.tip-bubble {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 8px 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    max-width: 380px;
-    min-width: 250px;
-    text-align: center;
-    font-size: 14px;
-    line-height: 1.3;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-    z-index: 10;
-}
-
-.tip-bubble.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-}
-
-html.dark-mode .tip-bubble {
-    background-color: #3a3a3a;
-    color: #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
