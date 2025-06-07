@@ -140,8 +140,8 @@ html.dark-mode .progress-text {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 13px; /* Önceki 14px'den 13px'e düşürüldü */
-    padding: 0 8px; /* Önceki 0 9px'den 0 8px'e düşürüldü */
+    font-size: 16px; /* Başlangıçtaki haline geri alındı */
+    padding: 0 15px; /* Başlangıçtaki haline geri alındı */
     cursor: pointer;
     border: none;
     border-radius: 8px;
@@ -351,8 +351,8 @@ html.dark-mode .progress-text {
         max-width: 280px;
     }
     .app-button {
-        font-size: 11.5px; /* Önceki 12px'den 0.5px düşürüldü */
-        padding: 0 6px; /* Önceki 0 7px'den 1px düşürüldü */
+        font-size: 14px; /* Orijinal boyutlarına yakın hale getirildi */
+        padding: 0 10px; /* Orijinal boyutlarına yakın hale getirildi */
         width: 100px;
         height: 31px;
     }
@@ -386,8 +386,8 @@ html.dark-mode .progress-text {
         padding: 20px;
     }
     .app-button {
-        font-size: 14px; /* Önceki 15px'den 1px düşürüldü */
-        padding: 0 13px; /* Önceki 0 14px'den 1px düşürüldü */
+        font-size: 17px; /* Orijinal boyutlarına yakın hale getirildi */
+        padding: 0 18px; /* Orijinal boyutlarına yakın hale getirildi */
         width: 108px;
         height: 42px;
     }
@@ -434,8 +434,8 @@ html.dark-mode .progress-text {
     .app-button {
         width: 100px;
         height: 30px;
-        font-size: 11.5px; /* Önceki 12px'den 0.5px düşürüldü */
-        padding: 0 6px; /* Önceki 0 7px'den 1px düşürüldü */
+        font-size: 14px; /* Orijinal boyutlarına yakın hale getirildi */
+        padding: 0 10px; /* Orijinal boyutlarına yakın hale getirildi */
     }
     .settings-main-button {
         width: calc(100px / 2);
