@@ -10,11 +10,7 @@
         if (savedTheme === 'true') {
             document.documentElement.classList.add('dark-mode');
         } else if (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            // Eğer daha önce bir tercih kaydedilmemişse VE kullanıcının işletim sistemi karanlık moddaysa,
-            // <html> etiketine 'dark-mode' sınıfını ekler.
             document.documentElement.classList.add('dark-mode');
-            // İsteğe bağlı: Sistem tercihini başlangıçta localStorage'a kaydetmek isterseniz bu satırı yorumdan çıkarın.
-            // localStorage.setItem('darkMode', 'true');
         }
     </script>
     
@@ -22,14 +18,15 @@
     <title>Water Tracker</title>
 </head>
 <body>
- <div class="icon-and-progressbar-container">
-    <img src="images/water.logo.png" alt="Su Takipçisi Logosu" class="water-icon">
-    <div class="progress">
-        <div class="progress-text" id="status"></div>
-        <div class="progress-bar" id="progressBar"></div>
+    <p class="water-tracker-text">Water Tracker</p>
+    <div class="icon-and-progressbar-container">
+        <img src="images/water.logo.png" alt="Su Takipçisi Logosu" class="water-icon">
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
     </div>
-</div>
-<p class="water-tracker-text">Water-Tracker</p>
+    <div class="progress-status-display" id="status"></div>
+
     <div class="main-buttons-container">
         <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
         <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">
