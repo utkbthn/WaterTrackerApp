@@ -40,11 +40,18 @@
 
 html {
     font-family: sans-serif;
-    text-align: center;
+    /* text-align: center; buradan kaldırıldı, body'ye taşındı */
     padding-bottom: 50px;
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Yeni eklenen veya güncellenen body stili */
+body {
+    text-align: center; /* Tüm sayfa içeriğini yatayda ortalamak için */
+    margin: 0; /* Tarayıcının varsayılan dış boşluklarını sıfırla */
+    padding: 0; /* Tarayıcının varsayılan iç boşluklarını sıfırla */
 }
 
 html.dark-mode {
@@ -130,6 +137,7 @@ html.dark-mode .progress-text {
     color: var(--dark-text-color);
 }
 
+/* Ana Drink butonu */
 .app-button {
     display: inline-block;
     font-size: 18px;
@@ -151,6 +159,7 @@ html.dark-mode .progress-text {
     width: 108px;
     height: 37px;
     box-sizing: border-box;
+    /* margin-right: 0; satırını tamamen kaldırdık, çünkü sorun yaratıyordu */
     line-height: 37px;
     text-align: center;
 }
@@ -161,40 +170,45 @@ html.dark-mode .progress-text {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
+/* Drink butonunu ortalamak için kapsayıcı */
 .main-buttons-container {
     margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
+    display: flex; /* İçindeki öğeleri (Drink butonu) esnek kutu olarak düzenle */
+    justify-content: center; /* İçindeki öğeyi yatayda ortala */
+    align-items: center; /* İçindeki öğeyi dikeyde ortala (tek öğe için etkisi az) */
+    gap: 0; /* Öğeler arasında boşluk bırakma */
     margin-bottom: 10px;
 }
 
+/* Yeni Ana Ayarlar Butonu */
 .settings-main-button {
-    background-color: var(--secondary-gray);
-    color: white;
-    width: calc(108px / 2);
-    height: calc(37px / 2);
-    font-size: 14px;
-    line-height: calc(37px / 2);
-    margin-top: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-    padding: 0 10px;
-    display: block; /* Bu satırı ekledik */
-    margin-left: auto; /* Bu satırı ekledik */
-    margin-right: auto; /* Bu satırı ekledik */
+    background-color: var(--secondary-gray); /* Gri renk */
+    color: white; /* Beyaz yazı */
+    width: calc(108px / 2); /* Drink butonunun yarısı genişlik */
+    height: calc(37px / 2); /* Drink butonunun yarısı yükseklik */
+    font-size: 14px; /* Boyutuna uygun font */
+    line-height: calc(37px / 2); /* Yükseklikle aynı line-height */
+    margin-top: 10px; /* Drink butonu ile arasındaki boşluk */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
+    border-radius: 6px; /* Biraz daha küçük border-radius */
+    padding: 0 10px; /* İç padding'i küçülttük */
+    
+    /* Bu üç kural, butonun kendi satırında ortalanmasını sağlar */
+    display: block; /* Butonun tam genişlik almasını ve yeni satıra geçmesini sağlar */
+    margin-left: auto; /* Yatayda otomatik sol boşluk */
+    margin-right: auto; /* Yatayda otomatik sağ boşluk */
+    /* margin: 10px auto 0 auto; /* Eğer üsttekiler işe yaramazsa bu daha kesin bir yol olabilir */
 }
 
 .settings-main-button:active {
-    background-color: var(--secondary-gray-active);
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-gray-active); /* Aktif gri renk */
+    transform: translateY(1px); /* Hafif aşağı kayma */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Hafif gölge */
 }
 
 #settingsPanel {
-    display: none;
-    margin: 15px auto;
+    display: none; /* Başlangıçta gizli */
+    margin: 15px auto; /* Üstten alttan 15px, yatayda ortala */
     padding: 15px;
     border: 1px solid var(--settings-panel-border-light);
     border-radius: 10px;
@@ -202,7 +216,7 @@ html.dark-mode .progress-text {
     max-width: 260px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    z-index: 20;
+    z-index: 20; /* Diğer elementlerin üzerinde görünmesini sağlar */
 }
 
 #settingsPanel h3 {
@@ -214,16 +228,16 @@ html.dark-mode .progress-text {
 }
 
 .settings-option {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; /* İçindeki label ve inputu yan yana düzenle */
+    justify-content: space-between; /* Aralarında boşluk bırakarak hizala */
+    align-items: center; /* Dikeyde ortala */
     margin-bottom: 10px;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Küçük ekranlarda alt alta geçmesini sağlar */
 }
 
 .settings-option label {
-    flex-basis: 55%;
-    text-align: left;
+    flex-basis: 55%; /* Toplam genişliğin %55'ini kapla */
+    text-align: left; /* Metni sola hizala */
     color: var(--settings-panel-label-light);
     font-size: 15px;
     padding-right: 10px;
@@ -240,18 +254,19 @@ html.dark-mode .progress-text {
     font-size: 15px;
     background-color: var(--settings-input-bg-light);
     color: var(--settings-panel-text-light);
-    -webkit-box-sizing: border-box;
+    -webkit-box-sizing: border-box; /* Kutu modelini dahil et */
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
+/* Checkbox (karanlık mod anahtarı) stilleri */
 .settings-option input[type="checkbox"] {
     position: relative;
     width: 36px;
     height: 18px;
-    -webkit-appearance: none;
-    outline: none;
+    -webkit-appearance: none; /* Varsayılan tarayıcı stilini kaldır */
+    outline: none; /* Odaklanma çizgisini kaldır */
     background-color: #ccc;
     border-radius: 20px;
     transition: background-color 0.3s;
@@ -273,13 +288,14 @@ html.dark-mode .progress-text {
 }
 
 .settings-option input[type="checkbox"]:checked {
-    background-color: var(--primary-blue);
+    background-color: var(--primary-blue); /* Aktifken mavi */
 }
 
 .settings-option input[type="checkbox"]:checked::before {
-    transform: translateX(18px);
+    transform: translateX(18px); /* Aktifken sağa kaydır */
 }
 
+/* Sayısal input alanları için spin butonlarını gizleme */
 #maxAmount::-webkit-outer-spin-button,
 #maxAmount::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -287,22 +303,24 @@ html.dark-mode .progress-text {
 }
 
 #maxAmount {
-    -moz-appearance: textfield;
+    -moz-appearance: textfield; /* Firefox için */
 }
 
+/* Ayarlar paneli içindeki butonların kapsayıcısı */
 .settings-buttons {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    justify-content: center; /* Butonları ortala */
+    gap: 10px; /* Butonlar arasında 10px boşluk */
     margin-top: 20px;
 }
 
+/* Ayarlar paneli içindeki butonların boyutları */
 .settings-buttons .app-button {
     font-size: 14px;
     padding: 0 15px;
-    width: 86px !important;
+    width: 86px !important; /* !important kullanarak diğer app-button stillerini ez */
     height: 30px !important;
-    margin-right: 0;
+    margin-right: 0; /* Sağ boşluğu sıfırla */
     line-height: 30px !important;
     box-sizing: border-box;
 }
@@ -313,6 +331,7 @@ html.dark-mode .progress-text {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+/* Sıfırla butonu için özel renk */
 .settings-buttons .reset-button {
     background-color: var(--red-alert);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -324,11 +343,12 @@ html.dark-mode .progress-text {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
+/* Bilgi balonu (tip bubble) stilleri */
 .tip-bubble {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
+    position: fixed; /* Ekranın belirli bir yerine sabitlenmiş */
+    bottom: 20px; /* Alttan 20px yukarıda */
+    left: 50%; /* Yatayda ortalamak için sol kenardan %50 */
+    transform: translateX(-50%) translateY(20px); /* Kendi genişliğinin yarısı kadar sola, başlangıçta 20px aşağı kaydır (gizli) */
     background-color: #f0f0f0;
     color: #333;
     padding: 15px 25px;
@@ -339,24 +359,27 @@ html.dark-mode .progress-text {
     text-align: center;
     font-size: 15px;
     line-height: 1.4;
-    opacity: 0;
-    visibility: hidden;
+    opacity: 0; /* Başlangıçta görünmez */
+    visibility: hidden; /* Etkileşimden gizle */
     transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     z-index: 10;
 }
 
+/* Bilgi balonu görünür olduğunda */
 .tip-bubble.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    opacity: 1; /* Görünür yap */
+    visibility: visible; /* Etkileşimde olmasını sağla */
+    transform: translateX(-50%) translateY(0); /* Normal konumuna getir */
 }
 
+/* Koyu modda bilgi balonu */
 html.dark-mode .tip-bubble {
     background-color: #3a3a3a;
     color: #e0e0e0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Duyarlı Tasarım (Responsive Design) - Küçük ekranlar (maksimum 375px genişlik) */
 @media (max-width: 375px) {
     #settingsPanel {
         max-width: 280px;
@@ -399,6 +422,7 @@ html.dark-mode .tip-bubble {
     }
 }
 
+/* Duyarlı Tasarım - Büyük ekranlar (minimum 414px genişlik) */
 @media (min-width: 414px) {
     #settingsPanel {
         max-width: 300px;
@@ -437,6 +461,7 @@ html.dark-mode .tip-bubble {
     }
 }
 
+/* Duyarlı Tasarım - Yatay konum ve küçük yükseklik */
 @media (orientation: landscape) and (max-height: 500px) {
     body {
         padding-top: 10px;
