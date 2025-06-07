@@ -5,21 +5,21 @@
     --dark-background: #121212;
     --dark-text-color: white;
 
+    /* Ana tema değişkenleri */
     --background-color: var(--light-background);
     --text-color: var(--light-text-color);
 
     --primary-blue: #3399ff;
-    --primary-blue-active: #2a7acc;
+    --primary-blue-active: #2a7acc; /* Active durumu için koyu mavi */
     --secondary-gray: #a0a0a0;
-    --secondary-gray-active: #777777;
+    --secondary-gray-active: #777777; /* Active durumu için koyu gri */
     --red-alert: #ff6666;
-    --red-alert-active: #cc4c4c;
+    --red-alert-active: #cc4c4c; /* Active durumu için koyu kırmızı */
     --success-green: #4CAF50;
+    --progress-bar-start: #4CAF50;
+    --progress-bar-end: #2196F3;
 
-    /* PROGRESS BAR RENKLERİ */
-    --progress-bar-start: #87CEEB; /* Açık gökyüzü mavisi */
-    --progress-bar-end: #007BFF; /* Derin mavi */
-
+    /* Ayarlar paneli için light ve dark mod renkleri */
     --settings-panel-bg-light: #fff;
     --settings-panel-border-light: #ccc;
     --settings-panel-text-light: #333;
@@ -27,7 +27,7 @@
     --settings-input-bg-light: #fff;
     --settings-input-border-light: #ddd;
 
-    --settings-panel-bg-dark: #2a2a2a;
+    --settings-panel-bg-dark: #2a2a2a; /* Dark mode için settings panel rengi */
     --settings-panel-border-dark: #444;
     --settings-panel-text-dark: #eee;
     --settings-panel-label-dark: #ccc;
@@ -35,19 +35,22 @@
     --settings-input-border-dark: #555;
 }
 
+/* Genel <html> Stilleri ve Tema Geçişleri */
 html {
     font-family: sans-serif;
     text-align: center;
     padding-bottom: 50px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--background-color); /* Ana arka plan rengi */
+    color: var(--text-color); /* Ana metin rengi */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Pürüzsüz geçiş için */
 }
 
+/* Karanlık mod sınıfı - JavaScript tarafından <html> etiketine eklenir/kaldırılır */
 html.dark-mode { 
-    --background-color: var(--dark-background);
-    --text-color: var(--dark-text-color);
+    --background-color: var(--dark-background); /* Ana arka planı koyu moda geçir */
+    --text-color: var(--dark-text-color);     /* Ana metin rengini koyu moda geçir */
 
+    /* Ayarlar paneli ve input'lar için karanlık mod renklerini burada yeniden tanımlıyoruz */
     --settings-panel-bg-light: var(--settings-panel-bg-dark);
     --settings-panel-border-light: var(--settings-panel-border-dark);
     --settings-panel-text-light: var(--settings-panel-text-dark);
@@ -56,96 +59,75 @@ html.dark-mode {
     --settings-input-border-light: var(--settings-input-border-dark);
 }
 
-body {
-    position: relative;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-}
-
 .water-tracker-text {
     text-align: center;
-    margin-top: 40px; 
-    margin-bottom: 20px;
+    margin-top: 8px;
     font-weight: bold;
-    font-size: 24px;
     color: var(--text-color);
     transition: color 0.3s ease;
 }
 
-/* water_icon: Dikey progress bar'a uygun boyutlandırma */
 .water-icon {
-    width: 70px; /* İkon boyutunu ayarla */
+    max-width: 150px;
     height: auto;
-    margin-bottom: 10px; /* İlerleme çubuğu ile boşluk bırak */
-    z-index: 3; /* Progress bar'ın üzerinde */
-    transition: transform 0.1s ease-in-out;
+    display: block;
+    margin: 20px auto 20px auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.1s ease-in-out, box-shadow 0.3s ease;
 }
 
+/* Water icon'un dark mode gölgesi */
 html.dark-mode .water-icon {
-    box-shadow: none; 
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
+/* Water icon'un aktif durumu (tıklanınca büyüme) */
 .water-icon:active {
-    transform: scale(1.05); /* Sadece scale, translate yok */
+    transform: scale(1.05);
 }
 
-/* icon-and-progressbar-container: Dikey progress bar'a uygun düzen */
-.icon-and-progressbar-container {
-    position: relative;
-    width: 100px; /* Genişliği ayarlandı */
-    height: 250px; /* Yüksekliği ayarlandı */
-    margin: 20px auto;
-    display: flex;
-    flex-direction: column; /* Öğeleri dikey sırala */
-    justify-content: flex-end; /* İlerleme çubuğunu alta yasla */
-    align-items: center; /* İkonu ortala */
-    overflow: hidden;
-}
-
-/* Progress bar: Dikey hale getirildi */
+/* Progress Bar Stilleri */
 .progress {
-    position: relative; /* Absolute değil relative yapıldı */
-    width: 80px; /* İlerleme çubuğu genişliği */
-    height: 100%; /* Kapsayıcı yüksekliği kadar */
-    background: rgba(255, 255, 255, 0.1); /* Hafif şeffaf arka plan */
-    border-radius: 10px; /* Kenar yuvarlaklığı */
-    box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1); /* İç gölge */
+    position: relative;
+    height: 25px;
+    background: #e0e0e0;
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 320px;
     overflow: hidden;
-    z-index: 1; /* water-icon'un altında */
-    border: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
 }
 
 html.dark-mode .progress {
-    background: rgba(0, 0, 0, 0.2); 
-    box-shadow: none; 
-    border: none; 
+    background: #444;
+}
+
+/* İlerleme Çubuğu İçindeki Metin */
+.progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    line-height: 25px;
+    color: black;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    z-index: 1; /* Progress bar'ın üzerindeki metin */
+    top: 0;
+    left: 0;
+}
+
+html.dark-mode .progress-text {
+    color: white;
 }
 
 .progress-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 0; /* JS ile dinamik olarak ayarlanacak */
-    background: linear-gradient(to top, var(--progress-bar-start), var(--progress-bar-end));
-    transition: height 0.4s ease-out;
-    border-radius: 10px; /* Kenar yuvarlaklığı */
-    box-shadow: none;
-}
-
-.progress-status-display {
-    margin-top: 20px; /* Dikey ilerleme çubuğuna uygun boşluk */
-    font-size: 18px; /* Yazı boyutu ayarlandı */
-    font-weight: bold;
-    color: var(--text-color);
-    transition: color 0.3s ease;
-}
-
-html.dark-mode .progress-status-display {
-    color: var(--dark-text-color);
+    height: 100%;
+    width: 0;
+    background: linear-gradient(to right, var(--progress-bar-start), var(--progress-bar-end));
+    transition: width 0.4s ease-out;
+    border-radius: 12px;
 }
 
 .app-button {
@@ -174,22 +156,21 @@ html.dark-mode .progress-status-display {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* main-buttons-container: Drink butonu için merkezi konumlandırma */
 .main-buttons-container {
     margin-top: 15px;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
+    gap: 10px;
     margin-bottom: 5px;
 }
 
-/* settings-button: Sağ üst köşeye konumlandırma */
 .settings-button {
-    background-color: transparent; 
+    background-color: transparent;
     border: none;
-    padding: 5px; 
+    padding: 5px;
     border-radius: 8px;
-    box-shadow: none; 
+    box-shadow: none;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -202,20 +183,12 @@ html.dark-mode .progress-status-display {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-size: 15px;
 }
 
-/* Ayarlar butonunun sağ üst köşeye konumlandırılması */
-.top-right-settings-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 100; 
-}
-
-/* settings-button ikonunun boyutu */
 .settings-button .fas {
-    color: var(--secondary-gray); 
-    font-size: 22px; 
+    color: var(--secondary-gray);
+    font-size: 28px;
     transition: color 0.1s ease, transform 0.1s ease;
 }
 
@@ -240,7 +213,7 @@ html.dark-mode .progress-status-display {
     max-width: 260px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    z-index: 20;
+    z-index: 20; /* Ayarlar paneli, ipucu balonundan daha yüksek bir z-index'e sahip olmalı */
 }
 
 #settingsPanel h3 {
@@ -284,38 +257,39 @@ html.dark-mode .progress-status-display {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
+/* Karanlık mod düğmesi için özel stiller (checkbox) */
 .settings-option input[type="checkbox"] {
     position: relative;
-    width: 40px;
-    height: 20px;
-    -webkit-appearance: none;
-    outline: none;
-    background-color: #ccc;
-    border-radius: 20px;
-    transition: background-color 0.3s;
+    width: 40px; /* Genişlik */
+    height: 20px; /* Yükseklik */
+    -webkit-appearance: none; /* Varsayılan checkbox stilini kaldır */
+    outline: none; /* Odaklandığında dış çizgiyi kaldır */
+    background-color: #ccc; /* Kapalıyken arka plan */
+    border-radius: 20px; /* Yuvarlak kenarlar */
+    transition: background-color 0.3s; /* Arka plan rengi değişimi için geçiş */
     cursor: pointer;
 }
 
 .settings-option input[type="checkbox"]::before {
     content: '';
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 18px; /* Düğme genişliği */
+    height: 18px; /* Düğme yüksekliği */
     border-radius: 50%;
-    background-color: #fff;
-    top: 1px;
-    left: 1px;
-    transform: translateX(0);
-    transition: transform 0.3s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background-color: #fff; /* Düğme rengi */
+    top: 1px; /* Üstten boşluk */
+    left: 1px; /* Soldan boşluk */
+    transform: translateX(0); /* Varsayılan konumu */
+    transition: transform 0.3s; /* Kayma hareketi için geçiş */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Gölge */
 }
 
 .settings-option input[type="checkbox"]:checked {
-    background-color: var(--primary-blue);
+    background-color: var(--primary-blue); /* Açıkken arka plan */
 }
 
 .settings-option input[type="checkbox"]:checked::before {
-    transform: translateX(20px);
+    transform: translateX(20px); /* Açıkken sağa kaydır */
 }
 
 #maxAmount::-webkit-outer-spin-button,
@@ -340,12 +314,14 @@ html.dark-mode .progress-status-display {
     padding: 8px 18px;
 }
 
+/* Ayar paneli butonları için :active efekti (save/close) */
 .settings-buttons .app-button:active {
     background-color: var(--primary-blue-active);
     transform: translateY(1px);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+/* Reset butonu için :active efekti */
 .settings-buttons .reset-button {
     background-color: var(--red-alert);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -355,4 +331,42 @@ html.dark-mode .progress-status-display {
     background-color: var(--red-alert-active);
     transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Tips Baloncuğu Stilleri */
+.tip-bubble {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+
+    background-color: #f0f0f0;
+    color: #333;
+
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    min-width: 300px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.4;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 10; /* Ayarlar panelinden daha düşük bir z-index'e sahip olmalı */
+}
+
+.tip-bubble.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Karanlık Mod İçin Tips Baloncuğu */
+html.dark-mode .tip-bubble {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
