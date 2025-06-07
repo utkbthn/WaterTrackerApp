@@ -76,15 +76,15 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    transform: translate(-50%, -50%); /* Tamamen konteynerin ortasına hizalar */
+    width: 90%; /* Konteynerin %90'ını kaplasın */
+    height: 90%; /* Konteynerin %90'ını kaplasın */
+    object-fit: contain; /* Görselin oranını koruyarak sığdırır */
     display: block;
-    border-radius: 20px;
+    border-radius: 20px; /* Bardağın yuvarlaklığına uygun olabilir */
     box-shadow: none;
     transition: transform 0.1s ease-in-out;
-    z-index: 3;
+    z-index: 3; /* Progress bar'ın üzerinde kalması için */
 }
 
 html.dark-mode .water-icon {
@@ -98,12 +98,12 @@ html.dark-mode .water-icon {
 .icon-and-progressbar-container {
     position: relative;
     width: 175px;
-    height: 250px; /* Güncellendi */
+    height: 250px; 
     margin: 0px auto 20px auto;
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* Güncellendi */
-    overflow: hidden; /* Güncellendi */
+    align-items: flex-end; 
+    overflow: hidden; 
 }
 
 .progress {
