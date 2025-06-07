@@ -40,19 +40,18 @@
 
 html {
     font-family: sans-serif;
-    padding-bottom: 50px;
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
+    height: 100%;
 }
 
 body {
     text-align: center;
     margin: 0;
     padding: 0;
-    display: flex; /* Body'yi flex konteyner yap */
-    flex-direction: column; /* İçeriği dikey sırala */
-    min-height: 100vh; /* Minimum ekran yüksekliğini kapla */
+    /* Body'deki flex ayarlarını kaldırdık, çünkü parti simgesi artık ayrı bir öğe değil, butonun içinde. */
+    /* Bu sayede elemanlar normal akışta konumlanacak. */
 }
 
 html.dark-mode {
@@ -140,11 +139,11 @@ html.dark-mode .progress-text {
 
 /* Ana Buton Stili (Hem Drink/Afiyet hem de Ayarlar için ortak) */
 .app-button {
-    display: flex; /* İçindeki yazıyı ortalamak için flexbox kullanıyoruz */
+    display: flex; /* İçindeki yazıyı ve emojiyi ortalamak için flexbox kullanıyoruz */
     justify-content: center; /* Yatayda ortala */
     align-items: center; /* Dikeyde ortala */
-    font-size: 16px; /* "Afiyet olsun" için font boyutunu küçülttük */
-    padding: 0 15px; /* Yatay padding'i ayarladık */
+    font-size: 15px; /* "Afiyet olsun" yazısını sığdırmak için font boyutunu küçülttük */
+    padding: 0 10px; /* Yatay padding'i ayarladık, emoji de sığsın diye */
     cursor: pointer;
     border: none;
     border-radius: 8px;
@@ -159,9 +158,10 @@ html.dark-mode .progress-text {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    width: 108px; /* Eski genişliği koruduk */
-    height: 37px; /* Eski yüksekliği koruduk */
+    width: 108px; /* Orijinal genişliği koruduk */
+    height: 37px; /* Orijinal yüksekliği koruduk */
     box-sizing: border-box; /* Padding ve border genişliği etkilemesin */
+    white-space: nowrap; /* Metnin ve emojinin tek satırda kalmasını sağlar */
 }
 
 .app-button:active {
@@ -184,11 +184,9 @@ html.dark-mode .progress-text {
 .settings-button-wrapper {
     display: flex;
     justify-content: center;
-    /* align-items: flex-end; -- Bu, parti simgesini aşağı itiyordu. Kaldırıyoruz. */
     width: 100%;
     margin-top: 10px;
-    flex-grow: 1; /* Kalan boşluğu doldurarak içeriği en üste itmeyi hedefleriz */
-    /* padding-bottom: 20px; -- Bu da parti simgesi ile Ayarlar butonu arasına boşluk koyuyordu. Kaldırıyoruz. */
+    /* flex-grow kaldırıldı, parti simgesi artık ayrı bir element değil */
 }
 
 /* Ayarlar Butonu stilleri (app-button'dan özellikler alır ama özelleştiririz) */
@@ -346,41 +344,10 @@ html.dark-mode .progress-text {
 }
 
 /* Bilgi balonu (tip bubble) stilleri */
+/* Bu stil, HTML'de artık ayrı bir element olduğu için ve butonun içinde olmadığı için kaldırıldı */
+/* Parti simgesi butonu içinde olduğu için bu kısım artık gerekli değil */
 .tip-bubble {
-    position: relative; /* Fixed yerine relative yaparak normal akışa dahil et */
-    bottom: auto; /* Fixed konumlandırmayı kaldır */
-    left: auto; /* Fixed konumlandırmayı kaldır */
-    transform: none; /* Fixed konumlandırmayı kaldır */
-    margin: 20px auto 0 auto; /* Üstten boşluk ve yatayda ortala */
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 15px 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    max-width: 500px;
-    min-width: 300px;
-    text-align: center;
-    font-size: 15px;
-    line-height: 1.4;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-    z-index: 10;
-    /* margin-top: auto; -- body flex-direction column olduğu için bu etkili olur, ama burada zaten normal akışta olacak */
-}
-
-/* Bilgi balonu görünür olduğunda */
-.tip-bubble.show {
-    opacity: 1;
-    visibility: visible;
-    transform: none; /* Fixed konumlandırmayı kaldır */
-}
-
-/* Koyu modda bilgi balonu */
-html.dark-mode .tip-bubble {
-    background-color: #3a3a3a;
-    color: #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: none; /* Bu HTML elementini tamamen gizliyoruz çünkü fonksiyonu değişti */
 }
 
 /* Duyarlı Tasarım (Responsive Design) - Küçük ekranlar (maksimum 375px genişlik) */
@@ -388,17 +355,17 @@ html.dark-mode .tip-bubble {
     #settingsPanel {
         max-width: 280px;
     }
-    .app-button { /* Bu da Afiyet ve Drink butonunu etkiler */
-        font-size: 14px; /* Küçük ekranlar için de font boyutunu düşürdük */
-        padding: 0 10px; /* Padding'i daha da düşürdük */
-        width: 100px; /* Biraz daha küçülttük */
+    .app-button {
+        font-size: 13px; /* Küçük ekranlar için font boyutunu biraz daha düşürdük */
+        padding: 0 8px; /* Padding'i biraz daha düşürdük */
+        width: 100px;
         height: 31px;
     }
     .settings-main-button {
-        width: calc(100px / 2); /* Yeni Drink butonunun yarısı */
+        width: calc(100px / 2);
         height: calc(31px / 2);
-        font-size: 9px; /* Küçük ekranlar için de font boyutunu düşürdük */
-        padding: 0 5px; /* Küçük ekranlar için padding'i daha da azalttık */
+        font-size: 9px;
+        padding: 0 5px;
     }
     .settings-option label {
         font-size: 14px;
@@ -415,11 +382,6 @@ html.dark-mode .tip-bubble {
         width: 74px !important;
         height: 25px !important;
     }
-    .tip-bubble {
-        min-width: 250px;
-        padding: 12px 20px;
-        font-size: 14px;
-    }
 }
 
 /* Duyarlı Tasarım - Büyük ekranlar (minimum 414px genişlik) */
@@ -428,17 +390,17 @@ html.dark-mode .tip-bubble {
         max-width: 300px;
         padding: 20px;
     }
-    .app-button { /* Bu da Afiyet ve Drink butonunu etkiler */
-        font-size: 18px; /* Orijinal font boyutuna geri döndük, padding ile sığdırmaya çalışıyoruz */
-        padding: 0 20px; /* Padding'i küçülttük */
-        width: 108px; /* Orijinal genişlik */
-        height: 42px; /* Yüksekliği biraz artırdık */
+    .app-button {
+        font-size: 16px; /* Biraz daha büyüttük */
+        padding: 0 15px; /* Padding'i biraz daha artırdık */
+        width: 108px;
+        height: 42px;
     }
     .settings-main-button {
-        width: calc(108px / 2); /* Orijinal Drink butonunun yarısı */
-        height: calc(42px / 2); /* Yeni yüksekliğin yarısı */
-        font-size: 12px; /* Büyük ekranlar için font boyutunu düşürdük */
-        padding: 0 8px; /* Büyük ekranlar için padding'i güncelledik */
+        width: calc(108px / 2);
+        height: calc(42px / 2);
+        font-size: 12px;
+        padding: 0 8px;
     }
     .settings-option label {
         font-size: 16px;
@@ -474,17 +436,17 @@ html.dark-mode .tip-bubble {
     .main-buttons-container {
         margin-top: 10px;
     }
-    .app-button { /* Yatayda da Drink/Afiyet butonunu etkiler */
+    .app-button {
         width: 100px;
         height: 30px;
-        font-size: 14px; /* Font boyutunu düşürdük */
-        padding: 0 10px; /* Padding'i düşürdük */
+        font-size: 13px; /* Yatay konumda font boyutunu daha da düşürdük */
+        padding: 0 8px; /* Yatayda padding'i daha da azalttık */
     }
     .settings-main-button {
         width: calc(100px / 2);
         height: calc(30px / 2);
-        font-size: 9px; /* Yatay konumda font boyutunu daha da düşürdük */
-        padding: 0 4px; /* Yatayda padding'i daha da azalttık */
+        font-size: 9px;
+        padding: 0 4px;
     }
     #settingsPanel {
         margin: 10px auto;
@@ -499,10 +461,5 @@ html.dark-mode .tip-bubble {
     .settings-buttons .app-button {
         font-size: 14px;
         padding: 6px 15px;
-    }
-    .tip-bubble {
-        bottom: 10px;
-        font-size: 13px;
-        padding: 10px 18px;
     }
 }
