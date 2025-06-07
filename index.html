@@ -10,12 +10,8 @@
 <body>
     <p class="water-tracker-text">Water Tracker</p>
     
-    <button onclick="openSettings()" class="app-button settings-button top-right-settings-button" id="settingsButton">
-        <i class="fas fa-gear"></i>
-    </button>
-
     <div class="icon-and-progressbar-container">
-        <img src="water.logo.png" alt="Water Glass" class="water-icon">
+        <img src="water.logo.png" alt="Water Glass" class="water-logo">
         <div class="progress" id="progressBarContainer">
             <div class="progress-bar" id="progressBar"></div>
         </div>
@@ -25,6 +21,9 @@
 
     <div class="main-buttons-container">
         <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
+        <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">
+            <i class="fas fa-gear"></i>
+        </button>
     </div>
 
     <div id="settingsPanel">
@@ -48,5 +47,5 @@
     </div>
 
     <script src="script.js"></script>
-    </body>
+</body>
 </html>
