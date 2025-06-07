@@ -15,8 +15,10 @@
     --red-alert: #ff6666;
     --red-alert-active: #cc4c4c;
     --success-green: #4CAF50;
-    --progress-bar-start: #4CAF50;
-    --progress-bar-end: #2196F3;
+
+    /* PROGRESS BAR YENİ RENKLERİ */
+    --progress-bar-start: #87CEEB; /* Açık gökyüzü mavisi */
+    --progress-bar-end: #007BFF; /* Derin mavi */
 
     --settings-panel-bg-light: #fff;
     --settings-panel-border-light: #ccc;
@@ -63,7 +65,7 @@ body {
 
 .water-tracker-text {
     text-align: center;
-    margin-top: 60px; /* Bu değer güncellendi */
+    margin-top: 60px;
     margin-bottom: 20px;
     font-weight: bold;
     font-size: 24px;
@@ -110,7 +112,7 @@ html.dark-mode .water-icon {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #e0e0e0;
+    background: rgba(173, 216, 230, 0.3); /* Açık mavi, hafif şeffaf */
     border-radius: 20px;
     overflow: hidden;
     box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
@@ -119,7 +121,7 @@ html.dark-mode .water-icon {
 }
 
 html.dark-mode .progress {
-    background: #444;
+    background: rgba(68, 68, 68, 0.5); /* Koyu mod için koyu gri, hafif şeffaf */
 }
 
 .progress-bar {
