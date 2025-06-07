@@ -2,72 +2,50 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <script>
-        const savedTheme = localStorage.getItem('darkMode');
-        if (savedTheme === 'true') {
-            document.documentElement.classList.add('dark-mode');
-        } else if (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark-mode');
-        }
-    </script>
-    
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <p class="water-tracker-text">Water Tracker</p>
     
-    <button onclick="openSettings()" class="app-button settings-button top-right-settings-button" id="settingsButton">
-        <i class="fas fa-gear"></i>
-    </button>
-
     <div class="icon-and-progressbar-container">
-        <img src="images/water.logo.png" alt="Su Takipçisi Logosu" class="water-icon">
-        <div class="progress">
+        <img src="water_icon.png" alt="Water Glass" class="water-icon">
+        <div class="progress" id="progressBarContainer">
             <div class="progress-bar" id="progressBar"></div>
         </div>
     </div>
+
     <div class="progress-status-display" id="status"></div>
 
     <div class="main-buttons-container">
         <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
+        <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">
+            <i class="fas fa-gear"></i>
+        </button>
     </div>
-    
+
     <div id="settingsPanel">
+        <h3>Settings</h3>
         <div class="settings-option">
-            <label for="addAmount">İçilen Su Miktarı (ml):</label>
-            <select id="addAmount">
-                <option value="100">100 ml</option>
-                <option value="150">150 ml</option>
-                <option value="200">200 ml</option>
-                <option value="250">250 ml</option>
-                <option value="300">300 ml</option>
-                <option value="330">330 ml</option>
-                <option value="350">350 ml</option>
-                <option value="400">400 ml</option>
-                <option value="500">500 ml</option>
-            </select>
+            <label for="maxAmount">Daily Goal (ml):</label>
+            <input type="number" id="maxAmount" value="2500" min="500">
         </div>
         <div class="settings-option">
-            <label for="maxAmount">Günlük Hedef (ml):</label>
-            <input type="number" id="maxAmount" min="500" step="100">
+            <label for="addAmount">Add Amount (ml):</label>
+            <input type="number" id="addAmount" value="250" min="10">
         </div>
         <div class="settings-option">
-            <label for="darkModeToggle">Karanlık Mod:</label>
+            <label for="darkModeToggle">Dark Mode:</label>
             <input type="checkbox" id="darkModeToggle">
         </div>
         <div class="settings-buttons">
-            <button onclick="saveAndCloseSettings()" class="app-button">Tamam</button>
-            <button onclick="resetWater()" class="app-button reset-button">Sıfırla</button>
+            <button onclick="saveAndCloseSettings()" class="app-button">Save</button>
+            <button onclick="resetWater()" class="app-button reset-button">Reset Day</button>
         </div>
     </div>
 
-    <div id="tipBubble" class="tip-bubble">
-        <p id="tipContent"></p>
-    </div>
-    <script src="script.js"></script>    
-</body>
+    <script src="script.js"></script>
+    </body>
 </html>
