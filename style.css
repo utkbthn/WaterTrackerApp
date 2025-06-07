@@ -40,18 +40,16 @@
 
 html {
     font-family: sans-serif;
-    /* text-align: center; buradan kaldırıldı, body'ye taşındı */
     padding-bottom: 50px;
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Yeni eklenen veya güncellenen body stili */
 body {
-    text-align: center; /* Tüm sayfa içeriğini yatayda ortalamak için */
-    margin: 0; /* Tarayıcının varsayılan dış boşluklarını sıfırla */
-    padding: 0; /* Tarayıcının varsayılan iç boşluklarını sıfırla */
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 html.dark-mode {
@@ -195,11 +193,17 @@ html.dark-mode .progress-text {
     width: calc(108px / 2); /* Drink butonunun yarısı genişlik */
     height: calc(37px / 2); /* Drink butonunun yarısı yükseklik */
     font-size: 12px; /* Yazı boyutunu 12px'e düşürdük */
-    line-height: calc(37px / 2); /* Yükseklikle aynı line-height */
+    /* line-height'ı kaldırıyoruz, çünkü Flexbox ile dikey ortalama yapacağız */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
     border-radius: 6px; /* Biraz daha küçük border-radius */
-    padding: 0 10px; /* İç padding'i küçülttük */
-    /* text-align: center; eklenmesine gerek yok çünkü app-button sınıfından miras alıyor */
+    padding: 0 8px; /* İç padding'i 10px'ten 8px'e düşürdük, yazının sığması için */
+    box-sizing: border-box; /* Padding'in width'i etkilememesini sağla */
+
+    /* Metni buton içinde ortalamak için Flexbox ekledik */
+    display: flex;
+    justify-content: center; /* Yatayda ortala */
+    align-items: center; /* Dikeyde ortala */
+    text-align: center; /* Ekstra güvenlik için metin hizalamasını da ekledik */
 }
 
 .settings-main-button:active {
@@ -398,7 +402,7 @@ html.dark-mode .tip-bubble {
         width: calc(92px / 2);
         height: calc(31px / 2);
         font-size: 10px; /* Küçük ekranlar için de font boyutunu düşürdük */
-        line-height: calc(31px / 2);
+        /* line-height'ı kaldırıyoruz */
     }
     .settings-option label {
         font-size: 14px;
@@ -441,7 +445,7 @@ html.dark-mode .tip-bubble {
         width: calc(123px / 2);
         height: calc(42px / 2);
         font-size: 13px; /* Büyük ekranlar için font boyutunu düşürdük */
-        line-height: calc(42px / 2);
+        /* line-height'ı kaldırıyoruz */
     }
     .settings-option label {
         font-size: 16px;
@@ -482,7 +486,7 @@ html.dark-mode .tip-bubble {
         width: calc(100px / 2);
         height: calc(30px / 2);
         font-size: 12px; /* Yatay konumda da font boyutunu kontrol ediyoruz */
-        line-height: calc(30px / 2);
+        /* line-height'ı kaldırıyoruz */
     }
     #settingsPanel {
         margin: 10px auto;
