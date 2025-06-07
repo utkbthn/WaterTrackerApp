@@ -73,51 +73,49 @@ body {
     transition: color 0.3s ease;
 }
 
-/* water_icon: Başlangıçtaki, düzgün hali */
+/* water_icon: Dikey progress bar'a uygun boyutlandırma */
 .water-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%; /* Kapsayıcıyı doldurur */
-    height: 100%; /* Kapsayıcıyı doldurur */
-    object-fit: contain; /* Oranı koruyarak sığdır */
-    display: block;
+    width: 70px; /* İkon boyutunu ayarla */
+    height: auto;
+    margin-bottom: 10px; /* İlerleme çubuğu ile boşluk bırak */
     z-index: 3; /* Progress bar'ın üzerinde */
     transition: transform 0.1s ease-in-out;
 }
 
-.water-icon:active {
-    transform: translate(-50%, -50%) scale(1.05);
+html.dark-mode .water-icon {
+    box-shadow: none; 
 }
 
-/* icon-and-progressbar-container: Başlangıçtaki, sade ve ortalanmış hali */
+.water-icon:active {
+    transform: scale(1.05); /* Sadece scale, translate yok */
+}
+
+/* icon-and-progressbar-container: Dikey progress bar'a uygun düzen */
 .icon-and-progressbar-container {
     position: relative;
-    width: 175px;
-    height: 175px; /* Kare görünmesi için yükseklik de 175px */
-    margin: 0px auto 20px auto;
+    width: 100px; /* Genişliği ayarlandı */
+    height: 250px; /* Yüksekliği ayarlandı */
+    margin: 20px auto;
     display: flex;
-    justify-content: center;
-    align-items: center; /* İçeriği dikeyde ve yatayda ortala */
-    overflow: hidden; 
+    flex-direction: column; /* Öğeleri dikey sırala */
+    justify-content: flex-end; /* İlerleme çubuğunu alta yasla */
+    align-items: center; /* İkonu ortala */
+    overflow: hidden;
 }
 
-/* Progress bar: Başlangıçtaki, sade hali */
+/* Progress bar: Dikey hale getirildi */
 .progress {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1); /* Hafif şeffaf bir arka plan */
-    border-radius: 0; /* Köşeleri kare yap */
-    box-shadow: none; /* Gölgeyi kaldır */
-    transition: background 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Absolute değil relative yapıldı */
+    width: 80px; /* İlerleme çubuğu genişliği */
+    height: 100%; /* Kapsayıcı yüksekliği kadar */
+    background: rgba(255, 255, 255, 0.1); /* Hafif şeffaf arka plan */
+    border-radius: 10px; /* Kenar yuvarlaklığı */
+    box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1); /* İç gölge */
+    overflow: hidden;
     z-index: 1; /* water-icon'un altında */
-    border: none; /* Çerçeveyi kaldır */
-    backdrop-filter: none; /* Cam efekti kaldırıldı */
-    -webkit-backdrop-filter: none; /* Cam efekti kaldırıldı */
+    border: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 html.dark-mode .progress {
@@ -131,16 +129,16 @@ html.dark-mode .progress {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 0;
+    height: 0; /* JS ile dinamik olarak ayarlanacak */
     background: linear-gradient(to top, var(--progress-bar-start), var(--progress-bar-end));
     transition: height 0.4s ease-out;
-    border-radius: 0; /* Köşeleri kare yap */
-    box-shadow: none; /* Gölgeyi kaldır */
+    border-radius: 10px; /* Kenar yuvarlaklığı */
+    box-shadow: none;
 }
 
 .progress-status-display {
-    margin-top: 15px;
-    font-size: 20px;
+    margin-top: 20px; /* Dikey ilerleme çubuğuna uygun boşluk */
+    font-size: 18px; /* Yazı boyutu ayarlandı */
     font-weight: bold;
     color: var(--text-color);
     transition: color 0.3s ease;
@@ -176,7 +174,7 @@ html.dark-mode .progress-status-display {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* main-buttons-container: Sadece Drink butonu için merkezi konumlandırma */
+/* main-buttons-container: Drink butonu için merkezi konumlandırma */
 .main-buttons-container {
     margin-top: 15px;
     display: flex;
