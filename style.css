@@ -10,11 +10,11 @@
     --text-color: var(--light-text-color);
 
     --primary-blue: #3399ff;
-    --primary-blue-active: #2a7acc; /* Active durumu için koyu mavi */
+    --primary-blue-active: #2a7acc;
     --secondary-gray: #a0a0a0;
-    --secondary-gray-active: #777777; /* Active durumu için koyu gri */
+    --secondary-gray-active: #777777;
     --red-alert: #ff6666;
-    --red-alert-active: #cc4c4c; /* Active durumu için koyu kırmızı */
+    --red-alert-active: #cc4c4c;
     --success-green: #4CAF50;
     --progress-bar-start: #4CAF50;
     --progress-bar-end: #2196F3;
@@ -27,7 +27,7 @@
     --settings-input-bg-light: #fff;
     --settings-input-border-light: #ddd;
 
-    --settings-panel-bg-dark: #2a2a2a; /* Dark mode için settings panel rengi */
+    --settings-panel-bg-dark: #2a2a2a;
     --settings-panel-border-dark: #444;
     --settings-panel-text-dark: #eee;
     --settings-panel-label-dark: #ccc;
@@ -40,15 +40,15 @@ html {
     font-family: sans-serif;
     text-align: center;
     padding-bottom: 50px;
-    background-color: var(--background-color); /* Ana arka plan rengi */
-    color: var(--text-color); /* Ana metin rengi */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Pürüzsüz geçiş için */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Karanlık mod sınıfı - JavaScript tarafından <html> etiketine eklenir/kaldırılır */
 html.dark-mode { 
-    --background-color: var(--dark-background); /* Ana arka planı koyu moda geçir */
-    --text-color: var(--dark-text-color);     /* Ana metin rengini koyu moda geçir */
+    --background-color: var(--dark-background);
+    --text-color: var(--dark-text-color);
 
     /* Ayarlar paneli ve input'lar için karanlık mod renklerini burada yeniden tanımlıyoruz */
     --settings-panel-bg-light: var(--settings-panel-bg-dark);
@@ -67,14 +67,19 @@ html.dark-mode {
     transition: color 0.3s ease;
 }
 
+/* water-icon'un stillerini güncelliyoruz */
 .water-icon {
-    max-width: 150px;
+    position: absolute; /* Kapsayıcıya göre konumlandırma */
+    top: 50%; /* Dikeyde ortala */
+    left: 50%; /* Yatayda ortala */
+    transform: translate(-50%, -50%); /* Kendi boyutuna göre tam ortala */
+    max-width: 130px; /* İkonun maksimum genişliği, barın biraz içinde kalacak şekilde ayarlandı */
     height: auto;
     display: block;
-    margin: 20px auto 20px auto;
-    border-radius: 15px;
+    border-radius: 15px; /* İkonun kendi köşeleri */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transition: transform 0.1s ease-in-out, box-shadow 0.3s ease;
+    z-index: 3; /* Progress barın ve metnin üzerinde olması için */
 }
 
 /* Water icon'un dark mode gölgesi */
@@ -84,20 +89,33 @@ html.dark-mode .water-icon {
 
 /* Water icon'un aktif durumu (tıklanınca büyüme) */
 .water-icon:active {
-    transform: scale(1.05);
+    transform: translate(-50%, -50%) scale(1.05); /* Ortalamayı koruyarak büyüme */
 }
 
-/* Progress Bar Stilleri */
+/* Yeni Kapsayıcı için Stiller */
+.icon-and-progressbar-container {
+    position: relative; /* İçindeki çocukların position: absolute; ile konumlanabilmesi için */
+    width: 160px; /* Kare barın genişliği */
+    height: 160px; /* Kare barın yüksekliği */
+    margin: 40px auto 20px auto; /* Üstten ve alttan boşluk, ortala */
+    display: flex; /* İçindeki elemanları ortalamak için (ileride gerekebilir) */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Progress Bar Stilleri (Kare ve Dikey Dolduran) */
 .progress {
-    position: relative;
-    height: 25px;
+    position: absolute; /* Kapsayıcıya göre konumlandırma */
+    top: 0;
+    left: 0;
+    width: 100%; /* Kapsayıcının tamamını kapla */
+    height: 100%; /* Kapsayıcının tamamını kapla */
     background: #e0e0e0;
-    border-radius: 12px;
-    margin: 20px auto;
-    max-width: 320px;
-    overflow: hidden;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 20px; /* Daha yuvarlak köşeler */
+    overflow: hidden; /* Dolgu divinin dışarı taşmasını engelle */
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
     transition: background 0.3s ease;
+    z-index: 1; /* Damla ikonunun altında olması için */
 }
 
 html.dark-mode .progress {
@@ -106,16 +124,15 @@ html.dark-mode .progress {
 
 /* İlerleme Çubuğu İçindeki Metin */
 .progress-text {
-    position: absolute;
+    position: absolute; /* Mutlak konumlandırma */
     width: 100%;
     text-align: center;
-    line-height: 25px;
     color: black;
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-    z-index: 1; /* Progress bar'ın üzerindeki metin */
-    top: 0;
-    left: 0;
+    z-index: 2; /* Progress barın üzerinde, ikonun altında olması için */
+    top: 50%; /* Dikeyde ortala */
+    transform: translateY(-50%); /* Kendi yüksekliğinin yarısı kadar yukarı kaydır */
 }
 
 html.dark-mode .progress-text {
@@ -123,11 +140,14 @@ html.dark-mode .progress-text {
 }
 
 .progress-bar {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(to right, var(--progress-bar-start), var(--progress-bar-end));
-    transition: width 0.4s ease-out;
-    border-radius: 12px;
+    position: absolute; /* Mutlak konumlandırma */
+    bottom: 0; /* Barın alttan başlamasını sağlar */
+    left: 0;
+    width: 100%; /* Dikey doldurduğu için genişlik %100 olmalı */
+    height: 0; /* Başlangıçta yüksekliği 0 */
+    background: linear-gradient(to top, var(--progress-bar-start), var(--progress-bar-end)); /* Gradyan yönü alttan üste */
+    transition: height 0.4s ease-out; /* width yerine height geçişi */
+    border-radius: 20px; /* Kapsayıcı ile aynı köşeler */
 }
 
 .app-button {
