@@ -15,10 +15,8 @@
     --red-alert: #ff6666;
     --red-alert-active: #cc4c4c;
     --success-green: #4CAF50;
-
-    /* Bu renkler progress barın kendisi içindi, cam efekti için değil */
-    --progress-bar-start: #87CEEB; /* Açık gökyüzü mavisi */
-    --progress-bar-end: #007BFF; /* Derin mavi */
+    --progress-bar-start: #4CAF50;
+    --progress-bar-end: #2196F3;
 
     --settings-panel-bg-light: #fff;
     --settings-panel-border-light: #ccc;
@@ -56,16 +54,9 @@ html.dark-mode {
     --settings-input-border-light: var(--settings-input-border-dark);
 }
 
-body {
-    position: relative;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-}
-
 .water-tracker-text {
     text-align: center;
-    margin-top: 40px; 
+    margin-top: 30px;
     margin-bottom: 20px;
     font-weight: bold;
     font-size: 24px;
@@ -73,20 +64,19 @@ body {
     transition: color 0.3s ease;
 }
 
-/* water_icon: Bozuk olmadığı zamanki sade hali */
 .water-icon {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%; /* Kapsayıcıyı doldurur */
-    height: 100%; /* Kapsayıcıyı doldurur */
-    object-fit: contain; /* Oranı koruyarak sığdır */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     display: block;
-    border-radius: 0; /* Cam efekti için eklenen border-radius'u kaldırıyorum */
+    border-radius: 20px;
     box-shadow: none;
     transition: transform 0.1s ease-in-out;
-    z-index: 3; /* Progress bar'ın üzerinde */
+    z-index: 3;
 }
 
 html.dark-mode .water-icon {
@@ -100,35 +90,29 @@ html.dark-mode .water-icon {
 .icon-and-progressbar-container {
     position: relative;
     width: 175px;
-    height: 250px; /* Bu yükseklik son versiyonlarda da vardı, görseli bozmadan önce de */
+    height: 175px;
     margin: 0px auto 20px auto;
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* Önceki versiyona dönüyorum, progress bar altta başlar */
-    overflow: hidden; 
+    align-items: center;
 }
 
-/* Progress barın kendisi: Cam efekti kaldırılmış, sade hali */
 .progress {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.1); /* Hafif şeffaf arka plan */
-    border-radius: 20px; /* Kenar yuvarlaklığı */
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Hafif iç gölge */
-    transition: background 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease;
+    background: #e0e0e0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
     z-index: 1;
-    border: none; /* Çerçeveyi kaldırıyorum */
-    backdrop-filter: none; /* Cam efekti kaldırıldı */
-    -webkit-backdrop-filter: none; /* Cam efekti kaldırıldı */
 }
 
 html.dark-mode .progress {
-    background: rgba(0, 0, 0, 0.2); 
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3); 
-    border: none; 
+    background: #444;
 }
 
 .progress-bar {
@@ -139,8 +123,7 @@ html.dark-mode .progress {
     height: 0;
     background: linear-gradient(to top, var(--progress-bar-start), var(--progress-bar-end));
     transition: height 0.4s ease-out;
-    border-radius: 20px; /* Kenar yuvarlaklığı */
-    box-shadow: none; /* Gölgeyi kaldırıyorum */
+    border-radius: 20px;
 }
 
 .progress-status-display {
@@ -185,19 +168,17 @@ html.dark-mode .progress-status-display {
     margin-top: 15px;
     display: flex;
     justify-content: center;
-    /* align-items: center;  Bu kaldırıldı, çünkü settings butonu artık burada değil */
-    /* gap: 15px; Bu kaldırıldı, çünkü settings butonu artık burada değil */
+    align-items: center;
+    gap: 10px;
     margin-bottom: 5px;
 }
 
-/* Ayarlar butonu eski konumunda (top-right-settings-button sınıfı ile) */
 .settings-button {
-    /* Eski hali: top-right-settings-button sınıfı ile birlikte kullanılıyordu */
-    background-color: var(--secondary-gray); /* Butonun kendi rengi */
+    background-color: transparent;
     border: none;
-    padding: 12px 18px; /* App-button'a benzer padding */
+    padding: 5px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -210,32 +191,24 @@ html.dark-mode .progress-status-display {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-size: 15px;
 }
 
 .settings-button .fas {
-    color: white; /* İkon rengi */
-    font-size: 24px; /* İkon boyutu */
+    color: var(--secondary-gray);
+    font-size: 28px;
     transition: color 0.1s ease, transform 0.1s ease;
 }
 
 .settings-button:active {
     background-color: var(--secondary-gray-active);
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .settings-button:active .fas {
-    color: white;
+    color: var(--secondary-gray);
     transform: scale(0.95);
-}
-
-/* Ayarlar butonunun sağ üst köşeye konumlandırılması */
-.top-right-settings-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 100; /* Diğer elementlerin üzerinde olması için */
-    /* background-color ve box-shadow settings-button sınıfından geliyor artık */
 }
 
 #settingsPanel {
@@ -363,4 +336,37 @@ html.dark-mode .progress-status-display {
     background-color: var(--red-alert-active);
     transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.tip-bubble {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 8px 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 380px;
+    min-width: 250px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.3;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 10;
+}
+
+.tip-bubble.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+html.dark-mode .tip-bubble {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
