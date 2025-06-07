@@ -4,7 +4,6 @@
     --dark-background: #121212;
     --dark-text-color: white;
 
-    /* Ana tema değişkenleri */
     --background-color: var(--light-background);
     --text-color: var(--light-text-color);
 
@@ -18,7 +17,6 @@
     --progress-bar-start: #4CAF50;
     --progress-bar-end: #2196F3;
 
-    /* Ayarlar paneli için light ve dark mod renkleri */
     --settings-panel-bg-light: #fff;
     --settings-panel-border-light: #ccc;
     --settings-panel-text-light: #333;
@@ -33,15 +31,13 @@
     --settings-input-bg-dark: #3a3a3a;
     --settings-input-border-dark: #555;
 
-    /* Yeni progress bar için renk */
-    --water-fill-color: #5ab1f7; /* Su rengi */
-    --water-fill-background: #e0e0e0; /* Dolmayan kısım */
+    --water-fill-color: #5ab1f7;
+    --water-fill-background: #e0e0e0;
 
-    --settings-icon-color: #a0a0a0; /* Ayarlar ikonunun rengi */
-    --settings-icon-active-color: #777777; /* Ayarlar ikonunun tıklama rengi */
+    --settings-icon-color: #a0a0a0;
+    --settings-icon-active-color: #777777;
 }
 
-/* Genel <html> Stilleri ve Tema Geçişleri */
 html {
     font-family: sans-serif;
     text-align: center;
@@ -51,19 +47,17 @@ html {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Karanlık mod sınıfı - JavaScript tarafından <html> etiketine eklenir/kaldırılır */
 html.dark-mode { 
     --background-color: var(--dark-background);
     --text-color: var(--dark-text-color);
 
-    /* Ayarlar paneli ve input'lar için karanlık mod renklerini burada yeniden tanımlıyoruz */
     --settings-panel-bg-light: var(--settings-panel-bg-dark);
     --settings-panel-border-light: var(--settings-panel-border-dark);
     --settings-panel-text-light: var(--settings-panel-text-dark);
     --settings-panel-label-light: var(--settings-panel-label-dark);
     --settings-input-bg-light: var(--settings-input-bg-dark);
     --settings-input-border-light: var(--settings-input-border-dark);
-    --water-fill-background: #444; /* Dark modda boş kısım */
+    --water-fill-background: #444;
 }
 
 .water-tracker-text {
@@ -74,17 +68,16 @@ html.dark-mode {
     transition: color 0.3s ease;
 }
 
-/* Yeni Kapsayıcı Stilileri */
 .water-icon-container {
-    position: relative; /* İçindeki öğeleri konumlandırmak için */
-    width: 150px; /* water-icon ile aynı genişlik */
-    height: 150px; /* water-icon ile aynı yükseklik */
-    margin: 20px auto 20px auto; /* water-icon ile aynı margin */
-    border-radius: 15px; /* water-icon ile aynı radius */
-    overflow: hidden; /* Taşmaları engelle */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* water-icon ile aynı gölge */
-    background-color: var(--water-fill-background); /* Progress barın dolmayan kısmı */
-    display: flex; /* İçindeki öğeleri hizalamak için */
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 20px auto 20px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background-color: var(--water-fill-background);
+    display: flex;
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -95,44 +88,41 @@ html.dark-mode .water-icon-container {
 }
 
 .water-icon {
-    max-width: 150px; /* Water-icon'un boyutunu koru */
+    max-width: 150px;
     height: auto;
     display: block;
-    z-index: 2; /* Progress barın üstünde olması için */
-    transition: transform 0.1s ease-in-out; /* Sadece transform animasyonunu koru */
-    border-radius: 15px; /* Water-icon'un kendi border-radius'unu koru */
-    /* Eski margin ve box-shadow kaldırıldı, container'a taşındı */
-    margin: 0; /* Artık kapsayıcı içinde olduğu için marjine gerek yok */
-    box-shadow: none; /* Artık kapsayıcı üzerinde olduğu için bu gölgeye gerek yok */
+    z-index: 2;
+    transition: transform 0.1s ease-in-out;
+    border-radius: 15px;
+    margin: 0;
+    box-shadow: none;
 }
 
 .water-icon:active {
     transform: scale(1.05);
 }
 
-/* Yeni Kare Progress Bar */
 .water-fill-progress {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 0; /* Başlangıçta boş */
-    background-color: var(--water-fill-color); /* Su rengi */
-    transition: height 0.4s ease-out; /* Yükseklik değişimi animasyonu */
-    z-index: 1; /* Damla ikonunun arkasında olması için */
-    border-radius: 15px; /* water-icon-container ile aynı radius */
+    height: 0;
+    background-color: var(--water-fill-color);
+    transition: height 0.4s ease-out;
+    z-index: 1;
+    border-radius: 15px;
 }
 
-/* İlerleme Çubuğu İçindeki Metin (konumlandırıldı) */
 .progress-text {
     width: 100%;
     text-align: center;
-    line-height: normal; /* Normal satır yüksekliği */
-    color: var(--text-color); /* Temaya göre renk */
+    line-height: normal;
+    color: var(--text-color);
     font-weight: bold;
-    text-shadow: none; /* Gölge kaldırıldı, daha sade */
-    z-index: auto; /* Normal z-index */
-    margin-top: 10px; /* İkon ile arasına boşluk */
+    text-shadow: none;
+    z-index: auto;
+    margin-top: 10px;
     transition: color 0.3s ease;
 }
 
@@ -142,8 +132,8 @@ html.dark-mode .progress-text {
 
 .app-button {
     display: inline-block;
-    font-size: 18px; /* Font boyutuna dokunmadık, okunurluk için */
-    padding: 0 25px; /* Dikey padding'i sıfırladık, yatay padding'i koruduk */
+    font-size: 18px;
+    padding: 0 25px;
     cursor: pointer;
     border: none;
     border-radius: 8px;
@@ -158,12 +148,12 @@ html.dark-mode .progress-text {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    width: 108px; /* %10 artırılmış genişlik (98px * 1.1) */
-    height: 37px; /* %10 artırılmış yükseklik (34px * 1.1) */
+    width: 108px;
+    height: 37px;
     box-sizing: border-box; 
-    margin-right: 2px; /* Drink butonu ve settings ikonu arasındaki boşluk (azaltıldı) */
-    line-height: 37px; /* Butonun yüksekliği ile aynı olmalı - Dikey ortalama için */
-    text-align: center; /* Yatay ortalama için - (muhtemelen zaten öyleydi ama emin olmak için) */
+    margin-right: -5px;
+    line-height: 37px;
+    text-align: center;
 }
 
 .app-button:active {
@@ -177,21 +167,21 @@ html.dark-mode .progress-text {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* Bu boşluğu ayarlar panelinde daha rahat yönetmek için artırıyoruz */
+    gap: 0;
     margin-bottom: 5px;
 }
 
 .settings-button {
-    background-color: transparent; /* Settings butonunun mevcut arka planını koru (şeffaf) */
+    background-color: transparent;
     border: none;
-    padding: 5px; /* İkonun etrafındaki boşluğu kontrol eder */
-    border-radius: 0; /* Köşeleri yuvarlaklaştırmayı kaldır */
-    box-shadow: none; /* Gölgeyi kaldır */
+    padding: 5px;
+    border-radius: 0;
+    box-shadow: none;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.1s ease; /* Sadece transform animasyonunu koru */
+    transition: transform 0.1s ease;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -200,26 +190,26 @@ html.dark-mode .progress-text {
     -ms-user-select: none;
     user-select: none;
     font-size: 15px;
-    width: 34px; /* Önceki haliyle aynı (değişmedi) */
-    height: 34px; /* Önceki haliyle aynı (değişmedi) */
+    width: 34px;
+    height: 34px;
     box-sizing: border-box;
 }
 
 .settings-button .fas {
-    color: var(--settings-icon-color); /* Yeni değişkeni kullan */
-    font-size: 15px !important; /* Önceki haliyle aynı (değişmedi) */
+    color: var(--settings-icon-color);
+    font-size: 15px !important;
     transition: color 0.1s ease, transform 0.1s ease;
 }
 
 .settings-button:active {
-    background-color: transparent; /* Tıklanınca da arka plan şeffaf kalsın */
-    transform: translateY(1px) scale(0.95); /* Hafifçe küçülme ve aşağı kayma */
-    box-shadow: none; /* Tıklanınca da gölge olmasın */
+    background-color: transparent;
+    transform: translateY(1px) scale(0.95);
+    box-shadow: none;
 }
 
 .settings-button:active .fas {
-    color: var(--settings-icon-active-color); /* Tıklanınca rengi değişsin */
-    transform: scale(0.95); /* Dişlinin kendisi de biraz küçülsün */
+    color: var(--settings-icon-active-color);
+    transform: scale(0.95);
 }
 
 #settingsPanel {
@@ -276,7 +266,6 @@ html.dark-mode .progress-text {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
-/* Karanlık mod düğmesi için özel stiller (checkbox) */
 .settings-option input[type="checkbox"] {
     position: relative;
     width: 40px;
@@ -329,23 +318,21 @@ html.dark-mode .progress-text {
 }
 
 .settings-buttons .app-button {
-    font-size: 14px; /* Buton küçüldüğü için fontu da biraz küçülttük */
-    padding: 0 15px; /* Yeni boyuta uygun dikey padding'i sıfırla, yatayı ayarla */
-    width: 86px !important; /* %20 küçültülmüş genişlik */
-    height: 30px !important; /* %20 küçültülmüş yükseklik */
+    font-size: 14px;
+    padding: 0 15px;
+    width: 86px !important;
+    height: 30px !important;
     margin-right: 0;
-    line-height: 30px !important; /* Yeni yüksekliğe uygun line-height */
+    line-height: 30px !important;
     box-sizing: border-box;
 }
 
-/* Ayar paneli butonları için :active efekti (save/close) */
 .settings-buttons .app-button:active {
     background-color: var(--primary-blue-active);
     transform: translateY(1px);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Reset butonu için :active efekti */
 .settings-buttons .reset-button {
     background-color: var(--red-alert);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -390,38 +377,34 @@ html.dark-mode .tip-bubble {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* --- Medya Sorguları (Responsive Tasarım İçin İyileştirmeler) --- */
-
-/* Küçük telefonlar için (örneğin iPhone SE, Galaxy S serisi eski modeller) */
 @media (max-width: 375px) {
-    /* Not: .progress sınıfı kaldırıldığı için bu medya sorgusu içindeki 'max-width' etkisi olmayacaktır. */
     #settingsPanel {
         max-width: 280px;
     }
     .app-button {
-        font-size: 16px; /* Font boyutu korunur */
-        padding: 0 20px; /* Dikey padding'i sıfırla */
-        width: 92px; /* %10 artırılmış genişlik (84px * 1.1) */
-        height: 31px; /* %10 artırılmış yükseklik (28px * 1.1) */
-        line-height: 31px; /* Butonun yüksekliği ile aynı line-height dikey ortalama için */
-        margin-right: 2px; /* Drink butonu ve settings ikonu arasındaki boşluk (azaltıldı) */
+        font-size: 16px;
+        padding: 0 20px;
+        width: 92px;
+        height: 31px;
+        line-height: 31px;
+        margin-right: -5px;
     }
     .settings-button {
-        width: 28px; /* Önceki haliyle aynı (değişmedi) */
-        height: 28px; /* Önceki haliyle aynı (değişmedi) */
+        width: 28px;
+        height: 28px;
     }
     .settings-button .fas {
-        font-size: 14px !important; /* Önceki haliyle aynı (değişmedi) */
+        font-size: 14px !important;
     }
     .settings-option label, .settings-option input, .settings-option select {
         font-size: 14px;
     }
     .settings-buttons .app-button {
-        font-size: 13px; /* Buton küçüldüğü için fontu da biraz küçülttük */
-        padding: 0 12px; /* Yeni boyuta uygun dikey padding'i sıfırla, yatayı ayarla */
-        width: 74px !important; /* %20 küçültülmüş genişlik */
-        height: 25px !important; /* %20 küçültülmüş yükseklik */
-        line-height: 25px !important; /* Yeni yüksekliğe uygun line-height */
+        font-size: 13px;
+        padding: 0 12px;
+        width: 74px !important;
+        height: 25px !important;
+        line-height: 25px !important;
     }
     .tip-bubble {
         min-width: 250px;
@@ -430,38 +413,35 @@ html.dark-mode .tip-bubble {
     }
 }
 
-/* Daha büyük telefonlar ve tabletler için (örneğin iPhone Plus, Max, küçük tabletler) */
 @media (min-width: 414px) {
-    /* Not: .progress sınıfı kaldırıldığı için bu medya sorgusu içindeki 'max-width' etkisi olmayacaktır. */
     #settingsPanel {
         max-width: 300px;
         padding: 20px;
     }
     .app-button {
-        font-size: 20px; /* Font boyutu korunur */
-        padding: 0 30px; /* Dikey padding'i sıfırla */
-        width: 123px; /* %10 artırılmış genişlik (112px * 1.1) */
-        height: 42px; /* %10 artırılmış yükseklik (38px * 1.1) */
-        line-height: 42px; /* Butonun yüksekliği ile aynı line-height dikey ortalama için */
-        margin-right: 2px; /* Drink butonu ve settings ikonu arasındaki boşluk (azaltıldı) */
+        font-size: 20px;
+        padding: 0 30px;
+        width: 123px;
+        height: 42px;
+        line-height: 42px;
+        margin-right: -5px;
     }
     .settings-button {
-        width: 38px; /* Önceki haliyle aynı (değişmedi) */
-        height: 38px; /* Önceki haliyle aynı (değişmedi) */
+        width: 38px;
+        height: 38px;
     }
     .settings-button .fas {
-        font-size: 17px !important; /* Önceki haliyle aynı (değişmedi) */
+        font-size: 17px !important;
     }
     .settings-buttons .app-button {
-        font-size: 15px; /* Buton küçüldüğü için fontu da biraz küçülttük */
-        padding: 0 16px; /* Yeni boyuta uygun dikey padding'i sıfırla, yatayı ayarla */
-        width: 98px !important; /* %20 küçültülmüş genişlik */
-        height: 34px !important; /* %20 küçültülmüş yükseklik */
-        line-height: 34px !important; /* Yeni yüksekliğe uygun line-height */
+        font-size: 15px;
+        padding: 0 16px;
+        width: 98px !important;
+        height: 34px !important;
+        line-height: 34px !important;
     }
 }
 
-/* Yatay modda veya daha geniş ekranlar için */
 @media (orientation: landscape) and (max-height: 500px) {
     body {
         padding-top: 10px;
@@ -475,7 +455,6 @@ html.dark-mode .tip-bubble {
         margin-top: 5px;
         font-size: 0.9em;
     }
-    /* Not: .progress sınıfı kaldırıldığı için bu medya sorgusu içindeki 'margin' ve 'max-width' etkisi olmayacaktır. */
     .main-buttons-container {
         margin-top: 10px;
     }
@@ -491,12 +470,7 @@ html.dark-mode .tip-bubble {
     }
     .settings-buttons .app-button {
         font-size: 14px;
-        padding: 6px 15px; /* Yatay modda ayarlar paneli butonları için orijinal padding'i koruyabiliriz veya sıfırlayabiliriz */
-        /* Bu alana width, height ve line-height için !important eklemenize gerek yok,
-           çünkü dikey moddaki değerler genellikle daha öncelikli olacaktır.
-           Ancak yine de kontrol için isterseniz ekleyebilirsiniz.
-           Örnek: width: auto !important; height: auto !important; line-height: normal !important;
-           veya belirli piksel değerleri. */
+        padding: 6px 15px;
     }
     .tip-bubble {
         bottom: 10px;
