@@ -160,7 +160,7 @@ html.dark-mode .progress-text {
     height: 37px;
     box-sizing: border-box;
     line-height: 37px;
-    text-align: center;
+    text-align: center; /* Buton içeriğini yatayda ortala */
 }
 
 .app-button:active {
@@ -199,11 +199,7 @@ html.dark-mode .progress-text {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
     border-radius: 6px; /* Biraz daha küçük border-radius */
     padding: 0 10px; /* İç padding'i küçülttük */
-    /* Bu üç kural artık settings-button-wrapper tarafından yönetildiği için kaldırıldı */
-    /* display: block; */
-    /* margin-left: auto; */
-    /* margin-right: auto; */
-    /* Buton, app-button sınıfından miras aldığı için display: inline-block; olarak kalacaktır. */
+    /* text-align: center; eklenmesine gerek yok çünkü app-button sınıfından miras alıyor */
 }
 
 .settings-main-button:active {
