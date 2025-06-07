@@ -142,8 +142,8 @@ html.dark-mode .progress-text {
 
 .app-button {
     display: inline-block;
-    font-size: 18px; /* Font boyutuna dokunmadık, okunurluk için */
-    padding: 12px 25px; /* Padding'i de duruma göre ayarlamanız gerekebilir, şimdilik sabit */
+    font-size: 18px; 
+    **padding: 0 25px; /* Dikey padding'i sıfırladık, yatay padding'i koruduk */**
     cursor: pointer;
     border: none;
     border-radius: 8px;
@@ -158,12 +158,12 @@ html.dark-mode .progress-text {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    width: 108px; /* %10 artırılmış genişlik (98px * 1.1) */
-    height: 37px; /* %10 artırılmış yükseklik (34px * 1.1) */
+    width: 108px; /* %10 artırılmış genişlik */
+    height: 37px; /* %10 artırılmış yükseklik */
     box-sizing: border-box; 
-    margin-right: 5px; /* Drink butonu ve settings ikonu arasındaki boşluk */
-    line-height: 37px; /* Butonun yüksekliği ile aynı olmalı - Dikey ortalama için */
-    text-align: center; /* Yatay ortalama için - (muhtemelen zaten öyleydi ama emin olmak için) */
+    margin-right: 5px; 
+    line-height: 37px; /* Butonun yüksekliği ile aynı olmalı */
+    text-align: center; 
 }
 
 .app-button:active {
