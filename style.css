@@ -179,7 +179,7 @@ html.dark-mode .progress-text {
     margin-bottom: 10px;
 }
 
-/* Yeni eklenen settings-button-wrapper stili */
+/* Ayarlar butonunu kapsayan ve ortalamak için kullandığımız yeni div */
 .settings-button-wrapper {
     display: flex; /* İçindeki öğeleri esnek kutu olarak düzenle */
     justify-content: center; /* İçindeki öğeyi (Ayarlar butonu) yatayda ortala */
@@ -188,13 +188,13 @@ html.dark-mode .progress-text {
     margin-top: 10px; /* Drink butonu ile arasındaki boşluk */
 }
 
-/* Yeni Ana Ayarlar Butonu (artık kapsayıcı tarafından ortalandığı için sadeleştirildi) */
+/* Ayarlar Butonu stilleri */
 .settings-main-button {
     background-color: var(--secondary-gray); /* Gri renk */
     color: white; /* Beyaz yazı */
     width: calc(108px / 2); /* Drink butonunun yarısı genişlik */
     height: calc(37px / 2); /* Drink butonunun yarısı yükseklik */
-    font-size: 14px; /* Boyutuna uygun font */
+    font-size: 12px; /* Yazı boyutunu 12px'e düşürdük */
     line-height: calc(37px / 2); /* Yükseklikle aynı line-height */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
     border-radius: 6px; /* Biraz daha küçük border-radius */
@@ -401,9 +401,8 @@ html.dark-mode .tip-bubble {
     .settings-main-button {
         width: calc(92px / 2);
         height: calc(31px / 2);
-        font-size: 12px;
+        font-size: 10px; /* Küçük ekranlar için de font boyutunu düşürdük */
         line-height: calc(31px / 2);
-        /* margin-top: 8px; Artık wrapper yönetiyor */
     }
     .settings-option label {
         font-size: 14px;
@@ -445,9 +444,8 @@ html.dark-mode .tip-bubble {
     .settings-main-button {
         width: calc(123px / 2);
         height: calc(42px / 2);
-        font-size: 15px;
+        font-size: 13px; /* Büyük ekranlar için font boyutunu düşürdük */
         line-height: calc(42px / 2);
-        /* margin-top: 12px; Artık wrapper yönetiyor */
     }
     .settings-option label {
         font-size: 16px;
@@ -487,9 +485,8 @@ html.dark-mode .tip-bubble {
     .settings-main-button {
         width: calc(100px / 2);
         height: calc(30px / 2);
-        font-size: 12px;
+        font-size: 12px; /* Yatay konumda da font boyutunu kontrol ediyoruz */
         line-height: calc(30px / 2);
-        /* margin-top: 5px; Artık wrapper yönetiyor */
     }
     #settingsPanel {
         margin: 10px auto;
