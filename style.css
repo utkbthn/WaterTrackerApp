@@ -1,14 +1,10 @@
-/* CSS Değişkenleri */
 :root {
     --light-background: white;
     --light-text-color: black;
     --dark-background: #121212;
     --dark-text-color: white;
-
-    /* Ana tema değişkenleri */
     --background-color: var(--light-background);
     --text-color: var(--light-text-color);
-
     --primary-blue: #3399ff;
     --primary-blue-active: #2a7acc;
     --secondary-gray: #a0a0a0;
@@ -18,15 +14,12 @@
     --success-green: #4CAF50;
     --progress-bar-start: #4CAF50;
     --progress-bar-end: #2196F3;
-
-    /* Ayarlar paneli için light ve dark mod renkleri */
     --settings-panel-bg-light: #fff;
     --settings-panel-border-light: #ccc;
     --settings-panel-text-light: #333;
     --settings-panel-label-light: #555;
     --settings-input-bg-light: #fff;
     --settings-input-border-light: #ddd;
-
     --settings-panel-bg-dark: #2a2a2a;
     --settings-panel-border-dark: #444;
     --settings-panel-text-dark: #eee;
@@ -35,7 +28,6 @@
     --settings-input-border-dark: #555;
 }
 
-/* Genel <html> Stilleri ve Tema Geçişleri */
 html {
     font-family: sans-serif;
     text-align: center;
@@ -45,12 +37,9 @@ html {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Karanlık mod sınıfı - JavaScript tarafından <html> etiketine eklenir/kaldırılır */
 html.dark-mode { 
     --background-color: var(--dark-background);
     --text-color: var(--dark-text-color);
-
-    /* Ayarlar paneli ve input'lar için karanlık mod renklerini burada yeniden tanımlıyoruz */
     --settings-panel-bg-light: var(--settings-panel-bg-dark);
     --settings-panel-border-light: var(--settings-panel-border-dark);
     --settings-panel-text-light: var(--settings-panel-text-dark);
@@ -77,17 +66,14 @@ html.dark-mode {
     transition: transform 0.1s ease-in-out, box-shadow 0.3s ease;
 }
 
-/* Water icon'un dark mode gölgesi */
 html.dark-mode .water-icon {
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/* Water icon'un aktif durumu (tıklanınca büyüme) */
 .water-icon:active {
     transform: scale(1.05);
 }
 
-/* Progress Bar Stilleri */
 .progress {
     position: relative;
     height: 25px;
@@ -104,7 +90,6 @@ html.dark-mode .progress {
     background: #444;
 }
 
-/* İlerleme Çubuğu İçindeki Metin */
 .progress-text {
     position: absolute;
     width: 100%;
@@ -161,7 +146,7 @@ html.dark-mode .progress-text {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px !important; /* Boşluk azaltıldı ve !important eklendi */
+    gap: 5px !important;
     margin-bottom: 5px;
 }
 
@@ -188,5 +173,264 @@ html.dark-mode .progress-text {
 
 .settings-button .fas {
     color: var(--secondary-gray);
-    font-size: 20px !important; /* Dişli boyutu daha da küçültüldü ve !important eklendi */
-    transition: color 0.1s ease, transform
+    font-size: 20px !important;
+    transition: color 0.1s ease, transform 0.1s ease;
+}
+
+.settings-button:active {
+    background-color: var(--secondary-gray-active);
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.settings-button:active .fas {
+    color: var(--secondary-gray);
+    transform: scale(0.95);
+}
+
+#settingsPanel {
+    display: none;
+    margin: 15px auto;
+    padding: 15px;
+    border: 1px solid var(--settings-panel-border-light);
+    border-radius: 10px;
+    background: var(--settings-panel-bg-light);
+    max-width: 260px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 20;
+}
+
+#settingsPanel h3 {
+    margin-top: 0;
+    color: var(--settings-panel-text-light);
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.settings-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.settings-option label {
+    flex-basis: 55%;
+    text-align: left;
+    color: var(--settings-panel-label-light);
+    font-size: 15px;
+    padding-right: 10px;
+    transition: color 0.3s ease;
+}
+
+.settings-option input[type="number"],
+.settings-option select {
+    width: 100px;
+    padding: 8px 10px;
+    border: 1px solid var(--settings-input-border-light);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    background-color: var(--settings-input-bg-light);
+    color: var(--settings-panel-text-light);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.settings-option input[type="checkbox"] {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    -webkit-appearance: none;
+    outline: none;
+    background-color: #ccc;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.settings-option input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #fff;
+    top: 1px;
+    left: 1px;
+    transform: translateX(0);
+    transition: transform 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.settings-option input[type="checkbox"]:checked {
+    background-color: var(--primary-blue);
+}
+
+.settings-option input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+}
+
+#maxAmount::-webkit-outer-spin-button,
+#maxAmount::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#maxAmount {
+    -moz-appearance: textfield;
+}
+
+.settings-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.settings-buttons .app-button {
+    font-size: 15px;
+    padding: 8px 18px;
+}
+
+.settings-buttons .app-button:active {
+    background-color: var(--primary-blue-active);
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.settings-buttons .reset-button {
+    background-color: var(--red-alert);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.settings-buttons .reset-button:active {
+    background-color: var(--red-alert-active);
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.tip-bubble {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    min-width: 300px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.4;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 10;
+}
+
+.tip-bubble.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+html.dark-mode .tip-bubble {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 375px) {
+    .progress, #settingsPanel {
+        max-width: 280px;
+    }
+    .app-button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+    .settings-button .fas {
+        font-size: 18px !important;
+    }
+    .settings-option label, .settings-option input, .settings-option select {
+        font-size: 14px;
+    }
+    .settings-buttons .app-button {
+        font-size: 14px;
+        padding: 7px 15px;
+    }
+    .tip-bubble {
+        min-width: 250px;
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 414px) {
+    .progress {
+        max-width: 350px;
+    }
+    #settingsPanel {
+        max-width: 300px;
+        padding: 20px;
+    }
+    .app-button {
+        font-size: 20px;
+        padding: 14px 30px;
+    }
+    .settings-button .fas {
+        font-size: 24px !important;
+    }
+    .settings-buttons .app-button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    body {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .water-icon {
+        max-width: 100px;
+        margin: 10px auto;
+    }
+    .water-tracker-text {
+        margin-top: 5px;
+        font-size: 0.9em;
+    }
+    .progress {
+        margin: 10px auto;
+        max-width: 400px;
+    }
+    .main-buttons-container {
+        margin-top: 10px;
+    }
+    #settingsPanel {
+        margin: 10px auto;
+        padding: 10px;
+    }
+    .settings-option label,
+    .settings-option input[type="number"],
+    .settings-option select {
+        font-size: 14px;
+        padding: 6px 8px;
+    }
+    .settings-buttons .app-button {
+        font-size: 14px;
+        padding: 6px 15px;
+    }
+    .tip-bubble {
+        bottom: 10px;
+        font-size: 13px;
+        padding: 10px 18px;
+    }
+}
