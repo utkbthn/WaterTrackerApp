@@ -161,7 +161,7 @@ html.dark-mode .progress-text {
     width: 108px; /* %10 artırılmış genişlik (98px * 1.1) */
     height: 37px; /* %10 artırılmış yükseklik (34px * 1.1) */
     box-sizing: border-box; 
-    margin-right: 3px; /* Drink butonu ve settings ikonu arasındaki boşluk */
+    margin-right: 2px; /* Drink butonu ve settings ikonu arasındaki boşluk (azaltıldı) */
     line-height: 37px; /* Butonun yüksekliği ile aynı olmalı - Dikey ortalama için */
     text-align: center; /* Yatay ortalama için - (muhtemelen zaten öyleydi ama emin olmak için) */
 }
@@ -403,6 +403,7 @@ html.dark-mode .tip-bubble {
         width: 92px; /* %10 artırılmış genişlik (84px * 1.1) */
         height: 31px; /* %10 artırılmış yükseklik (28px * 1.1) */
         line-height: 31px; /* Butonun yüksekliği ile aynı olmalı - Dikey ortalama için */
+        margin-right: 2px; /* Drink butonu ve settings ikonu arasındaki boşluk (azaltıldı) */
     }
     .settings-button {
         width: 28px; /* Önceki haliyle aynı (değişmedi) */
@@ -438,6 +439,7 @@ html.dark-mode .tip-bubble {
         width: 123px; /* %10 artırılmış genişlik (112px * 1.1) */
         height: 42px; /* %10 artırılmış yükseklik (38px * 1.1) */
         line-height: 42px; /* Butonun yüksekliği ile aynı olmalı - Dikey ortalama için */
+        margin-right: 2px; /* Drink butonu ve settings ikonu arasındaki boşluk (azaltıldı) */
     }
     .settings-button {
         width: 38px; /* Önceki haliyle aynı (değişmedi) */
