@@ -130,6 +130,7 @@ html.dark-mode .progress-text {
     color: var(--dark-text-color);
 }
 
+/* Ana Drink butonu */
 .app-button {
     display: inline-block;
     font-size: 18px;
@@ -151,7 +152,7 @@ html.dark-mode .progress-text {
     width: 108px;
     height: 37px;
     box-sizing: border-box;
-    margin-right: -5px;
+    margin-right: 0;
     line-height: 37px;
     text-align: center;
 }
@@ -168,48 +169,30 @@ html.dark-mode .progress-text {
     justify-content: center;
     align-items: center;
     gap: 0;
-    margin-bottom: 5px;
+    margin-bottom: 10px; /* Yeni buton ile arasındaki boşluğu artırdık */
 }
 
-.settings-button {
-    background-color: transparent;
-    border: none;
-    padding: 5px;
-    border-radius: 0;
-    box-shadow: none;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.1s ease;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    font-size: 15px;
-    width: 34px;
-    height: 34px;
-    box-sizing: border-box;
+/* Eski settings-button (çark ikonu) stilleri kaldırıldı */
+/* .settings-button ve .settings-button .fas ile başlayan tüm bloklar kaldırıldı */
+
+/* Yeni Ana Ayarlar Butonu */
+.settings-main-button {
+    background-color: var(--secondary-gray); /* Gri renk */
+    color: white; /* Beyaz yazı */
+    width: calc(108px / 2); /* Drink butonunun yarısı genişlik */
+    height: calc(37px / 2); /* Drink butonunun yarısı yükseklik */
+    font-size: 14px; /* Boyutuna uygun font */
+    line-height: calc(37px / 2); /* Yükseklikle aynı line-height */
+    margin-top: 10px; /* Drink butonu ile arasındaki boşluk */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
+    border-radius: 6px; /* Biraz daha küçük border-radius */
+    padding: 0 10px; /* İç padding'i küçülttük */
 }
 
-.settings-button .fas {
-    color: var(--settings-icon-color);
-    font-size: 15px !important;
-    transition: color 0.1s ease, transform 0.1s ease;
-}
-
-.settings-button:active {
-    background-color: transparent;
-    transform: translateY(1px) scale(0.95);
-    box-shadow: none;
-}
-
-.settings-button:active .fas {
-    color: var(--settings-icon-active-color);
-    transform: scale(0.95);
+.settings-main-button:active {
+    background-color: var(--secondary-gray-active); /* Aktif gri renk */
+    transform: translateY(1px); /* Hafif aşağı kayma */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Hafif gölge */
 }
 
 #settingsPanel {
@@ -387,14 +370,14 @@ html.dark-mode .tip-bubble {
         width: 92px;
         height: 31px;
         line-height: 31px;
-        margin-right: -5px;
+        margin-right: 0;
     }
-    .settings-button {
-        width: 28px;
-        height: 28px;
-    }
-    .settings-button .fas {
-        font-size: 14px !important;
+    .settings-main-button {
+        width: calc(92px / 2);
+        height: calc(31px / 2);
+        font-size: 12px;
+        line-height: calc(31px / 2);
+        margin-top: 8px;
     }
     .settings-option label {
         font-size: 14px;
@@ -430,14 +413,14 @@ html.dark-mode .tip-bubble {
         width: 123px;
         height: 42px;
         line-height: 42px;
-        margin-right: -5px;
+        margin-right: 0;
     }
-    .settings-button {
-        width: 38px;
-        height: 38px;
-    }
-    .settings-button .fas {
-        font-size: 17px !important;
+    .settings-main-button {
+        width: calc(123px / 2);
+        height: calc(42px / 2);
+        font-size: 15px;
+        line-height: calc(42px / 2);
+        margin-top: 12px;
     }
     .settings-option label {
         font-size: 16px;
@@ -472,6 +455,13 @@ html.dark-mode .tip-bubble {
     }
     .main-buttons-container {
         margin-top: 10px;
+    }
+    .settings-main-button {
+        width: calc(100px / 2);
+        height: calc(30px / 2);
+        font-size: 12px;
+        line-height: calc(30px / 2);
+        margin-top: 5px;
     }
     #settingsPanel {
         margin: 10px auto;
