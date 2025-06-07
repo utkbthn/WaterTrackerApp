@@ -159,7 +159,6 @@ html.dark-mode .progress-text {
     width: 108px;
     height: 37px;
     box-sizing: border-box;
-    /* margin-right: 0; satırını tamamen kaldırdık, çünkü sorun yaratıyordu */
     line-height: 37px;
     text-align: center;
 }
@@ -180,7 +179,16 @@ html.dark-mode .progress-text {
     margin-bottom: 10px;
 }
 
-/* Yeni Ana Ayarlar Butonu */
+/* Yeni eklenen settings-button-wrapper stili */
+.settings-button-wrapper {
+    display: flex; /* İçindeki öğeleri esnek kutu olarak düzenle */
+    justify-content: center; /* İçindeki öğeyi (Ayarlar butonu) yatayda ortala */
+    align-items: center; /* İçindeki öğeyi dikeyde ortala */
+    width: 100%; /* Kapsayıcının tam genişlik almasını sağla */
+    margin-top: 10px; /* Drink butonu ile arasındaki boşluk */
+}
+
+/* Yeni Ana Ayarlar Butonu (artık kapsayıcı tarafından ortalandığı için sadeleştirildi) */
 .settings-main-button {
     background-color: var(--secondary-gray); /* Gri renk */
     color: white; /* Beyaz yazı */
@@ -188,16 +196,14 @@ html.dark-mode .progress-text {
     height: calc(37px / 2); /* Drink butonunun yarısı yükseklik */
     font-size: 14px; /* Boyutuna uygun font */
     line-height: calc(37px / 2); /* Yükseklikle aynı line-height */
-    margin-top: 10px; /* Drink butonu ile arasındaki boşluk */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
     border-radius: 6px; /* Biraz daha küçük border-radius */
     padding: 0 10px; /* İç padding'i küçülttük */
-    
-    /* Bu üç kural, butonun kendi satırında ortalanmasını sağlar */
-    display: block; /* Butonun tam genişlik almasını ve yeni satıra geçmesini sağlar */
-    margin-left: auto; /* Yatayda otomatik sol boşluk */
-    margin-right: auto; /* Yatayda otomatik sağ boşluk */
-    /* margin: 10px auto 0 auto; /* Eğer üsttekiler işe yaramazsa bu daha kesin bir yol olabilir */
+    /* Bu üç kural artık settings-button-wrapper tarafından yönetildiği için kaldırıldı */
+    /* display: block; */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    /* Buton, app-button sınıfından miras aldığı için display: inline-block; olarak kalacaktır. */
 }
 
 .settings-main-button:active {
@@ -397,7 +403,7 @@ html.dark-mode .tip-bubble {
         height: calc(31px / 2);
         font-size: 12px;
         line-height: calc(31px / 2);
-        margin-top: 8px;
+        /* margin-top: 8px; Artık wrapper yönetiyor */
     }
     .settings-option label {
         font-size: 14px;
@@ -441,7 +447,7 @@ html.dark-mode .tip-bubble {
         height: calc(42px / 2);
         font-size: 15px;
         line-height: calc(42px / 2);
-        margin-top: 12px;
+        /* margin-top: 12px; Artık wrapper yönetiyor */
     }
     .settings-option label {
         font-size: 16px;
@@ -483,7 +489,7 @@ html.dark-mode .tip-bubble {
         height: calc(30px / 2);
         font-size: 12px;
         line-height: calc(30px / 2);
-        margin-top: 5px;
+        /* margin-top: 5px; Artık wrapper yönetiyor */
     }
     #settingsPanel {
         margin: 10px auto;
