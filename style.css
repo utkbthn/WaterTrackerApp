@@ -161,7 +161,7 @@ html.dark-mode .progress-text {
     width: 140px; /* Drink butonu için sabit genişlik */
     height: 48px; /* Settings butonu ile dikey hizalanması için yükseklik */
     box-sizing: border-box; 
-    margin-right: 10px; /* Sağındaki boşluğu ayarlar */
+    margin-right: 5px; /* Drink butonu ve settings ikonu arasındaki boşluk */
 }
 
 .app-button:active {
