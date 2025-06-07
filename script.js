@@ -6,7 +6,7 @@ let maxWaterGoal;
 let addWaterAmount;
 let isDarkMode;
 
-const progressBar = document.getElementById("progressBar");
+// const progressBar = document.getElementById("progressBar"); // Kaldırıldı
 const statusDisplay = document.getElementById("status");
 const darkModeToggle = document.getElementById("darkModeToggle");
 const rootElement = document.documentElement;
@@ -19,6 +19,10 @@ const saveSettingsButton = document.getElementById("saveSettingsButton");
 const resetWaterButton = document.getElementById("resetWaterButton");
 const tipBubble = document.getElementById("tipBubble");
 const tipContent = document.getElementById("tipContent");
+
+// Yeni element: Kare progress bar
+const waterFillProgress = document.getElementById("waterFillProgress"); 
+const waterIconContainer = document.querySelector(".water-icon-container"); // Kapsayıcıyı da alalım
 
 let lastResetDate;
 
@@ -68,7 +72,9 @@ function updateDisplay() {
     let percent = (currentWaterAmount / maxWaterGoal) * 100;
     percent = Math.min(Math.max(percent, 0), 100);
 
-    progressBar.style.width = percent + "%";
+    // waterFillProgress.style.width = percent + "%"; // Artık yükseklik değişecek
+    waterFillProgress.style.height = percent + "%"; // Yeni: Yükseklik değişimi
+
     statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
 
     if (drinkButton) {
