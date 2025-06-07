@@ -25,20 +25,7 @@
             <div class="progress-bar" id="progressBar"></div>
         </div>
     </div>
-    <div class="progress-status-display">
-        <span id="currentWaterText"></span>
-        <span class="separator"> / </span>
-        <span id="maxWaterText"></span>
-    </div>
-
-    <select id="quickAddAmountSelect" class="quick-add-select">
-        <option value="">Ekle...</option>
-        <option value="250">250 ml</option>
-        <option value="300">300 ml</option>
-        <option value="500">500 ml</option>
-    </select>
-
-    <div class="main-buttons-container">
+    <div class="progress-status-display" id="status"></div> <div class="main-buttons-container">
         <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
         <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">
             <i class="fas fa-gear"></i>
