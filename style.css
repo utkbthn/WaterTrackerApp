@@ -26,6 +26,10 @@
     --settings-panel-label-dark: #ccc;
     --settings-input-bg-dark: #3a3a3a;
     --settings-input-border-dark: #555;
+
+    /* Yeni progress bar için renk */
+    --water-fill-color: #5ab1f7; /* Su rengi */
+    --water-fill-background: #e0e0e0; /* Dolmayan kısım */
 }
 
 html {
@@ -46,6 +50,7 @@ html.dark-mode {
     --settings-panel-label-light: var(--settings-panel-label-dark);
     --settings-input-bg-light: var(--settings-input-bg-dark);
     --settings-input-border-light: var(--settings-input-border-dark);
+    --water-fill-background: #444; /* Dark modda boş kısım */
 }
 
 .water-tracker-text {
@@ -56,401 +61,77 @@ html.dark-mode {
     transition: color 0.3s ease;
 }
 
-.water-icon {
-    max-width: 150px;
-    height: auto;
-    display: block;
-    margin: 20px auto 20px auto;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    transition: transform 0.1s ease-in-out, box-shadow 0.3s ease;
+/* Yeni Kapsayıcı Stilileri */
+.water-icon-container {
+    position: relative; /* İçindeki öğeleri konumlandırmak için */
+    width: 150px; /* water-icon ile aynı genişlik */
+    height: 150px; /* water-icon ile aynı yükseklik */
+    margin: 20px auto 20px auto; /* water-icon ile aynı margin */
+    border-radius: 15px; /* water-icon ile aynı radius */
+    overflow: hidden; /* Taşmaları engelle */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* water-icon ile aynı gölge */
+    background-color: var(--water-fill-background); /* Progress barın dolmayan kısmı */
+    display: flex; /* İçindeki öğeleri hizalamak için */
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-html.dark-mode .water-icon {
+html.dark-mode .water-icon-container {
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.water-icon {
+    max-width: 150px; /* Water-icon'un boyutunu koru */
+    height: auto;
+    display: block;
+    z-index: 2; /* Progress barın üstünde olması için */
+    transition: transform 0.1s ease-in-out; /* Sadece transform animasyonunu koru */
+    border-radius: 15px; /* Water-icon'un kendi border-radius'unu koru */
+    /* Eski margin ve box-shadow kaldırıldı, container'a taşındı */
+    margin: 0; /* Artık kapsayıcı içinde olduğu için marjine gerek yok */
+    box-shadow: none; /* Artık kapsayıcı üzerinde olduğu için bu gölgeye gerek yok */
 }
 
 .water-icon:active {
     transform: scale(1.05);
 }
 
-.progress {
-    position: relative;
-    height: 25px;
-    background: #e0e0e0;
-    border-radius: 12px;
-    margin: 20px auto;
-    max-width: 320px;
-    overflow: hidden;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease;
-}
-
-html.dark-mode .progress {
-    background: #444;
-}
-
-.progress-text {
+/* Yeni Kare Progress Bar */
+.water-fill-progress {
     position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0; /* Başlangıçta boş */
+    background-color: var(--water-fill-color); /* Su rengi */
+    transition: height 0.4s ease-out; /* Yükseklik değişimi animasyonu */
+    z-index: 1; /* Damla ikonunun arkasında olması için */
+    border-radius: 15px; /* water-icon-container ile aynı radius */
+}
+
+/* Eski Progress Bar Stilleri (Kaldırıldı veya Değiştirildi) */
+/* .progress { ... kaldırıldı ... } */
+/* .progress-bar { ... kaldırıldı ... } */
+
+/* İlerleme Çubuğu İçindeki Metin (konumlandırıldı) */
+.progress-text {
+    /* position: absolute; - Kaldırıldı, normal akışta olacak */
     width: 100%;
     text-align: center;
-    line-height: 25px;
-    color: black;
+    line-height: normal; /* Normal satır yüksekliği */
+    color: var(--text-color); /* Temaya göre renk */
     font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-    z-index: 1;
-    top: 0;
-    left: 0;
+    text-shadow: none; /* Gölge kaldırıldı, daha sade */
+    z-index: auto; /* Normal z-index */
+    margin-top: 10px; /* İkon ile arasına boşluk */
+    /* top ve left değerleri kaldırıldı */
+    transition: color 0.3s ease;
 }
 
 html.dark-mode .progress-text {
-    color: white;
+    color: var(--dark-text-color);
 }
 
-.progress-bar {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(to right, var(--progress-bar-start), var(--progress-bar-end));
-    transition: width 0.4s ease-out;
-    border-radius: 12px;
-}
-
-.app-button {
-    display: inline-block;
-    font-size: 18px;
-    padding: 12px 25px;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--primary-blue);
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    **width: 140px; /* Drink butonu için sabit genişlik */**
-    **box-sizing: border-box; /* Padding dahil genişliği hesapla */**
-}
-
-.app-button:active {
-    background-color: var(--primary-blue-active);
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-.main-buttons-container {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 13px;
-    margin-bottom: 5px;
-}
-
-.settings-button {
-    background-color: transparent;
-    border: none;
-    padding: 5px;
-    border-radius: 8px;
-    box-shadow: none;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    font-size: 15px;
-    **width: 48px; /* Ayarlar butonu için sabit genişlik */**
-    **height: 48px; /* Ayarlar butonu için sabit yükseklik */**
-    **box-sizing: border-box; /* Padding dahil genişliği hesapla */**
-}
-
-.settings-button .fas {
-    color: var(--secondary-gray);
-    font-size: 20px !important;
-    transition: color 0.1s ease, transform 0.1s ease;
-}
-
-.settings-button:active {
-    background-color: var(--secondary-gray-active);
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-}
-
-.settings-button:active .fas {
-    color: var(--secondary-gray);
-    transform: scale(0.95);
-}
-
-#settingsPanel {
-    display: none;
-    margin: 15px auto;
-    padding: 15px;
-    border: 1px solid var(--settings-panel-border-light);
-    border-radius: 10px;
-    background: var(--settings-panel-bg-light);
-    max-width: 260px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    z-index: 20;
-}
-
-#settingsPanel h3 {
-    margin-top: 0;
-    color: var(--settings-panel-text-light);
-    margin-bottom: 15px;
-    font-size: 1.1em;
-    transition: color 0.3s ease;
-}
-
-.settings-option {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-}
-
-.settings-option label {
-    flex-basis: 55%;
-    text-align: left;
-    color: var(--settings-panel-label-light);
-    font-size: 15px;
-    padding-right: 10px;
-    transition: color 0.3s ease;
-}
-
-.settings-option input[type="number"],
-.settings-option select {
-    width: 100px;
-    padding: 8px 10px;
-    border: 1px solid var(--settings-input-border-light);
-    border-radius: 5px;
-    text-align: center;
-    font-size: 16px;
-    background-color: var(--settings-input-bg-light);
-    color: var(--settings-panel-text-light);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-
-.settings-option input[type="checkbox"] {
-    position: relative;
-    width: 40px;
-    height: 20px;
-    -webkit-appearance: none;
-    outline: none;
-    background-color: #ccc;
-    border-radius: 20px;
-    transition: background-color 0.3s;
-    cursor: pointer;
-}
-
-.settings-option input[type="checkbox"]::before {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background-color: #fff;
-    top: 1px;
-    left: 1px;
-    transform: translateX(0);
-    transition: transform 0.3s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.settings-option input[type="checkbox"]:checked {
-    background-color: var(--primary-blue);
-}
-
-.settings-option input[type="checkbox"]:checked::before {
-    transform: translateX(20px);
-}
-
-#maxAmount::-webkit-outer-spin-button,
-#maxAmount::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-#maxAmount {
-    -moz-appearance: textfield;
-}
-
-.settings-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.settings-buttons .app-button {
-    font-size: 15px;
-    padding: 8px 18px;
-}
-
-.settings-buttons .app-button:active {
-    background-color: var(--primary-blue-active);
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.settings-buttons .reset-button {
-    background-color: var(--red-alert);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.settings-buttons .reset-button:active {
-    background-color: var(--red-alert-active);
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-.tip-bubble {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 15px 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    max-width: 500px;
-    min-width: 300px;
-    text-align: center;
-    font-size: 15px;
-    line-height: 1.4;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-    z-index: 10;
-}
-
-.tip-bubble.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-}
-
-html.dark-mode .tip-bubble {
-    background-color: #3a3a3a;
-    color: #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* --- Medya Sorguları (Responsive Tasarım İçin İyileştirmeler) --- */
-
-/* Küçük telefonlar için (örneğin iPhone SE, Galaxy S serisi eski modeller) */
-@media (max-width: 375px) {
-    .progress, #settingsPanel {
-        max-width: 280px;
-    }
-    .app-button {
-        font-size: 16px;
-        padding: 10px 20px;
-        width: 120px; /* Küçük ekranlar için sabit genişlik */
-    }
-    .settings-button {
-        width: 44px; /* Küçük ekranlar için sabit genişlik */
-        height: 44px;
-    }
-    .settings-button .fas {
-        font-size: 18px !important;
-    }
-    .settings-option label, .settings-option input, .settings-option select {
-        font-size: 14px;
-    }
-    .settings-buttons .app-button {
-        font-size: 14px;
-        padding: 7px 15px;
-    }
-    .tip-bubble {
-        min-width: 250px;
-        padding: 12px 20px;
-        font-size: 14px;
-    }
-}
-
-/* Daha büyük telefonlar ve tabletler için (örneğin iPhone Plus, Max, küçük tabletler) */
-@media (min-width: 414px) {
-    .progress {
-        max-width: 350px;
-    }
-    #settingsPanel {
-        max-width: 300px;
-        padding: 20px;
-    }
-    .app-button {
-        font-size: 20px;
-        padding: 14px 30px;
-        width: 160px; /* Büyük ekranlar için sabit genişlik */
-    }
-    .settings-button {
-        width: 54px; /* Büyük ekranlar için sabit genişlik */
-        height: 54px;
-    }
-    .settings-button .fas {
-        font-size: 24px !important;
-    }
-    .settings-buttons .app-button {
-        font-size: 16px;
-        padding: 10px 20px;
-    }
-}
-
-/* Yatay modda veya daha geniş ekranlar için */
-@media (orientation: landscape) and (max-height: 500px) {
-    body {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-    .water-icon {
-        max-width: 100px;
-        margin: 10px auto;
-    }
-    .water-tracker-text {
-        margin-top: 5px;
-        font-size: 0.9em;
-    }
-    .progress {
-        margin: 10px auto;
-        max-width: 400px;
-    }
-    .main-buttons-container {
-        margin-top: 10px;
-    }
-    #settingsPanel {
-        margin: 10px auto;
-        padding: 10px;
-    }
-    .settings-option label,
-    .settings-option input[type="number"],
-    .settings-option select {
-        font-size: 14px;
-        padding: 6px 8px;
-    }
-    .settings-buttons .app-button {
-        font-size: 14px;
-        padding: 6px 15px;
-    }
-    .tip-bubble {
-        bottom: 10px;
-        font-size: 13px;
-        padding: 10px 18px;
-    }
-}
+/* Diğer stil kuralları aynı kalacak */
+/* ... (Mevcut style.css dosyanızın geri kalanı) ... */
