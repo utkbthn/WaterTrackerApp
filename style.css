@@ -161,7 +161,7 @@ html.dark-mode .progress-text {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 5px; /* Boşluk azaltıldı (10px'den 5px'e) */
     margin-bottom: 5px;
 }
 
@@ -188,7 +188,7 @@ html.dark-mode .progress-text {
 
 .settings-button .fas {
     color: var(--secondary-gray);
-    font-size: 28px;
+    font-size: 24px; /* Dişli boyutu küçültüldü (28px'den 24px'e) */
     transition: color 0.1s ease, transform 0.1s ease;
 }
 
@@ -333,7 +333,6 @@ html.dark-mode .progress-text {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* Tips Baloncuğu Stilleri */
 .tip-bubble {
     position: fixed;
     bottom: 20px;
@@ -364,7 +363,6 @@ html.dark-mode .progress-text {
     transform: translateX(-50%) translateY(0);
 }
 
-/* Karanlık Mod İçin Tips Baloncuğu */
 html.dark-mode .tip-bubble {
     background-color: #3a3a3a;
     color: #e0e0e0;
@@ -385,7 +383,7 @@ html.dark-mode .tip-bubble {
     }
 
     .settings-button .fas {
-        font-size: 26px;
+        font-size: 22px; /* Küçük ekranlarda dişli boyutu daha da küçültüldü */
     }
 
     .settings-option label, .settings-option input, .settings-option select {
@@ -421,7 +419,7 @@ html.dark-mode .tip-bubble {
     }
 
     .settings-button .fas {
-        font-size: 32px;
+        font-size: 28px; /* Daha büyük ekranlarda dişli boyutu güncellendi */
     }
 
     .settings-buttons .app-button {
