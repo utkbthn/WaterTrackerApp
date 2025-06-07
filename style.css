@@ -1,136 +1,137 @@
 :root {
-    /* ... (Diğer değişkenler aynı kalsın) ... */
+    --light-background: white;
+    --light-text-color: black;
+    --dark-background: #121212;
+    --dark-text-color: white;
+    --background-color: var(--light-background);
+    --text-color: var(--light-text-color);
+    --primary-blue: #3399ff;
+    --primary-blue-active: #2a7acc;
+    --secondary-gray: #a0a0a0;
+    --secondary-gray-active: #777777;
+    --red-alert: #ff6666;
+    --red-alert-active: #cc4c4c;
+    --success-green: #4CAF50;
+    --progress-bar-start: #4CAF50;
+    --progress-bar-end: #2196F3;
+    --settings-panel-bg-light: #fff;
+    --settings-panel-border-light: #ccc;
+    --settings-panel-text-light: #333;
+    --settings-panel-label-light: #555;
+    --settings-input-bg-light: #fff;
+    --settings-input-border-light: #ddd;
+    --settings-panel-bg-dark: #2a2a2a;
+    --settings-panel-border-dark: #444;
+    --settings-panel-text-dark: #eee;
+    --settings-panel-label-dark: #ccc;
+    --settings-input-bg-dark: #3a3a3a;
+    --settings-input-border-dark: #555;
 
+    /* Yeni progress bar için renk */
     --water-fill-color: #5ab1f7; /* Su rengi */
     --water-fill-background: #e0e0e0; /* Dolmayan kısım */
-
-    **--settings-icon-color: #a0a0a0; /* Ayarlar ikonunun rengi */**
-    **--settings-icon-active-color: #777777; /* Ayarlar ikonunun tıklama rengi */**
 }
 
-/* ... (html, html.dark-mode, water-tracker-text, water-icon-container, water-icon, water-fill-progress, progress-text kısımları aynı kalsın) ... */
-
-.app-button {
-    display: inline-block;
-    font-size: 18px;
-    padding: 12px 25px;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--primary-blue);
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    **width: auto; /* Genişliği içeriğine göre ayarlasın */**
-    **min-width: 120px; /* Çok fazla küçülmesini engellemek için minimum genişlik */**
-    box-sizing: border-box; 
-    **margin-right: 10px; /* Drink butonunun sağında sabit boşluk */**
+html {
+    font-family: sans-serif;
+    text-align: center;
+    padding-bottom: 50px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.app-button:active {
-    background-color: var(--primary-blue-active);
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+html.dark-mode { 
+    --background-color: var(--dark-background);
+    --text-color: var(--dark-text-color);
+    --settings-panel-bg-light: var(--settings-panel-bg-dark);
+    --settings-panel-border-light: var(--settings-panel-border-dark);
+    --settings-panel-text-light: var(--settings-panel-text-dark);
+    --settings-panel-label-light: var(--settings-panel-label-dark);
+    --settings-input-bg-light: var(--settings-input-bg-dark);
+    --settings-input-border-light: var(--settings-input-border-dark);
+    --water-fill-background: #444; /* Dark modda boş kısım */
 }
 
-.main-buttons-container {
-    margin-top: 15px;
-    display: flex;
+.water-tracker-text {
+    text-align: center;
+    margin-top: 8px;
+    font-weight: bold;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+/* Yeni Kapsayıcı Stilileri */
+.water-icon-container {
+    position: relative; /* İçindeki öğeleri konumlandırmak için */
+    width: 150px; /* water-icon ile aynı genişlik */
+    height: 150px; /* water-icon ile aynı yükseklik */
+    margin: 20px auto 20px auto; /* water-icon ile aynı margin */
+    border-radius: 15px; /* water-icon ile aynı radius */
+    overflow: hidden; /* Taşmaları engelle */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* water-icon ile aynı gölge */
+    background-color: var(--water-fill-background); /* Progress barın dolmayan kısmı */
+    display: flex; /* İçindeki öğeleri hizalamak için */
     justify-content: center;
     align-items: center;
-    **gap: 0; /* Boşluk artık sadece margin-right ile yönetilecek */**
-    margin-bottom: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.settings-button {
-    background-color: transparent; /* Arka planı tamamen şeffaf yap */
-    border: none;
-    padding: 5px;
-    border-radius: 0; /* Köşeleri yuvarlaklaştırma */
-    box-shadow: none; /* Gölgeyi kaldır */
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.1s ease; /* Sadece transform animasyonunu koru */
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    font-size: 15px;
-    **width: auto; /* Genişliği içeriğine göre ayarlasın */**
-    **height: auto; /* Yüksekliği içeriğine göre ayarlasın */**
-    box-sizing: border-box;
+html.dark-mode .water-icon-container {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-.settings-button .fas {
-    color: var(--settings-icon-color); /* Yeni değişkeni kullan */
-    font-size: 20px !important;
-    transition: color 0.1s ease, transform 0.1s ease;
+.water-icon {
+    max-width: 150px; /* Water-icon'un boyutunu koru */
+    height: auto;
+    display: block;
+    z-index: 2; /* Progress barın üstünde olması için */
+    transition: transform 0.1s ease-in-out; /* Sadece transform animasyonunu koru */
+    border-radius: 15px; /* Water-icon'un kendi border-radius'unu koru */
+    /* Eski margin ve box-shadow kaldırıldı, container'a taşındı */
+    margin: 0; /* Artık kapsayıcı içinde olduğu için marjine gerek yok */
+    box-shadow: none; /* Artık kapsayıcı üzerinde olduğu için bu gölgeye gerek yok */
 }
 
-.settings-button:active {
-    background-color: transparent; /* Tıklanınca da arka plan şeffaf kalsın */
-    transform: translateY(1px) scale(0.95); /* Hafifçe küçülme ve aşağı kayma */
-    box-shadow: none; /* Tıklanınca da gölge olmasın */
+.water-icon:active {
+    transform: scale(1.05);
 }
 
-.settings-button:active .fas {
-    color: var(--settings-icon-active-color); /* Tıklanınca rengi değişsin */
-    transform: scale(0.95); /* Dişlinin kendisi de biraz küçülsün */
+/* Yeni Kare Progress Bar */
+.water-fill-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0; /* Başlangıçta boş */
+    background-color: var(--water-fill-color); /* Su rengi */
+    transition: height 0.4s ease-out; /* Yükseklik değişimi animasyonu */
+    z-index: 1; /* Damla ikonunun arkasında olması için */
+    border-radius: 15px; /* water-icon-container ile aynı radius */
 }
 
-/* ... (Diğer ayarlar paneli, settings-option, settings-buttons ve tip-bubble kısımları aynı kalsın) ... */
+/* Eski Progress Bar Stilleri (Kaldırıldı veya Değiştirildi) */
+/* .progress { ... kaldırıldı ... } */
+/* .progress-bar { ... kaldırıldı ... } */
 
-
-/* --- Medya Sorguları (Responsive Tasarım İçin İyileştirmeler) --- */
-
-/* Küçük telefonlar için (örneğin iPhone SE, Galaxy S serisi eski modeller) */
-@media (max-width: 375px) {
-    /* ... (Diğerleri aynı) ... */
-    .app-button {
-        font-size: 16px;
-        padding: 10px 20px;
-        width: auto;
-        min-width: 110px; /* Minimum genişliği güncelledik */
-    }
-    .settings-button {
-        width: auto;
-        height: auto;
-    }
-    .settings-button .fas {
-        font-size: 18px !important;
-    }
-    /* ... (Diğerleri aynı) ... */
+/* İlerleme Çubuğu İçindeki Metin (konumlandırıldı) */
+.progress-text {
+    /* position: absolute; - Kaldırıldı, normal akışta olacak */
+    width: 100%;
+    text-align: center;
+    line-height: normal; /* Normal satır yüksekliği */
+    color: var(--text-color); /* Temaya göre renk */
+    font-weight: bold;
+    text-shadow: none; /* Gölge kaldırıldı, daha sade */
+    z-index: auto; /* Normal z-index */
+    margin-top: 10px; /* İkon ile arasına boşluk */
+    /* top ve left değerleri kaldırıldı */
+    transition: color 0.3s ease;
 }
 
-/* Daha büyük telefonlar ve tabletler için (örneğin iPhone Plus, Max, küçük tabletler) */
-@media (min-width: 414px) {
-    /* ... (Diğerleri aynı) ... */
-    .app-button {
-        font-size: 20px;
-        padding: 14px 30px;
-        width: auto;
-        min-width: 140px; /* Minimum genişliği güncelledik */
-    }
-    .settings-button {
-        width: auto;
-        height: auto;
-    }
-    .settings-button .fas {
-        font-size: 24px !important;
-    }
-    /* ... (Diğerleri aynı) ... */
+html.dark-mode .progress-text {
+    color: var(--dark-text-color);
 }
 
-/* ... (Yatay mod için medya sorgusu aynı kalsın) ... */
+/* Diğer stil kuralları aynı kalacak */
+/* ... (Mevcut style.css dosyanızın geri kalanı) ... */
