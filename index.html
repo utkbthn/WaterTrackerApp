@@ -6,11 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <script>
-        // Bu küçük betik, sayfa yüklenirken ilk rengi ayarlamak için çalışır.
-        // Kullanıcının localStorage'da kaydettiği tema tercihini kontrol eder.
         const savedTheme = localStorage.getItem('darkMode');
         if (savedTheme === 'true') {
-            // Eğer karanlık mod kaydedilmişse, hemen <html> etiketine 'dark-mode' sınıfını ekler.
             document.documentElement.classList.add('dark-mode');
         } else if (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             // Eğer daha önce bir tercih kaydedilmemişse VE kullanıcının işletim sistemi karanlık moddaysa,
@@ -25,13 +22,14 @@
     <title>Water Tracker</title>
 </head>
 <body>
+ <div class="icon-and-progressbar-container">
     <img src="images/water.logo.png" alt="Su Takipçisi Logosu" class="water-icon">
-    <p class="water-tracker-text">Water Tracker</p>
-
     <div class="progress">
         <div class="progress-text" id="status"></div>
         <div class="progress-bar" id="progressBar"></div>
     </div>
+</div>
+<p class="water-tracker-text">Water-Tracker</p>
     <div class="main-buttons-container">
         <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
         <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">
