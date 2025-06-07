@@ -6,7 +6,6 @@ let maxWaterGoal;
 let addWaterAmount;
 let isDarkMode;
 
-// const progressBar = document.getElementById("progressBar"); // Kaldırıldı - Bu zaten yorum satırıydı, tamamen silebiliriz.
 const statusDisplay = document.getElementById("status");
 const darkModeToggle = document.getElementById("darkModeToggle");
 const rootElement = document.documentElement;
@@ -14,16 +13,13 @@ const settingsPanel = document.getElementById("settingsPanel");
 const addAmountSelect = document.getElementById("addAmount");
 const maxAmountInput = document.getElementById("maxAmount");
 const drinkButton = document.getElementById("drinkButton");
-// settingsButton'ın ID'si HTML'de aynı kaldı, bu yüzden burada değişiklik yok.
 const settingsButton = document.getElementById("settingsButton");
 const saveSettingsButton = document.getElementById("saveSettingsButton");
 const resetWaterButton = document.getElementById("resetWaterButton");
-const tipBubble = document.getElementById("tipBubble");
-const tipContent = document.getElementById("tipContent");
+const tipBubble = document.getElementById("tipBubble"); // HTML'de display: none olduğu için hala burada kalabilir.
+const tipContent = document.getElementById("tipContent"); // tipBubble ile birlikte kalabilir.
 
-// Yeni element: Kare progress bar
 const waterFillProgress = document.getElementById("waterFillProgress");
-// const waterIconContainer = document.querySelector(".water-icon-container"); // Kullanılmadığı için kaldırıldı
 
 let lastResetDate;
 
@@ -73,8 +69,7 @@ function updateDisplay() {
     let percent = (currentWaterAmount / maxWaterGoal) * 100;
     percent = Math.min(Math.max(percent, 0), 100);
 
-    waterFillProgress.style.height = percent + "%"; // Yeni: Yükseklik değişimi
-
+    waterFillProgress.style.height = percent + "%";
     statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
 
     if (drinkButton) {
@@ -82,10 +77,77 @@ function updateDisplay() {
             drinkButton.innerText = "Afiyet Olsun! 🎉";
             drinkButton.style.backgroundColor = "var(--success-green)";
             drinkButton.style.cursor = "default";
+
+            // ***** SADECE AFİYET OLSUN! 🎉 YAZISI İÇİN BOYUT AYARLAMALARI BAŞLANGICI *****
+            // Normal (varsayılan) görünüm için
+            drinkButton.style.fontSize = "13px"; // Afiyet Olsun için varsayılan font boyutu
+            drinkButton.style.paddingLeft = "8px";
+            drinkButton.style.paddingRight = "8px";
+            // Dikey paddingleri değiştirmene gerek kalmaz, butonun yüksekliği CSS'ten sabit.
+
+            // Telefon/Medya Sorguları için Özel Boyutlandırmalar (JavaScript ile)
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            // Küçük ekranlar (max-width: 375px)
+            if (width <= 375) {
+                drinkButton.style.fontSize = "11.5px";
+                drinkButton.style.paddingLeft = "6px";
+                drinkButton.style.paddingRight = "6px";
+            }
+            // Büyük ekranlar (min-width: 414px)
+            else if (width >= 414) {
+                drinkButton.style.fontSize = "14px"; // Büyük ekranlarda Afiyet Olsun için biraz daha büyük font
+                drinkButton.style.paddingLeft = "13px";
+                drinkButton.style.paddingRight = "13px";
+            }
+
+            // Yatay konum ve küçük yükseklik (orientation: landscape and max-height: 500px)
+            // Cihazın yatay konumda olup olmadığını ve yüksekliğinin düşük olup olmadığını kontrol et
+            if (height <= 500 && width > height) { // Genişlik yükseklikten fazlaysa yataydır
+                drinkButton.style.fontSize = "11.5px";
+                drinkButton.style.paddingLeft = "6px";
+                drinkButton.style.paddingRight = "6px";
+            }
+            // ***** SADECE AFİYET OLSUN! 🎉 YAZISI İÇİN BOYUT AYARLAMALARI SONU *****
+
         } else {
             drinkButton.innerText = "Drink";
             drinkButton.style.backgroundColor = "var(--primary-blue)";
             drinkButton.style.cursor = "pointer";
+
+            // ***** SADECE DRINK YAZISI İÇİN BOYUT AYARLAMALARI BAŞLANGICI *****
+            // CSS'ten gelecek varsayılan değerlere sıfırlamak en iyisidir.
+            // Bunun için inline style'ları temizleyebiliriz.
+            drinkButton.style.fontSize = ""; // CSS'teki varsayılan boyutu kullanır
+            drinkButton.style.paddingLeft = ""; // CSS'teki varsayılan padding'i kullanır
+            drinkButton.style.paddingRight = ""; // CSS'teki varsayılan padding'i kullanır
+            drinkButton.style.paddingTop = ""; // CSS'teki varsayılan padding'i kullanır
+            drinkButton.style.paddingBottom = ""; // CSS'teki varsayılan padding'i kullanır
+
+
+            // Medya Sorguları ile CSS'te belirlenen "Drink" boyutlarını tekrar uygulamak için
+            // Aslında yukarıdaki boş string atamaları yeterli olur, çünkü tarayıcı CSS'teki medya sorgularını uygular.
+            // Ancak garanti olması için veya özel durumlar için JavaScript ile de belirtebiliriz.
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            if (width <= 375) { // Küçük ekranlar
+                // drinkButton.style.fontSize = "14px"; // Zaten CSS'ten gelmeli, istersen buraya ekle
+                // drinkButton.style.paddingLeft = "10px";
+                // drinkButton.style.paddingRight = "10px";
+            } else if (width >= 414) { // Büyük ekranlar
+                // drinkButton.style.fontSize = "17px"; // Zaten CSS'ten gelmeli, istersen buraya ekle
+                // drinkButton.style.paddingLeft = "18px";
+                // drinkButton.style.paddingRight = "18px";
+            }
+
+            if (height <= 500 && width > height) { // Yatay küçük ekranlar
+                // drinkButton.style.fontSize = "14px"; // Zaten CSS'ten gelmeli, istersen buraya ekle
+                // drinkButton.style.paddingLeft = "10px";
+                // drinkButton.style.paddingRight = "10px";
+            }
+            // ***** SADECE DRINK YAZISI İÇİN BOYUT AYARLAMALARI SONU *****
         }
     }
 }
@@ -93,7 +155,6 @@ function updateDisplay() {
 function addWater() {
     if (currentWaterAmount < maxWaterGoal) {
         currentWaterAmount += addWaterAmount;
-        // Hedefi aşarsa, maksimum hedefe sabitle
         if (currentWaterAmount > maxWaterGoal) {
             currentWaterAmount = maxWaterGoal;
         }
@@ -105,14 +166,21 @@ function addWater() {
 function resetWater(isAutoReset = false) {
     currentWaterAmount = 0;
     localStorage.setItem("water", currentWaterAmount);
+    // Reset yapıldığında butonu "Drink" durumuna döndür ve stilini sıfırla
     if (drinkButton) {
         drinkButton.innerText = "Drink";
         drinkButton.style.backgroundColor = "var(--primary-blue)";
         drinkButton.style.cursor = "pointer";
+        // Stil sıfırlama (CSS'e geri dönmesini sağlar)
+        drinkButton.style.fontSize = "";
+        drinkButton.style.paddingLeft = "";
+        drinkButton.style.paddingRight = "";
+        drinkButton.style.paddingTop = "";
+        drinkButton.style.paddingBottom = "";
     }
-    updateDisplay();
+    updateDisplay(); // Bu çağrı içindeki stil ayarlamaları da tekrar çalışacak
     if (!isAutoReset && settingsPanel.style.display === "block") {
-        settingsPanel.style.display = "none"; // Ayarlar panelini kapat
+        settingsPanel.style.display = "none";
     }
 }
 
@@ -133,32 +201,31 @@ function saveAndCloseSettings() {
 
     if (isNaN(newMax) || newMax < 500) {
         alert("Günlük hedef en az 500 ml olmalı ve sayısal bir değer girilmelidir!");
-        maxAmountInput.value = maxWaterGoal; // Geçersizse eski değeri geri yükle
+        maxAmountInput.value = maxWaterGoal;
         return;
     }
 
     maxWaterGoal = newMax;
     localStorage.setItem("maxWater", maxWaterGoal);
 
-    if (!isNaN(newAdd)) { // addAmountSelect'ten gelen değer zaten sayısal olmalı ama kontrol etmekte fayda var.
+    if (!isNaN(newAdd)) {
         addWaterAmount = newAdd;
         localStorage.setItem("addAmount", addWaterAmount);
     }
-    
+
     isDarkMode = darkModeToggle.checked;
     localStorage.setItem("darkMode", isDarkMode);
-    applyTheme(); // Tema ayarını hemen uygula
+    applyTheme();
 
-    updateDisplay(); // Yeni hedefle ekranı güncelle
-    settingsPanel.style.display = "none"; // Ayarlar panelini kapat
+    updateDisplay(); // Yeni hedefle ekranı güncelle, buton stilini de günceller
+    settingsPanel.style.display = "none";
 }
 
 // Event Listeners
 drinkButton.addEventListener('click', addWater);
-// settingsButton'ın ID'si HTML'de değişmediği için bu satır aynı kalabilir.
 settingsButton.addEventListener('click', toggleSettings);
 saveSettingsButton.addEventListener('click', saveAndCloseSettings);
-resetWaterButton.addEventListener('click', () => resetWater(false)); // Manuel sıfırlama için
+resetWaterButton.addEventListener('click', () => resetWater(false));
 
 darkModeToggle.addEventListener("change", () => {
     isDarkMode = darkModeToggle.checked;
@@ -166,11 +233,14 @@ darkModeToggle.addEventListener("change", () => {
     applyTheme();
 });
 
-// Sayfa yüklendiğinde
+// Sayfa yüklendiğinde ve boyut değiştiğinde veya yön değiştirildiğinde
 window.onload = function () {
     loadInitialSettings();
-    resetWaterIfNewDay(); // Gün değiştiyse suyu sıfırla
-    updateDisplay(); // Ekranı ilk yüklemede güncelle
-    applyTheme(); // Temayı uygula
-    settingsPanel.style.display = "none"; // Başlangıçta ayarlar panelini gizle
+    resetWaterIfNewDay();
+    updateDisplay(); // İlk yüklemede ve boyut değişikliklerinde stil doğru ayarlanır
+    applyTheme();
+    settingsPanel.style.display = "none";
 };
+
+// Ekran boyutu değiştiğinde veya cihaz yönü değiştiğinde de updateDisplay'i çağır
+window.addEventListener('resize', updateDisplay);
