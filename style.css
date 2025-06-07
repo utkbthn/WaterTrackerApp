@@ -216,11 +216,13 @@ html.dark-mode .progress-status-display {
 }
 
 .top-right-settings-button {
-    top: 10px;
-    right: 10px;
+    /* Önceki 'position: fixed; top: 10px; right: 10px;' satırları kaldırıldı */
     z-index: 100;
     background-color: transparent !important;
     box-shadow: none !important;
+    float: right; /* Sağa yaslar */
+    margin-top: 10px; /* Üstten biraz boşluk */
+    margin-right: 10px; /* Sağdan biraz boşluk */
 }
 
 .settings-button .fas {
