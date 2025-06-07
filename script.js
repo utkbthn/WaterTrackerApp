@@ -8,9 +8,7 @@ let addWaterAmount = parseInt(localStorage.getItem("addAmount")) || DEFAULT_ADD_
 let isDarkMode = localStorage.getItem("darkMode") === "true";
 
 const progressBar = document.getElementById("progressBar");
-const currentWaterText = document.getElementById("currentWaterText");
-const maxWaterText = document.getElementById("maxWaterText");         
-const quickAddSelect = document.getElementById("quickAddAmountSelect");
+const statusDisplay = document.getElementById("status");
 const darkModeToggle = document.getElementById("darkModeToggle");     
 const rootElement = document.documentElement;     
 
@@ -48,8 +46,7 @@ function updateDisplay() {
 
     progressBar.style.height = percent + "%"; 
     
-    currentWaterText.innerText = `${currentWaterAmount} ml`;
-    maxWaterText.innerText = `${maxWaterGoal} ml`;
+    statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
 
     const drinkButton = document.getElementById("drinkButton");
     if (drinkButton) {
@@ -158,37 +155,12 @@ function showNextTip() {
 
 tipBubble.addEventListener('click', showNextTip);
 
-currentWaterText.addEventListener("click", () => {
-    quickAddSelect.style.display = "block";
-    quickAddSelect.focus();
-});
-
-quickAddSelect.addEventListener("change", () => {
-    const selectedAmount = parseInt(quickAddSelect.value);
-    if (!isNaN(selectedAmount) && selectedAmount > 0) {
-        currentWaterAmount = selectedAmount;
-        if (currentWaterAmount > maxWaterGoal) {
-            currentWaterAmount = maxWaterGoal;
-        }
-        localStorage.setItem("water", currentWaterAmount);
-        updateDisplay();
-    }
-    quickAddSelect.style.display = "none";
-    quickAddSelect.value = "";
-});
-
-quickAddSelect.addEventListener("blur", () => {
-    quickAddSelect.style.display = "none";
-    quickAddSelect.value = "";
-});
-
 window.onload = function () {
     resetWaterIfNewDay();
     updateDisplay();
     applyTheme();
     showNextTip();
     setInterval(showNextTip, 7200000);
-    quickAddSelect.style.display = "none";
 };
 
 darkModeToggle.addEventListener("change", () => {
