@@ -30,7 +30,6 @@
     --settings-panel-bg-dark: #2a2a2a;
     --settings-panel-border-dark: #444;
     --settings-panel-text-dark: #eee;
-    --settings-panel-label-dark: #ccc;
     --settings-input-bg-dark: #3a3a3a;
     --settings-input-border-dark: #555;
 }
@@ -65,7 +64,7 @@ body {
 
 .water-tracker-text {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 40px; /* Güncellendi */
     margin-bottom: 20px;
     font-weight: bold;
     font-size: 24px;
@@ -74,7 +73,6 @@ body {
 }
 
 .water-icon {
-    /* Mevcut stillerini koruyun */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -83,10 +81,10 @@ body {
     height: 100%;
     object-fit: contain;
     display: block;
-    border-radius: 20px; /* Bardakla uyumlu hale getirmek için gerekirse değiştirin */
+    border-radius: 20px;
     box-shadow: none;
     transition: transform 0.1s ease-in-out;
-    z-index: 3; /* Su ikonunun progress bar'ın üzerinde kalması için */
+    z-index: 3;
 }
 
 html.dark-mode .water-icon {
@@ -100,12 +98,12 @@ html.dark-mode .water-icon {
 .icon-and-progressbar-container {
     position: relative;
     width: 175px;
-    height: 250px; /* Yüksekliği artırarak daha uzun bir bardak hissi */
+    height: 250px; /* Güncellendi */
     margin: 0px auto 20px auto;
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* Su, alttan doldurulduğu için */
-    overflow: hidden; /* Taşmayı önler */
+    align-items: flex-end; /* Güncellendi */
+    overflow: hidden; /* Güncellendi */
 }
 
 .progress {
@@ -114,25 +112,22 @@ html.dark-mode .water-icon {
     left: 0;
     width: 100%;
     height: 100%;
-    /* background: rgba(173, 216, 230, 0.3); /* Açık mavi, hafif şeffaf */
-    background: rgba(255, 255, 255, 0.1); /* Daha genel, şeffaf bir cam rengi */
-    border-radius: 20px 20px 40px 40px; /* Üst köşeler 20px, alt köşeler 40px yuvarlak */
-    /* box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2); */
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), /* İç gölge */
-                0 5px 15px rgba(0, 0, 0, 0.1); /* Dış gölge */
+    background: rgba(255, 255, 255, 0.1); /* Güncellendi */
+    border-radius: 20px 20px 40px 40px; /* Güncellendi */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), /* Güncellendi */
+                0 5px 15px rgba(0, 0, 0, 0.1); /* Güncellendi */
     transition: background 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease;
     z-index: 1;
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Hafif bir çerçeve */
-    backdrop-filter: blur(2px); /* Arka planı hafif bulanıklaştırma (cam efekti) */
-    -webkit-backdrop-filter: blur(2px); /* Safari desteği */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Güncellendi */
+    backdrop-filter: blur(2px); /* Güncellendi */
+    -webkit-backdrop-filter: blur(2px); /* Güncellendi */
 }
 
 html.dark-mode .progress {
-    /* background: rgba(68, 68, 68, 0.5); /* Koyu mod için koyu gri, hafif şeffaf */
-    background: rgba(0, 0, 0, 0.2); /* Koyu modda daha şeffaf ve koyu cam */
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), /* İç gölge */
-                0 5px 15px rgba(0, 0, 0, 0.3); /* Dış gölge */
-    border: 1px solid rgba(0, 0, 0, 0.5); /* Koyu modda daha belirgin çerçeve */
+    background: rgba(0, 0, 0, 0.2); /* Güncellendi */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), /* Güncellendi */
+                0 5px 15px rgba(0, 0, 0, 0.3); /* Güncellendi */
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Güncellendi */
 }
 
 .progress-bar {
@@ -143,8 +138,8 @@ html.dark-mode .progress {
     height: 0;
     background: linear-gradient(to top, var(--progress-bar-start), var(--progress-bar-end));
     transition: height 0.4s ease-out;
-    border-radius: 20px 20px 40px 40px; /* Üst köşeler 20px, alt köşeler 40px yuvarlak */
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Suya parlaklık veren bir gölge */
+    border-radius: 20px 20px 40px 40px; /* Güncellendi */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Güncellendi */
 }
 
 .progress-status-display {
@@ -188,16 +183,16 @@ html.dark-mode .progress-status-display {
 .main-buttons-container {
     margin-top: 15px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0px; 
+    justify-content: center; /* Butonları yatayda ortalar */
+    align-items: center; /* Butonları dikeyde ortalar */
+    gap: 15px; /* Butonlar arasına boşluk ekler */
     margin-bottom: 5px;
 }
 
 .settings-button {
-    background-color: transparent;
+    background-color: transparent; /* Arka planı şeffaf yapar */
     border: none;
-    padding: 5px;
+    padding: 5px; 
     border-radius: 8px;
     box-shadow: none;
     display: inline-flex;
@@ -212,22 +207,14 @@ html.dark-mode .progress-status-display {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    font-size: 15px;
 }
 
-.top-right-settings-button {
-    /* Önceki 'position: fixed; top: 10px; right: 10px;' satırları kaldırıldı */
-    z-index: 100;
-    background-color: transparent !important;
-    box-shadow: none !important;
-    float: right; /* Sağa yaslar */
-    margin-top: 10px; /* Üstten biraz boşluk */
-    margin-right: 10px; /* Sağdan biraz boşluk */
-}
+/* !!! DİKKAT: .top-right-settings-button Sınıfı Tamamen Kaldırıldı !!! */
 
+/* Ayarlar çarkı simgesinin boyutunu küçültmek için */
 .settings-button .fas {
     color: var(--secondary-gray);
-    font-size: 28px;
+    font-size: 22px; /* Çark ikonunun boyutunu küçülttük */
     transition: color 0.1s ease, transform 0.1s ease;
 }
 
