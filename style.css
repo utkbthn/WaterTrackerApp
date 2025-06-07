@@ -148,7 +148,7 @@ html.dark-mode .progress-text {
     display: flex;
     justify-content: center;
     align-items: center;
-    **gap: 10px; /* Butonlar sabit genişlikte olduğu için boşluk 10px'e geri alındı */**
+    gap: 13px;
     margin-bottom: 5px;
 }
 
