@@ -19,18 +19,23 @@
 </head>
 <body>
     <p class="water-tracker-text">Water Tracker</p>
+    
+    <button onclick="openSettings()" class="app-button settings-button top-right-settings-button" id="settingsButton">
+        <i class="fas fa-gear"></i>
+    </button>
+
     <div class="icon-and-progressbar-container">
         <img src="images/water.logo.png" alt="Su Takipçisi Logosu" class="water-icon">
         <div class="progress">
             <div class="progress-bar" id="progressBar"></div>
         </div>
     </div>
-    <div class="progress-status-display" id="status"></div> <div class="main-buttons-container">
+    <div class="progress-status-display" id="status"></div>
+
+    <div class="main-buttons-container">
         <button onclick="addWater()" class="app-button" id="drinkButton">Drink</button>
-        <button onclick="openSettings()" class="app-button settings-button" id="settingsButton">
-            <i class="fas fa-gear"></i>
-        </button>
     </div>
+    
     <div id="settingsPanel">
         <div class="settings-option">
             <label for="addAmount">İçilen Su Miktarı (ml):</label>
