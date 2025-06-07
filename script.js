@@ -173,7 +173,13 @@ drinkButton.addEventListener('click', addWater);
 settingsButton.addEventListener('click', toggleSettings);
 saveSettingsButton.addEventListener('click', saveAndCloseSettings);
 resetWaterButton.addEventListener('click', () => resetWater(false));
-darkModeToggle.addEventListener("change", applyTheme);
+
+darkModeToggle.addEventListener("change", () => {
+    isDarkMode = darkModeToggle.checked;
+    localStorage.setItem("darkMode", isDarkMode);
+    applyTheme();
+});
+
 tipBubble.addEventListener('click', showNextTip);
 
 window.onload = function () {
