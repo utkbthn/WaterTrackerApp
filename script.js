@@ -128,39 +128,10 @@ function saveAndCloseSettings() {
     document.getElementById("settingsPanel").style.display = "none";
 }
 
-const tips = [
-    "Su içmeyi unutmayın! Günde en az 8 bardak su hedefini deneyin.",
-    "Susuzluk hissettiğinizde, vücudunuz zaten hafifçe susuz kalmıştır. Düzenli su için.",
-    "Egzersiz yapıyorsanız daha fazla suya ihtiyacınız olabilir.",
-    "Yemeklerden önce bir bardak su içmek iştahınızı kontrol etmenize yardımcı olabilir.",
-    "Sık sık baş ağrısı çekiyorsanız, dehidrasyonun bir nedeni olup olmadığını kontrol edin.",
-    "Meyve ve sebzeler de su içerir. Dengeli beslenmeye özen gösterin.",
-    "Kahve ve alkol vücudunuzdan su atılmasına neden olabilir, tüketiminizi dengeleyin.",
-    "Gün içinde küçük yudumlarla su içmek, büyük miktarlarda bir anda içmekten daha faydalıdır.",
-    "Su şişenizi yanınızda taşıyarak su içme alışkanlığınızı pekiştirin."
-];
-
-let currentTipIndex = 0;
-const tipBubble = document.getElementById("tipBubble");
-const tipContent = document.getElementById("tipContent");
-
-function showNextTip() {
-    tipBubble.classList.remove('show');
-    setTimeout(() => {
-        currentTipIndex = (currentTipIndex + 1) % tips.length;
-        tipContent.innerText = tips[currentTipIndex];
-        tipBubble.classList.add('show');
-    }, 500);
-}
-
-tipBubble.addEventListener('click', showNextTip);
-
 window.onload = function () {
     resetWaterIfNewDay();
     updateDisplay();
     applyTheme();
-    showNextTip();
-    setInterval(showNextTip, 7200000);
 };
 
 darkModeToggle.addEventListener("change", () => {
