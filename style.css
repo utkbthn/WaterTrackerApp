@@ -135,13 +135,13 @@ html.dark-mode .progress-text {
     color: var(--dark-text-color);
 }
 
-/* Ana Buton Stili (Hem Drink/Afiyet hem de Ayarlar için ortak) */
+/* Ana Buton Stili (MacBook Air ve genel büyük ekranlar için geçerli olacak) */
 .app-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px; /* Başlangıçtaki haline geri alındı */
-    padding: 0 15px; /* Başlangıçtaki haline geri alındı */
+    font-size: 16px;
+    padding: 0 15px;
     cursor: pointer;
     border: none;
     border-radius: 8px;
@@ -345,14 +345,14 @@ html.dark-mode .progress-text {
     display: none; /* Bu HTML elementini tamamen gizliyoruz çünkü fonksiyonu değişti */
 }
 
-/* Duyarlı Tasarım (Responsive Design) - Küçük ekranlar (maksimum 375px genişlik) */
+/* Duyarlı Tasarım (Responsive Design) - Sadece iPhone 13 dikey ve benzeri küçük ekranlar (maksimum 375px genişlik) */
 @media (max-width: 375px) {
     #settingsPanel {
         max-width: 280px;
     }
     .app-button {
-        font-size: 14px; /* Orijinal boyutlarına yakın hale getirildi */
-        padding: 0 10px; /* Orijinal boyutlarına yakın hale getirildi */
+        font-size: 14px;
+        padding: 0 10px;
         width: 100px;
         height: 31px;
     }
@@ -376,85 +376,5 @@ html.dark-mode .progress-text {
         padding: 0 12px;
         width: 74px !important;
         height: 25px !important;
-    }
-}
-
-/* Duyarlı Tasarım - Büyük ekranlar (minimum 414px genişlik) */
-@media (min-width: 414px) {
-    #settingsPanel {
-        max-width: 300px;
-        padding: 20px;
-    }
-    .app-button {
-        font-size: 17px; /* Orijinal boyutlarına yakın hale getirildi */
-        padding: 0 18px; /* Orijinal boyutlarına yakın hale getirildi */
-        width: 108px;
-        height: 42px;
-    }
-    .settings-main-button {
-        width: calc(108px / 2);
-        height: calc(42px / 2);
-        font-size: 12px;
-        padding: 0 8px;
-    }
-    .settings-option label {
-        font-size: 16px;
-    }
-    .settings-option input[type="number"],
-    .settings-option select {
-        font-size: 16px;
-        padding: 7px 9px;
-        width: 95px;
-    }
-    .settings-buttons .app-button {
-        font-size: 15px;
-        padding: 0 16px;
-        width: 98px !important;
-        height: 34px !important;
-    }
-}
-
-/* Duyarlı Tasarım - Yatay konum ve küçük yükseklik */
-@media (orientation: landscape) and (max-height: 500px) {
-    body {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-    .water-icon {
-        max-width: 100px;
-        margin: 10px auto;
-    }
-    .water-tracker-text {
-        margin-top: 5px;
-        font-size: 0.9em;
-    }
-    .main-buttons-container {
-        margin-top: 10px;
-    }
-    .app-button {
-        width: 100px;
-        height: 30px;
-        font-size: 14px; /* Orijinal boyutlarına yakın hale getirildi */
-        padding: 0 10px; /* Orijinal boyutlarına yakın hale getirildi */
-    }
-    .settings-main-button {
-        width: calc(100px / 2);
-        height: calc(30px / 2);
-        font-size: 9px;
-        padding: 0 4px;
-    }
-    #settingsPanel {
-        margin: 10px auto;
-        padding: 10px;
-    }
-    .settings-option label,
-    .settings-option input[type="number"],
-    .settings-option select {
-        font-size: 14px;
-        padding: 6px 8px;
-    }
-    .settings-buttons .app-button {
-        font-size: 14px;
-        padding: 6px 15px;
     }
 }
