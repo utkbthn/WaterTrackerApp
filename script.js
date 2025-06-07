@@ -7,10 +7,10 @@ let addWaterAmount = parseInt(localStorage.getItem("addAmount")) || DEFAULT_ADD_
 
 let isDarkMode = localStorage.getItem("darkMode") === "true";
 
-const progressBar = document.getElementById("progressBar"); // Burası progressBar olarak doğru ayarlandı
+const progressBar = document.getElementById("progressBar");
 const statusDisplay = document.getElementById("status");
-const darkModeToggle = document.getElementById("darkModeToggle");    
-const rootElement = document.documentElement;    
+const darkModeToggle = document.getElementById("darkModeToggle");     
+const rootElement = document.documentElement;     
 
 let lastResetDate = localStorage.getItem("lastResetDate");
 
@@ -46,7 +46,8 @@ function updateDisplay() {
     if (percent > 100) percent = 100;
     if (percent < 0) percent = 0;
 
-    progressBar.style.width = percent + "%"; // ProgressBar için 'width' kullanıldı
+    // BURADA GÜNCELLEME: progressBar.style.height olarak değişti
+    progressBar.style.height = percent + "%"; 
     
     statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
 
