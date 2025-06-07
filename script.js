@@ -16,8 +16,8 @@ const drinkButton = document.getElementById("drinkButton");
 const settingsButton = document.getElementById("settingsButton");
 const saveSettingsButton = document.getElementById("saveSettingsButton");
 const resetWaterButton = document.getElementById("resetWaterButton");
-const tipBubble = document.getElementById("tipBubble"); // HTML'de display: none olduğu için hala burada kalabilir.
-const tipContent = document.getElementById("tipContent"); // tipBubble ile birlikte kalabilir.
+const tipBubble = document.getElementById("tipBubble");
+const tipContent = document.getElementById("tipContent");
 
 const waterFillProgress = document.getElementById("waterFillProgress");
 
@@ -79,38 +79,19 @@ function updateDisplay() {
             drinkButton.style.cursor = "default";
 
             // ***** SADECE AFİYET OLSUN! 🎉 YAZISI İÇİN BOYUT AYARLAMALARI BAŞLANGICI *****
-            // Normal (varsayılan) görünüm için - Önceki 13px -> 12px, Önceki 8px -> 7px
-            drinkButton.style.fontSize = "12px"; // Afiyet Olsun için varsayılan font boyutu (1px düşürüldü)
-            drinkButton.style.paddingLeft = "7px"; // (1px düşürüldü)
-            drinkButton.style.paddingRight = "7px"; // (1px düşürüldü)
-            // Dikey paddingleri değiştirmene gerek kalmaz, butonun yüksekliği CSS'ten sabit.
+            // MacBook Air ve genel büyük ekranlar için varsayılan Afiyet Olsun stili
+            drinkButton.style.fontSize = "12px";
+            drinkButton.style.paddingLeft = "7px";
+            drinkButton.style.paddingRight = "7px";
 
-            // Telefon/Medya Sorguları için Özel Boyutlandırmalar (JavaScript ile)
+            // iPhone 13 dikey ve benzeri küçük ekranlar için özel Afiyet Olsun stili
             const width = window.innerWidth;
-            const height = window.innerHeight;
-
-            // Küçük ekranlar (max-width: 375px) - Önceki 11.5px -> 10.5px, Önceki 6px -> 5px
             if (width <= 375) {
-                drinkButton.style.fontSize = "10.5px"; // (1px düşürüldü)
-                drinkButton.style.paddingLeft = "5px"; // (1px düşürüldü)
-                drinkButton.style.paddingRight = "5px"; // (1px düşürüldü)
+                drinkButton.style.fontSize = "10.5px";
+                drinkButton.style.paddingLeft = "5px";
+                drinkButton.style.paddingRight = "5px";
             }
-            // Büyük ekranlar (min-width: 414px) - Önceki 14px -> 13px, Önceki 13px -> 12px
-            else if (width >= 414) {
-                drinkButton.style.fontSize = "13px"; // Büyük ekranlarda Afiyet Olsun için biraz daha büyük font (1px düşürüldü)
-                drinkButton.style.paddingLeft = "12px"; // (1px düşürüldü)
-                drinkButton.style.paddingRight = "12px"; // (1px düşürüldü)
-            }
-
-            // Yatay konum ve küçük yükseklik (orientation: landscape and max-height: 500px)
-            // Cihazın yatay konumda olup olmadığını ve yüksekliğinin düşük olup olmadığını kontrol et
-            // Önceki 11.5px -> 10.5px, Önceki 6px -> 5px
-            if (height <= 500 && width > height) { // Genişlik yükseklikten fazlaysa yataydır
-                drinkButton.style.fontSize = "10.5px"; // (1px düşürüldü)
-                drinkButton.style.paddingLeft = "5px"; // (1px düşürüldü)
-                drinkButton.style.paddingRight = "5px"; // (1px düşürüldü)
-            }
-            // ***** SADECE AFİYET OLSUN! 🎉 YAZISI İÇİN BOYUT AYARLAMALARI SONU *****
+            // ***** SADEFE AFİYET OLSUN! 🎉 YAZISI İÇİN BOYUT AYARLAMALARI SONU *****
 
         } else {
             drinkButton.innerText = "Drink";
@@ -119,35 +100,15 @@ function updateDisplay() {
 
             // ***** SADECE DRINK YAZISI İÇİN BOYUT AYARLAMALARI BAŞLANGICI *****
             // CSS'ten gelecek varsayılan değerlere sıfırlamak en iyisidir.
-            // Bunun için inline style'ları temizleyebiliriz.
-            drinkButton.style.fontSize = ""; // CSS'teki varsayılan boyutu kullanır
-            drinkButton.style.paddingLeft = ""; // CSS'teki varsayılan padding'i kullanır
-            drinkButton.style.paddingRight = ""; // CSS'teki varsayılan padding'i kullanır
-            drinkButton.style.paddingTop = ""; // CSS'teki varsayılan padding'i kullanır
-            drinkButton.style.paddingBottom = ""; // CSS'teki varsayılan padding'i kullanır
+            // Bu, MacBook Air ve diğer büyük ekranlarda CSS'teki .app-button font-size ve padding'ini kullanır.
+            drinkButton.style.fontSize = "";
+            drinkButton.style.paddingLeft = "";
+            drinkButton.style.paddingRight = "";
+            drinkButton.style.paddingTop = "";
+            drinkButton.style.paddingBottom = "";
 
-
-            // Medya Sorguları ile CSS'te belirlenen "Drink" boyutlarını tekrar uygulamak için
-            // Aslında yukarıdaki boş string atamaları yeterli olur, çünkü tarayıcı CSS'teki medya sorgularını uygular.
-            // Ancak garanti olması için veya özel durumlar için JavaScript ile de belirtebiliriz.
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-
-            if (width <= 375) { // Küçük ekranlar
-                // drinkButton.style.fontSize = "14px"; // Zaten CSS'ten gelmeli, istersen buraya ekle
-                // drinkButton.style.paddingLeft = "10px";
-                // drinkButton.style.paddingRight = "10px";
-            } else if (width >= 414) { // Büyük ekranlar
-                // drinkButton.style.fontSize = "17px"; // Zaten CSS'ten gelmeli, istersen buraya ekle
-                // drinkButton.style.paddingLeft = "18px";
-                // drinkButton.style.paddingRight = "18px";
-            }
-
-            if (height <= 500 && width > height) { // Yatay küçük ekranlar
-                // drinkButton.style.fontSize = "14px"; // Zaten CSS'ten gelmeli, istersen buraya ekle
-                // drinkButton.style.paddingLeft = "10px";
-                // drinkButton.style.paddingRight = "10px";
-            }
+            // iPhone 13 dikey ve benzeri küçük ekranlar için CSS'teki .app-button medya sorgusunu kullanır.
+            // Bu kısımda JavaScript ile özel bir ayar yapmaya gerek yok, CSS zaten halledecek.
             // ***** SADECE DRINK YAZISI İÇİN BOYUT AYARLAMALARI SONU *****
         }
     }
@@ -167,19 +128,17 @@ function addWater() {
 function resetWater(isAutoReset = false) {
     currentWaterAmount = 0;
     localStorage.setItem("water", currentWaterAmount);
-    // Reset yapıldığında butonu "Drink" durumuna döndür ve stilini sıfırla
     if (drinkButton) {
         drinkButton.innerText = "Drink";
         drinkButton.style.backgroundColor = "var(--primary-blue)";
         drinkButton.style.cursor = "pointer";
-        // Stil sıfırlama (CSS'e geri dönmesini sağlar)
         drinkButton.style.fontSize = "";
         drinkButton.style.paddingLeft = "";
         drinkButton.style.paddingRight = "";
         drinkButton.style.paddingTop = "";
         drinkButton.style.paddingBottom = "";
     }
-    updateDisplay(); // Bu çağrı içindeki stil ayarlamaları da tekrar çalışacak
+    updateDisplay();
     if (!isAutoReset && settingsPanel.style.display === "block") {
         settingsPanel.style.display = "none";
     }
@@ -211,14 +170,14 @@ function saveAndCloseSettings() {
 
     if (!isNaN(newAdd)) {
         addWaterAmount = newAdd;
-        localStorage.setItem("addAmount", addWaterAmount);
+        localStorage.setItem("addAmount", newAdd);
     }
 
     isDarkMode = darkModeToggle.checked;
     localStorage.setItem("darkMode", isDarkMode);
     applyTheme();
 
-    updateDisplay(); // Yeni hedefle ekranı güncelle, buton stilini de günceller
+    updateDisplay();
     settingsPanel.style.display = "none";
 }
 
@@ -234,14 +193,14 @@ darkModeToggle.addEventListener("change", () => {
     applyTheme();
 });
 
-// Sayfa yüklendiğinde ve boyut değiştiğinde veya yön değiştirildiğinde
+// Sayfa yüklendiğinde ve boyut değiştiğinde
 window.onload = function () {
     loadInitialSettings();
     resetWaterIfNewDay();
-    updateDisplay(); // İlk yüklemede ve boyut değişikliklerinde stil doğru ayarlanır
+    updateDisplay();
     applyTheme();
     settingsPanel.style.display = "none";
 };
 
-// Ekran boyutu değiştiğinde veya cihaz yönü değiştiğinde de updateDisplay'i çağır
+// Ekran boyutu değiştiğinde de updateDisplay'i çağır
 window.addEventListener('resize', updateDisplay);
