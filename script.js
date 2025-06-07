@@ -157,12 +157,10 @@ darkModeToggle.addEventListener("change", () => {
     applyTheme();
 });
 
-// Su ipuçları ile ilgili kodlar buradan kaldırıldı.
-
 window.onload = function () {
     loadInitialSettings();
     resetWaterIfNewDay();
     updateDisplay();
     applyTheme();
-    // İpuçları özelliği kaldırıldığı için ilgili fonksiyon çağrıları da kaldırıldı.
+    settingsPanel.style.display = "none"; 
 };
