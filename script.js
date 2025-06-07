@@ -79,35 +79,36 @@ function updateDisplay() {
             drinkButton.style.cursor = "default";
 
             // ***** SADECE AFİYET OLSUN! 🎉 YAZISI İÇİN BOYUT AYARLAMALARI BAŞLANGICI *****
-            // Normal (varsayılan) görünüm için
-            drinkButton.style.fontSize = "13px"; // Afiyet Olsun için varsayılan font boyutu
-            drinkButton.style.paddingLeft = "8px";
-            drinkButton.style.paddingRight = "8px";
+            // Normal (varsayılan) görünüm için - Önceki 13px -> 12px, Önceki 8px -> 7px
+            drinkButton.style.fontSize = "12px"; // Afiyet Olsun için varsayılan font boyutu (1px düşürüldü)
+            drinkButton.style.paddingLeft = "7px"; // (1px düşürüldü)
+            drinkButton.style.paddingRight = "7px"; // (1px düşürüldü)
             // Dikey paddingleri değiştirmene gerek kalmaz, butonun yüksekliği CSS'ten sabit.
 
             // Telefon/Medya Sorguları için Özel Boyutlandırmalar (JavaScript ile)
             const width = window.innerWidth;
             const height = window.innerHeight;
 
-            // Küçük ekranlar (max-width: 375px)
+            // Küçük ekranlar (max-width: 375px) - Önceki 11.5px -> 10.5px, Önceki 6px -> 5px
             if (width <= 375) {
-                drinkButton.style.fontSize = "11.5px";
-                drinkButton.style.paddingLeft = "6px";
-                drinkButton.style.paddingRight = "6px";
+                drinkButton.style.fontSize = "10.5px"; // (1px düşürüldü)
+                drinkButton.style.paddingLeft = "5px"; // (1px düşürüldü)
+                drinkButton.style.paddingRight = "5px"; // (1px düşürüldü)
             }
-            // Büyük ekranlar (min-width: 414px)
+            // Büyük ekranlar (min-width: 414px) - Önceki 14px -> 13px, Önceki 13px -> 12px
             else if (width >= 414) {
-                drinkButton.style.fontSize = "14px"; // Büyük ekranlarda Afiyet Olsun için biraz daha büyük font
-                drinkButton.style.paddingLeft = "13px";
-                drinkButton.style.paddingRight = "13px";
+                drinkButton.style.fontSize = "13px"; // Büyük ekranlarda Afiyet Olsun için biraz daha büyük font (1px düşürüldü)
+                drinkButton.style.paddingLeft = "12px"; // (1px düşürüldü)
+                drinkButton.style.paddingRight = "12px"; // (1px düşürüldü)
             }
 
             // Yatay konum ve küçük yükseklik (orientation: landscape and max-height: 500px)
             // Cihazın yatay konumda olup olmadığını ve yüksekliğinin düşük olup olmadığını kontrol et
+            // Önceki 11.5px -> 10.5px, Önceki 6px -> 5px
             if (height <= 500 && width > height) { // Genişlik yükseklikten fazlaysa yataydır
-                drinkButton.style.fontSize = "11.5px";
-                drinkButton.style.paddingLeft = "6px";
-                drinkButton.style.paddingRight = "6px";
+                drinkButton.style.fontSize = "10.5px"; // (1px düşürüldü)
+                drinkButton.style.paddingLeft = "5px"; // (1px düşürüldü)
+                drinkButton.style.paddingRight = "5px"; // (1px düşürüldü)
             }
             // ***** SADECE AFİYET OLSUN! 🎉 YAZISI İÇİN BOYUT AYARLAMALARI SONU *****
 
