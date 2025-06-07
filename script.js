@@ -1,138 +1,179 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const statusDisplay = document.getElementById('status');
-    const progressBar = document.getElementById('progressBar');
-    const maxAmountInput = document.getElementById('maxAmount');
-    const addAmountInput = document.getElementById('addAmount');
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const settingsPanel = document.getElementById('settingsPanel');
+const DEFAULT_MAX_WATER_AMOUNT = 2500;
+const DEFAULT_ADD_AMOUNT = 250;
 
-    let currentWater = 0;
-    let maxWater = 2500; // Varsayılan günlük hedef (ml)
-    let addAmount = 250; // Varsayılan eklenecek miktar (ml)
+let currentWaterAmount = parseInt(localStorage.getItem("water")) || 0;
+let maxWaterGoal = parseInt(localStorage.getItem("maxWater")) || DEFAULT_MAX_WATER_AMOUNT;
+let addWaterAmount = parseInt(localStorage.getItem("addAmount")) || DEFAULT_ADD_AMOUNT;
 
-    // localStorage'dan verileri yükle
-    function loadData() {
-        const savedWater = localStorage.getItem('currentWater');
-        const savedMaxWater = localStorage.getItem('maxWater');
-        const savedAddAmount = localStorage.getItem('addAmount');
-        const savedDarkMode = localStorage.getItem('darkMode');
-        const lastResetDate = localStorage.getItem('lastResetDate');
+let isDarkMode = localStorage.getItem("darkMode") === "true";
 
-        if (savedWater !== null) {
-            currentWater = parseInt(savedWater);
-        }
-        if (savedMaxWater !== null) {
-            maxWater = parseInt(savedMaxWater);
-        }
-        if (savedAddAmount !== null) {
-            addAmount = parseInt(savedAddAmount);
-        }
+const progressBar = document.getElementById("progressBar"); // Burası progressBar olarak doğru ayarlandı
+const statusDisplay = document.getElementById("status");
+const darkModeToggle = document.getElementById("darkModeToggle");    
+const rootElement = document.documentElement;    
 
-        // Günlük sıfırlama kontrolü
-        const today = new Date().toDateString();
-        if (lastResetDate !== today) {
-            currentWater = 0; // Yeni günse suyu sıfırla
-            localStorage.setItem('currentWater', 0);
-            localStorage.setItem('lastResetDate', today);
-        }
+let lastResetDate = localStorage.getItem("lastResetDate");
 
-        // Ayarlar panelindeki inputları güncelle
-        maxAmountInput.value = maxWater;
-        addAmountInput.value = addAmount;
+function applyTheme() {
+    if (isDarkMode) {
+        rootElement.classList.add("dark-mode");
+    } else {
+        rootElement.classList.remove("dark-mode");
+    }
+}
 
-        // Karanlık mod ayarını yükle
-        if (savedDarkMode === 'enabled') {
-            document.documentElement.classList.add('dark-mode');
-            darkModeToggle.checked = true;
+// Tarihi YYYY-MM-DD formatında string olarak döndüren yardımcı fonksiyon
+function getTodayDateString() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// Gün değiştiyse su miktarını sıfırlayan fonksiyon
+function resetWaterIfNewDay() {
+    const todayDate = getTodayDateString();
+    if (lastResetDate !== todayDate) {
+        resetWater(); // Su miktarını sıfırla
+        lastResetDate = todayDate; // Son sıfırlama tarihini bugünün tarihi yap
+        localStorage.setItem("lastResetDate", lastResetDate); // localStorage'a kaydet
+    }
+}
+
+function updateDisplay() {
+    let percent = (currentWaterAmount / maxWaterGoal) * 100;
+    if (percent > 100) percent = 100;
+    if (percent < 0) percent = 0;
+
+    progressBar.style.width = percent + "%"; // ProgressBar için 'width' kullanıldı
+    
+    statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
+
+    const drinkButton = document.getElementById("drinkButton");
+    if (drinkButton) {
+        if (currentWaterAmount >= maxWaterGoal) {
+            drinkButton.innerText = "Afiyet Olsun! 🎉";
+            drinkButton.style.backgroundColor = "var(--success-green)"; 
+            drinkButton.style.cursor = "default";
         } else {
-            document.documentElement.classList.remove('dark-mode');
-            darkModeToggle.checked = false;
+            drinkButton.innerText = "Drink";
+            drinkButton.style.backgroundColor = "var(--primary-blue)";
+            drinkButton.style.cursor = "pointer";
         }
     }
+}
 
-    // Verileri localStorage'a kaydet
-    function saveData() {
-        localStorage.setItem('currentWater', currentWater);
-        localStorage.setItem('maxWater', maxWater);
-        localStorage.setItem('addAmount', addAmount);
-    }
-
-    // Ekranı güncelle
-    function updateDisplay() {
-        const percentage = (currentWater / maxWater) * 100;
-        progressBar.style.height = `${Math.min(percentage, 100)}%`; // %100'ü geçmesin
-
-        if (currentWater >= maxWater) {
-            statusDisplay.textContent = `Goal Reached! ${currentWater}ml / ${maxWater}ml`;
-            statusDisplay.style.color = 'var(--success-green)'; // Hedefe ulaşınca yeşil
-        } else {
-            statusDisplay.textContent = `${currentWater}ml / ${maxWater}ml`;
-            statusDisplay.style.color = 'var(--text-color)'; // Normalde varsayılan renk
+// Su ekleme fonksiyonu
+function addWater() {
+    if (currentWaterAmount < maxWaterGoal) {
+        currentWaterAmount += addWaterAmount;
+        if (currentWaterAmount > maxWaterGoal) {
+            currentWaterAmount = maxWaterGoal;
         }
-    }
-
-    // Su ekleme fonksiyonu
-    window.addWater = () => {
-        currentWater += addAmount;
-        saveData();
+        localStorage.setItem("water", currentWaterAmount);
         updateDisplay();
-    };
+    }
+}
 
-    // Su miktarını sıfırlama fonksiyonu
-    window.resetWater = () => {
-        if (confirm('Are you sure you want to reset your water intake for today?')) {
-            currentWater = 0;
-            localStorage.setItem('lastResetDate', new Date().toDateString()); // Sıfırlama tarihini güncelle
-            saveData();
-            updateDisplay();
-            closeSettings(); // Ayarları sıfırladıktan sonra kapat
-        }
-    };
-
-    // Ayarlar panelini aç/kapat
-    window.openSettings = () => {
-        settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
-    };
-
-    window.closeSettings = () => {
-        settingsPanel.style.display = 'none';
-    };
-
-    // Ayarları kaydet ve paneli kapat
-    window.saveAndCloseSettings = () => {
-        const newMaxAmount = parseInt(maxAmountInput.value);
-        const newAddAmount = parseInt(addAmountInput.value);
-
-        if (isNaN(newMaxAmount) || newMaxAmount < 100) {
-            alert('Daily Goal must be a number and at least 100ml.');
-            maxAmountInput.value = maxWater; // Eski değeri geri yükle
-            return;
-        }
-        if (isNaN(newAddAmount) || newAddAmount < 10) {
-            alert('Add Amount must be a number and at least 10ml.');
-            addAmountInput.value = addAmount; // Eski değeri geri yükle
-            return;
-        }
-
-        maxWater = newMaxAmount;
-        addAmount = newAddAmount;
-        saveData();
-        updateDisplay();
-        closeSettings();
-    };
-
-    // Karanlık mod geçişini yönet
-    darkModeToggle.addEventListener('change', () => {
-        if (darkModeToggle.checked) {
-            document.documentElement.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            document.documentElement.classList.remove('dark-mode');
-            localStorage.setItem('darkMode', 'disabled');
-        }
-    });
-
-    // Sayfa yüklendiğinde verileri yükle ve ekranı güncelle
-    loadData();
+// Suyu sıfırlama fonksiyonu
+function resetWater() {
+    currentWaterAmount = 0;
+    localStorage.setItem("water", currentWaterAmount);
+    const drinkButton = document.getElementById("drinkButton");
+    if (drinkButton) {
+        drinkButton.innerText = "Drink";
+        drinkButton.style.backgroundColor = "var(--primary-blue)";
+        drinkButton.style.cursor = "pointer";
+    }
     updateDisplay();
+    if (document.getElementById("settingsPanel").style.display === "block") {
+        document.getElementById("settingsPanel").style.display = "none";
+    }
+}
+
+// Ayarlar panelini açma/kapatma fonksiyonu
+function openSettings() {
+    const settingsPanel = document.getElementById("settingsPanel");
+    document.getElementById("maxAmount").value = maxWaterGoal;
+    document.getElementById("addAmount").value = addWaterAmount;
+
+    darkModeToggle.checked = isDarkMode;
+
+    if (settingsPanel.style.display === "none" || settingsPanel.style.display === "") {
+        settingsPanel.style.display = "block";
+    } else {
+        settingsPanel.style.display = "none";
+    }
+}
+
+// Ayarları kaydetme ve paneli kapatma fonksiyonu
+function saveAndCloseSettings() {
+    const newMax = parseInt(document.getElementById("maxAmount").value);
+    const newAdd = parseInt(document.getElementById("addAmount").value);
+
+    if (isNaN(newMax) || newMax < 500) {
+        alert("Günlük hedef en az 500 ml olmalı ve sayısal bir değer girilmelidir!");
+        document.getElementById("maxAmount").value = maxWaterGoal;
+        return;
+    }
+
+    maxWaterGoal = newMax;
+    localStorage.setItem("maxWater", maxWaterGoal);
+
+    if (!isNaN(newAdd)) {
+        addWaterAmount = newAdd;
+        localStorage.setItem("addAmount", addWaterAmount);
+    }
+
+    isDarkMode = darkModeToggle.checked;
+    localStorage.setItem("darkMode", isDarkMode);
+    applyTheme();
+
+    updateDisplay();
+    document.getElementById("settingsPanel").style.display = "none";
+}
+
+// Tips Baloncuğu Fonksiyonları
+const tips = [
+    "Su içmeyi unutmayın! Günde en az 8 bardak su hedefini deneyin.",
+    "Susuzluk hissettiğinizde, vücudunuz zaten hafifçe susuz kalmıştır. Düzenli su için.",
+    "Egzersiz yapıyorsanız daha fazla suya ihtiyacınız olabilir.",
+    "Yemeklerden önce bir bardak su içmek iştahınızı kontrol etmenize yardımcı olabilir.",
+    "Sık sık baş ağrısı çekiyorsanız, dehidrasyonun bir nedeni olup olmadığını kontrol edin.",
+    "Meyve ve sebzeler de su içerir. Dengeli beslenmeye özen gösterin.",
+    "Kahve ve alkol vücudunuzdan su atılmasına neden olabilir, tüketiminizi dengeleyin.",
+    "Gün içinde küçük yudumlarla su içmek, büyük miktarlarda bir anda içmekten daha faydalıdır.",
+    "Su şişenizi yanınızda taşıyarak su içme alışkanlığınızı pekiştirin."
+];
+
+let currentTipIndex = 0;
+const tipBubble = document.getElementById("tipBubble");
+const tipContent = document.getElementById("tipContent");
+
+function showNextTip() {
+    tipBubble.classList.remove('show');
+    setTimeout(() => {
+        currentTipIndex = (currentTipIndex + 1) % tips.length;
+        tipContent.innerText = tips[currentTipIndex];
+        tipBubble.classList.add('show');
+    }, 500);
+}
+
+tipBubble.addEventListener('click', showNextTip);
+
+// Sayfa yüklendiğinde çalışacak fonksiyon
+window.onload = function () {
+    resetWaterIfNewDay();
+    updateDisplay();
+    applyTheme();
+    showNextTip();
+    setInterval(showNextTip, 7200000); // 2 saatte bir ipucunu değiştir (7.200.000 ms)
+};
+
+// Karanlık mod anahtarı değiştiğinde temayı güncelle
+darkModeToggle.addEventListener("change", () => {
+    isDarkMode = darkModeToggle.checked;
+    localStorage.setItem("darkMode", isDarkMode);
+    applyTheme();
 });
