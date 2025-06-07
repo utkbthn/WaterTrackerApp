@@ -6,7 +6,7 @@ let maxWaterGoal;
 let addWaterAmount;
 let isDarkMode;
 
-// const progressBar = document.getElementById("progressBar"); // Kaldırıldı
+// const progressBar = document.getElementById("progressBar"); // Kaldırıldı - Bu zaten yorum satırıydı, tamamen silebiliriz.
 const statusDisplay = document.getElementById("status");
 const darkModeToggle = document.getElementById("darkModeToggle");
 const rootElement = document.documentElement;
@@ -14,6 +14,7 @@ const settingsPanel = document.getElementById("settingsPanel");
 const addAmountSelect = document.getElementById("addAmount");
 const maxAmountInput = document.getElementById("maxAmount");
 const drinkButton = document.getElementById("drinkButton");
+// settingsButton'ın ID'si HTML'de aynı kaldı, bu yüzden burada değişiklik yok.
 const settingsButton = document.getElementById("settingsButton");
 const saveSettingsButton = document.getElementById("saveSettingsButton");
 const resetWaterButton = document.getElementById("resetWaterButton");
@@ -21,8 +22,8 @@ const tipBubble = document.getElementById("tipBubble");
 const tipContent = document.getElementById("tipContent");
 
 // Yeni element: Kare progress bar
-const waterFillProgress = document.getElementById("waterFillProgress"); 
-const waterIconContainer = document.querySelector(".water-icon-container"); // Kapsayıcıyı da alalım
+const waterFillProgress = document.getElementById("waterFillProgress");
+// const waterIconContainer = document.querySelector(".water-icon-container"); // Kullanılmadığı için kaldırıldı
 
 let lastResetDate;
 
@@ -72,7 +73,6 @@ function updateDisplay() {
     let percent = (currentWaterAmount / maxWaterGoal) * 100;
     percent = Math.min(Math.max(percent, 0), 100);
 
-    // waterFillProgress.style.width = percent + "%"; // Artık yükseklik değişecek
     waterFillProgress.style.height = percent + "%"; // Yeni: Yükseklik değişimi
 
     statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
@@ -93,6 +93,7 @@ function updateDisplay() {
 function addWater() {
     if (currentWaterAmount < maxWaterGoal) {
         currentWaterAmount += addWaterAmount;
+        // Hedefi aşarsa, maksimum hedefe sabitle
         if (currentWaterAmount > maxWaterGoal) {
             currentWaterAmount = maxWaterGoal;
         }
@@ -111,7 +112,7 @@ function resetWater(isAutoReset = false) {
     }
     updateDisplay();
     if (!isAutoReset && settingsPanel.style.display === "block") {
-        settingsPanel.style.display = "none";
+        settingsPanel.style.display = "none"; // Ayarlar panelini kapat
     }
 }
 
@@ -132,30 +133,32 @@ function saveAndCloseSettings() {
 
     if (isNaN(newMax) || newMax < 500) {
         alert("Günlük hedef en az 500 ml olmalı ve sayısal bir değer girilmelidir!");
-        maxAmountInput.value = maxWaterGoal;
+        maxAmountInput.value = maxWaterGoal; // Geçersizse eski değeri geri yükle
         return;
     }
 
     maxWaterGoal = newMax;
     localStorage.setItem("maxWater", maxWaterGoal);
 
-    if (!isNaN(newAdd)) {
+    if (!isNaN(newAdd)) { // addAmountSelect'ten gelen değer zaten sayısal olmalı ama kontrol etmekte fayda var.
         addWaterAmount = newAdd;
         localStorage.setItem("addAmount", addWaterAmount);
     }
     
     isDarkMode = darkModeToggle.checked;
     localStorage.setItem("darkMode", isDarkMode);
-    applyTheme();
+    applyTheme(); // Tema ayarını hemen uygula
 
-    updateDisplay();
-    settingsPanel.style.display = "none";
+    updateDisplay(); // Yeni hedefle ekranı güncelle
+    settingsPanel.style.display = "none"; // Ayarlar panelini kapat
 }
 
+// Event Listeners
 drinkButton.addEventListener('click', addWater);
+// settingsButton'ın ID'si HTML'de değişmediği için bu satır aynı kalabilir.
 settingsButton.addEventListener('click', toggleSettings);
 saveSettingsButton.addEventListener('click', saveAndCloseSettings);
-resetWaterButton.addEventListener('click', () => resetWater(false));
+resetWaterButton.addEventListener('click', () => resetWater(false)); // Manuel sıfırlama için
 
 darkModeToggle.addEventListener("change", () => {
     isDarkMode = darkModeToggle.checked;
@@ -163,10 +166,11 @@ darkModeToggle.addEventListener("change", () => {
     applyTheme();
 });
 
+// Sayfa yüklendiğinde
 window.onload = function () {
     loadInitialSettings();
-    resetWaterIfNewDay();
-    updateDisplay();
-    applyTheme();
-    settingsPanel.style.display = "none"; 
+    resetWaterIfNewDay(); // Gün değiştiyse suyu sıfırla
+    updateDisplay(); // Ekranı ilk yüklemede güncelle
+    applyTheme(); // Temayı uygula
+    settingsPanel.style.display = "none"; // Başlangıçta ayarlar panelini gizle
 };
