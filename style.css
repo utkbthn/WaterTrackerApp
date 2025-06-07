@@ -74,6 +74,7 @@ body {
 }
 
 .water-icon {
+    /* Mevcut stillerini koruyun */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -82,10 +83,10 @@ body {
     height: 100%;
     object-fit: contain;
     display: block;
-    border-radius: 20px;
+    border-radius: 20px; /* Bardakla uyumlu hale getirmek için gerekirse değiştirin */
     box-shadow: none;
     transition: transform 0.1s ease-in-out;
-    z-index: 3;
+    z-index: 3; /* Su ikonunun progress bar'ın üzerinde kalması için */
 }
 
 html.dark-mode .water-icon {
@@ -99,11 +100,12 @@ html.dark-mode .water-icon {
 .icon-and-progressbar-container {
     position: relative;
     width: 175px;
-    height: 175px;
+    height: 250px; /* Yüksekliği artırarak daha uzun bir bardak hissi */
     margin: 0px auto 20px auto;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end; /* Su, alttan doldurulduğu için */
+    overflow: hidden; /* Taşmayı önler */
 }
 
 .progress {
@@ -112,16 +114,25 @@ html.dark-mode .water-icon {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(173, 216, 230, 0.3); /* Açık mavi, hafif şeffaf */
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease;
+    /* background: rgba(173, 216, 230, 0.3); /* Açık mavi, hafif şeffaf */
+    background: rgba(255, 255, 255, 0.1); /* Daha genel, şeffaf bir cam rengi */
+    border-radius: 20px 20px 40px 40px; /* Üst köşeler 20px, alt köşeler 40px yuvarlak */
+    /* box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2); */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), /* İç gölge */
+                0 5px 15px rgba(0, 0, 0, 0.1); /* Dış gölge */
+    transition: background 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease;
     z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Hafif bir çerçeve */
+    backdrop-filter: blur(2px); /* Arka planı hafif bulanıklaştırma (cam efekti) */
+    -webkit-backdrop-filter: blur(2px); /* Safari desteği */
 }
 
 html.dark-mode .progress {
-    background: rgba(68, 68, 68, 0.5); /* Koyu mod için koyu gri, hafif şeffaf */
+    /* background: rgba(68, 68, 68, 0.5); /* Koyu mod için koyu gri, hafif şeffaf */
+    background: rgba(0, 0, 0, 0.2); /* Koyu modda daha şeffaf ve koyu cam */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), /* İç gölge */
+                0 5px 15px rgba(0, 0, 0, 0.3); /* Dış gölge */
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Koyu modda daha belirgin çerçeve */
 }
 
 .progress-bar {
@@ -132,7 +143,8 @@ html.dark-mode .progress {
     height: 0;
     background: linear-gradient(to top, var(--progress-bar-start), var(--progress-bar-end));
     transition: height 0.4s ease-out;
-    border-radius: 20px;
+    border-radius: 20px 20px 40px 40px; /* Üst köşeler 20px, alt köşeler 40px yuvarlak */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Suya parlaklık veren bir gölge */
 }
 
 .progress-status-display {
