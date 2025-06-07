@@ -22,7 +22,6 @@ function applyTheme() {
     }
 }
 
-// Tarihi YYYY-MM-DD formatında string olarak döndüren yardımcı fonksiyon
 function getTodayDateString() {
     const today = new Date();
     const year = today.getFullYear();
@@ -31,13 +30,12 @@ function getTodayDateString() {
     return `${year}-${month}-${day}`;
 }
 
-// Gün değiştiyse su miktarını sıfırlayan fonksiyon
 function resetWaterIfNewDay() {
     const todayDate = getTodayDateString();
     if (lastResetDate !== todayDate) {
-        resetWater(); // Su miktarını sıfırla
-        lastResetDate = todayDate; // Son sıfırlama tarihini bugünün tarihi yap
-        localStorage.setItem("lastResetDate", lastResetDate); // localStorage'a kaydet
+        resetWater();
+        lastResetDate = todayDate;
+        localStorage.setItem("lastResetDate", lastResetDate);
     }
 }
 
@@ -46,7 +44,6 @@ function updateDisplay() {
     if (percent > 100) percent = 100;
     if (percent < 0) percent = 0;
 
-    // BURADA GÜNCELLEME: progressBar.style.height olarak değişti
     progressBar.style.height = percent + "%"; 
     
     statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
@@ -65,7 +62,6 @@ function updateDisplay() {
     }
 }
 
-// Su ekleme fonksiyonu
 function addWater() {
     if (currentWaterAmount < maxWaterGoal) {
         currentWaterAmount += addWaterAmount;
@@ -77,7 +73,6 @@ function addWater() {
     }
 }
 
-// Suyu sıfırlama fonksiyonu
 function resetWater() {
     currentWaterAmount = 0;
     localStorage.setItem("water", currentWaterAmount);
@@ -93,7 +88,6 @@ function resetWater() {
     }
 }
 
-// Ayarlar panelini açma/kapatma fonksiyonu
 function openSettings() {
     const settingsPanel = document.getElementById("settingsPanel");
     document.getElementById("maxAmount").value = maxWaterGoal;
@@ -108,7 +102,6 @@ function openSettings() {
     }
 }
 
-// Ayarları kaydetme ve paneli kapatma fonksiyonu
 function saveAndCloseSettings() {
     const newMax = parseInt(document.getElementById("maxAmount").value);
     const newAdd = parseInt(document.getElementById("addAmount").value);
@@ -135,7 +128,6 @@ function saveAndCloseSettings() {
     document.getElementById("settingsPanel").style.display = "none";
 }
 
-// Tips Baloncuğu Fonksiyonları
 const tips = [
     "Su içmeyi unutmayın! Günde en az 8 bardak su hedefini deneyin.",
     "Susuzluk hissettiğinizde, vücudunuz zaten hafifçe susuz kalmıştır. Düzenli su için.",
@@ -163,16 +155,14 @@ function showNextTip() {
 
 tipBubble.addEventListener('click', showNextTip);
 
-// Sayfa yüklendiğinde çalışacak fonksiyon
 window.onload = function () {
     resetWaterIfNewDay();
     updateDisplay();
     applyTheme();
     showNextTip();
-    setInterval(showNextTip, 7200000); // 2 saatte bir ipucunu değiştir (7.200.000 ms)
+    setInterval(showNextTip, 7200000);
 };
 
-// Karanlık mod anahtarı değiştiğinde temayı güncelle
 darkModeToggle.addEventListener("change", () => {
     isDarkMode = darkModeToggle.checked;
     localStorage.setItem("darkMode", isDarkMode);
