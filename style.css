@@ -5,7 +5,6 @@
     --dark-background: #121212;
     --dark-text-color: white;
 
-    /* Ana tema değişkenleri */
     --background-color: var(--light-background);
     --text-color: var(--light-text-color);
 
@@ -19,7 +18,6 @@
     --progress-bar-start: #4CAF50;
     --progress-bar-end: #2196F3;
 
-    /* Ayarlar paneli için light ve dark mod renkleri */
     --settings-panel-bg-light: #fff;
     --settings-panel-border-light: #ccc;
     --settings-panel-text-light: #333;
@@ -35,7 +33,6 @@
     --settings-input-border-dark: #555;
 }
 
-/* Genel <html> Stilleri ve Tema Geçişleri */
 html {
     font-family: sans-serif;
     text-align: center;
@@ -45,18 +42,21 @@ html {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Karanlık mod sınıfı - JavaScript tarafından <html> etiketine eklenir/kaldırılır */
 html.dark-mode { 
     --background-color: var(--dark-background);
     --text-color: var(--dark-text-color);
 
-    /* Ayarlar paneli ve input'lar için karanlık mod renklerini burada yeniden tanımlıyoruz */
     --settings-panel-bg-light: var(--settings-panel-bg-dark);
     --settings-panel-border-light: var(--settings-panel-border-dark);
     --settings-panel-text-light: var(--settings-panel-text-dark);
     --settings-panel-label-light: var(--settings-panel-label-dark);
     --settings-input-bg-light: var(--settings-input-bg-dark);
     --settings-input-border-light: var(--settings-input-border-dark);
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
 }
 
 .water-tracker-text {
@@ -85,7 +85,7 @@ html.dark-mode {
 }
 
 html.dark-mode .water-icon {
-    box-shadow: none;
+    box-shadow: none; 
 }
 
 .water-icon:active {
@@ -131,7 +131,6 @@ html.dark-mode .progress {
     border-radius: 20px;
 }
 
-/* Yeni Su Durumu Metni İçin Stiller */
 .progress-status-display {
     margin-top: 15px;
     font-size: 20px;
@@ -175,7 +174,7 @@ html.dark-mode .progress-status-display {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 0px; 
     margin-bottom: 5px;
 }
 
@@ -198,6 +197,15 @@ html.dark-mode .progress-status-display {
     -ms-user-select: none;
     user-select: none;
     font-size: 15px;
+}
+
+.top-right-settings-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background-color: transparent !important;
+    box-shadow: none !important;
 }
 
 .settings-button .fas {
