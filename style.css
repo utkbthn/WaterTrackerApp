@@ -329,13 +329,13 @@ html.dark-mode .progress-text {
 }
 
 .settings-buttons .app-button {
-    font-size: 15px;
-    padding: 0 18px; /* Dikey padding'i sıfırladık, yatay padding'i koruduk */
-    width: 108px !important; /* Ana Drink butonu ile aynı genişlik, !important ile zorla */
-    height: 37px !important; /* Ana Drink butonu ile aynı yükseklik, !important ile zorla */
-    margin-right: 0; /* Bu butonlar için boşluğa gerek yok */
-    line-height: 37px !important; /* Yükseklik ile aynı line-height dikey ortalama için, !important ile zorla */
-    box-sizing: border-box; /* Padding ve border'ın genişliğe dahil olmasını sağlar */
+    font-size: 14px; /* Buton küçüldüğü için fontu da biraz küçülttük */
+    padding: 0 15px; /* Yeni boyuta uygun dikey padding'i sıfırla, yatayı ayarla */
+    width: 86px !important; /* %20 küçültülmüş genişlik */
+    height: 30px !important; /* %20 küçültülmüş yükseklik */
+    margin-right: 0;
+    line-height: 30px !important; /* Yeni yüksekliğe uygun line-height */
+    box-sizing: border-box;
 }
 
 /* Ayar paneli butonları için :active efekti (save/close) */
@@ -417,11 +417,11 @@ html.dark-mode .tip-bubble {
         font-size: 14px;
     }
     .settings-buttons .app-button {
-        font-size: 14px;
-        padding: 0 15px; /* Dikey padding'i sıfırla */
-        width: 92px !important; /* Küçük telefonlar için Drink butonu ile aynı genişlik, !important ile zorla */
-        height: 31px !important; /* Küçük telefonlar için Drink butonu ile aynı yükseklik, !important ile zorla */
-        line-height: 31px !important; /* Yükseklik ile aynı line-height dikey ortalama için, !important ile zorla */
+        font-size: 13px; /* Buton küçüldüğü için fontu da biraz küçülttük */
+        padding: 0 12px; /* Yeni boyuta uygun dikey padding'i sıfırla, yatayı ayarla */
+        width: 74px !important; /* %20 küçültülmüş genişlik */
+        height: 25px !important; /* %20 küçültülmüş yükseklik */
+        line-height: 25px !important; /* Yeni yüksekliğe uygun line-height */
     }
     .tip-bubble {
         min-width: 250px;
@@ -453,11 +453,11 @@ html.dark-mode .tip-bubble {
         font-size: 17px !important; /* Önceki haliyle aynı (değişmedi) */
     }
     .settings-buttons .app-button {
-        font-size: 16px;
-        padding: 0 20px; /* Dikey padding'i sıfırla */
-        width: 123px !important; /* Büyük telefonlar için Drink butonu ile aynı genişlik, !important ile zorla */
-        height: 42px !important; /* Büyük telefonlar için Drink butonu ile aynı yükseklik, !important ile zorla */
-        line-height: 42px !important; /* Yükseklik ile aynı line-height dikey ortalama için, !important ile zorla */
+        font-size: 15px; /* Buton küçüldüğü için fontu da biraz küçülttük */
+        padding: 0 16px; /* Yeni boyuta uygun dikey padding'i sıfırla, yatayı ayarla */
+        width: 98px !important; /* %20 küçültülmüş genişlik */
+        height: 34px !important; /* %20 küçültülmüş yükseklik */
+        line-height: 34px !important; /* Yeni yüksekliğe uygun line-height */
     }
 }
 
