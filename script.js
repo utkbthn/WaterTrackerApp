@@ -93,9 +93,17 @@ document.addEventListener('DOMContentLoaded', () => {
             event.stopPropagation();
             
             if (ayarlarPaneli) {
-                ayarlarPaneli.style.display = ayarlarPaneli.style.display === 'block' ? 'none' : 'block';
-                
                 if (ayarlarPaneli.style.display === 'block') {
+                    ayarlarPaneli.classList.remove('show');
+                    ayarlarPaneli.addEventListener('transitionend', function handler() {
+                        ayarlarPaneli.style.display = 'none';
+                        ayarlarPaneli.removeEventListener('transitionend', handler);
+                    }, { once: true });
+                } else {
+                    ayarlarPaneli.style.display = 'block';
+                    requestAnimationFrame(() => {
+                        ayarlarPaneli.classList.add('show');
+                    });
                     maxAmountInput.value = maxWaterAmount;
                     addAmountSelect.value = addWaterAmount;
                     darkModeToggle.checked = isDarkMode;
@@ -115,7 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 maxAmountInput.value = maxWaterAmount;
                 addAmountSelect.value = addWaterAmount;
                 darkModeToggle.checked = isDarkMode;
-                ayarlarPaneli.style.display = 'none';
+                ayarlarPaneli.classList.remove('show');
+                ayarlarPaneli.addEventListener('transitionend', function handler() {
+                    ayarlarPaneli.style.display = 'none';
+                    ayarlarPaneli.removeEventListener('transitionend', handler);
+                }, { once: true });
             }
         });
     }
@@ -150,7 +162,11 @@ document.addEventListener('DOMContentLoaded', () => {
             applyInitialSettings();
             
             if (ayarlarPaneli) {
-                ayarlarPaneli.style.display = 'none';
+                ayarlarPaneli.classList.remove('show');
+                ayarlarPaneli.addEventListener('transitionend', function handler() {
+                    ayarlarPaneli.style.display = 'none';
+                    ayarlarPaneli.removeEventListener('transitionend', handler);
+                }, { once: true });
             }
         });
     }
