@@ -33,28 +33,25 @@
     </div>
 
     <div id="ayarlarPaneli">
+<div class="ayarlarSecenegi">
+    <label>İçilen Su Miktarı (ml):</label> <select id="addAmount">
+        <option value="100">100 ml</option>
+        <option value="150">150 ml</option>
+        <option value="200">200 ml</option>
+        <option value="250">250 ml</option>
+        <option value="300">300 ml</option>
+        <option value="350">350 ml</option>
+        <option value="400">400 ml</option>
+        <option value="500">500 ml</option>
+    </select>
+</div>div>
         <div class="ayarlarSecenegi">
-            <label for="addAmount">İçilen Su Miktarı (ml):</label>
-            <select id="addAmount">
-                <option value="100">100 ml</option>
-                <option value="150">150 ml</option>
-                <option value="200">200 ml</option>
-                <option value="250">250 ml</option>
-                <option value="300">300 ml</option>
-                <option value="330">330 ml</option>
-                <option value="350">350 ml</option>
-                <option value="400">400 ml</option>
-                <option value="500">500 ml</option>
-            </select>
-        </div>
-        <div class="ayarlarSecenegi">
-            <label for="maxAmount">Günlük Hedef (ml):</label>
-            <input type="number" id="maxAmount" min="500" step="100">
-        </div>
-        <div class="ayarlarSecenegi">
-            <label for="darkModeToggle">Karanlık Mod:</label>
-            <input type="checkbox" id="darkModeToggle">
-        </div>
+    <label>Günlük Hedef (ml):</label> <input type="number" id="maxAmount" min="500" value="2500">
+</div>
+
+<div class="ayarlarSecenegi">
+    <label>Karanlık Mod:</label> <input type="checkbox" id="darkModeToggle">
+</div>
         <div class="ayarlarButonlari">
             <button class="app-button" id="kaydetAyarlarButonu">Tamam</button>
             <button class="app-button reset-button" id="sifirlaSuButonu">Sıfırla</button>
