@@ -2,75 +2,59 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script>
-        const savedTheme = localStorage.getItem('darkMode');
-        if (savedTheme === 'true') {
-            document.documentElement.classList.add('dark-mode');
-        } else if (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark-mode');
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Su Takip Uygulaması</title>
     <link rel="stylesheet" href="style.css">
-    <title>Water Tracker</title>
 </head>
-
 <body>
-   <div class="su-logo-container">
-    <svg class="animated-water-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <mask id="damlaMaskesi">
-                <path d="M12 2C12 2 5 10 5 15C5 19.4183 8.58172 23 13 23C17.4183 23 21 19.4183 21 15C21 10 12 2 12 2Z" fill="white"/>
-            </mask>
-        </defs>
 
-        <path d="M12 2C12 2 5 10 5 15C5 19.4183 8.58172 23 13 23C17.4183 23 21 19.4183 21 15C21 10 12 2 12 2Z"
-              fill="none" stroke="#00AEEF" stroke-width="1.5"/>
+    <div class="water-tracker-container">
+        <div class="su-logo-container">
+            <svg class="animated-water-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <clipPath id="damlaClipPath">
+                        <path d="M12 2C12 2 5 10 5 15C5 19.4183 8.58172 23 13 23C17.4183 23 21 19.4183 21 15C21 10 12 2 12 2Z" fill="black"/>
+                    </clipPath>
+                </defs>
 
-        <rect x="0" y="0" width="24" height="24" fill="#5ab1f7" mask="url(#damlaMaskesi)" id="animatedWaterFill"/>
-    </svg>
-    </div>
+                <path d="M12 2C12 2 5 10 5 15C5 19.4183 8.58172 23 13 23C17.4183 23 21 19.4183 21 15C21 10 12 2 12 2Z"
+                      fill="none" stroke="#00AEEF" stroke-width="1.5"/>
 
-    <div class="progress-text" id="status"></div>
+                <rect x="0" y="24" width="24" height="0" clip-path="url(#damlaClipPath)" id="animatedWaterFill" fill="#5ab1f7"/>
+            </svg>
+        </div>
 
-    <div class="main-buttons-container">
-        <button class="app-button" id="drinkButton">Drink</button>
-    </div>
+        <p class="progress-text" id="statusText">0 ml / 2500 ml</p>
 
-    <div class="ayarlar-butonu-sarmalayici">
-        <button class="app-button anaAyarlarButonu" id="ayarlarButonu">Ayarlar</button>
-    </div>
+        <div class="main-buttons-container">
+            <button class="app-button" id="drinkButton">Drink</button>
+        </div>
 
-    <div id="ayarlarPaneli">
-<div class="ayarlarSecenegi">
-    <label>İçilen Su Miktarı (ml):</label> <select id="addAmount">
-        <option value="100">100 ml</option>
-        <option value="150">150 ml</option>
-        <option value="200">200 ml</option>
-        <option value="250">250 ml</option>
-        <option value="300">300 ml</option>
-        <option value="350">350 ml</option>
-        <option value="400">400 ml</option>
-        <option value="500">500 ml</option>
-    </select>
-</div>
-        <div class="ayarlarSecenegi">
-    <label>Günlük Hedef (ml):</label> <input type="number" id="maxAmount" min="500" value="2500">
-</div>
+        <div class="ayarlar-butonu-sarmalayici">
+            <button class="app-button anaAyarlarButonu" id="ayarlarButonu">Ayarlar</button>
+        </div>
 
-<div class="ayarlarSecenegi">
-    <label>Karanlık Mod:</label> <input type="checkbox" id="darkModeToggle">
-</div>
-        <div class="ayarlarButonlari">
-            <button class="app-button" id="kaydetAyarlarButonu">Tamam</button>
-            <button class="app-button reset-button" id="sifirlaSuButonu">Sıfırla</button>
+        <div id="ayarlarPaneli">
+            <h3>Ayarlar</h3>
+            <div class="ayarlarSecenegi">
+                <label>İçilen Su Miktarı (ml):</label>
+                <input type="number" id="addAmount" value="250">
+            </div>
+            <div class="ayarlarSecenegi">
+                <label>Günlük Hedef (ml):</label>
+                <input type="number" id="maxAmount" value="2500">
+            </div>
+            <div class="ayarlarSecenegi">
+                <label>Karanlık Mod:</label>
+                <input type="checkbox" id="darkModeToggle">
+            </div>
+            <div class="ayarlarButonlari">
+                <button class="app-button" id="saveSettings">Tamam</button>
+                <button class="app-button reset-button" id="resetButton">Sıfırla</button>
+            </div>
         </div>
     </div>
 
-    <div id="tipBubble" class="tip-bubble">
-        <p id="tipContent"></p>
-    </div>
     <script src="script.js"></script>
 </body>
 </html>
