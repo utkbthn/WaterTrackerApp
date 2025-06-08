@@ -14,8 +14,6 @@
     --red-alert: #ff6666;
     --red-alert-active: #cc4c4c;
     --success-green: #4CAF50;
-    --progress-bar-start: #4CAF50;
-    --progress-bar-end: #2196F3;
 
     --settings-panel-bg-light: #fff;
     --settings-panel-border-light: #ccc;
@@ -33,9 +31,6 @@
 
     --water-fill-color: #5ab1f7;
     --water-fill-background: #e0e0e0;
-
-    --settings-icon-color: #a0a0a0;
-    --settings-icon-active-color: #777777;
 }
 
 html {
@@ -248,10 +243,12 @@ html.dark-mode .progress-text {
 .ayarlarSecenegi select {
     width: 90px;
     padding: 6px 8px;
+    height: 30px; 
+    line-height: 30px; 
     border: 1px solid var(--settings-input-border-light);
     border-radius: 5px;
     text-align: center;
-    font-size: 15px;
+    font-size: 14px; /* Günlük Hedef ve İçilen Su Miktarı kutularının yazı boyutunu küçülttük */
     background-color: var(--settings-input-bg-light);
     color: var(--settings-panel-text-light);
     -webkit-box-sizing: border-box;
@@ -271,6 +268,7 @@ html.dark-mode .progress-text {
     border-radius: 20px;
     transition: background-color 0.3s;
     cursor: pointer;
+    margin: auto 0; /* Dikeyde ortalamak için */
 }
 
 .ayarlarSecenegi input[type="checkbox"]::before {
@@ -351,10 +349,10 @@ html.dark-mode .progress-text {
 .success-button {
     background-color: var(--success-green) !important;
     cursor: default;
-    font-size: 12px; /* "Afiyet Olsun" yazısının boyutu */
-    padding: 0 10px; /* "Afiyet Olsun" butonunun iç boşluğu */
-    width: 108px; /* "Drink" butonu ile aynı genişlik */
-    height: 37px; /* "Drink" butonu ile aynı yükseklik */
+    font-size: 14px;
+    padding: 0 10px;
+    width: 108px;
+    height: 37px;
 }
 
 /* Başarı butonunun aktif durumu (tıklanınca) */
