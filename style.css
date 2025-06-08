@@ -73,8 +73,8 @@ html.dark-mode {
     transition: color 0.3s ease;
 }
 
-/* Su Logo Kapsayıcısı */
-.su-logo-container { /* ARTIK su-logo-container */
+/* Su Logo Kapsayıcısı (Şimdi HTML'deki "su-logo-container" ile eşleşiyor) */
+.su-logo-container {
     position: relative;
     width: 150px;
     height: 150px;
@@ -89,23 +89,23 @@ html.dark-mode {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-html.dark-mode .su-logo-container { /* ARTIK su-logo-container */
+html.dark-mode .su-logo-container {
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/* Su Logosu Resmi */
-.su-logo { /* ARTIK su-logo */
+/* Su Logosu Resmi (img etiketi için, class="su-logo" ile eşleşiyor) */
+.su-logo {
     max-width: 150px;
     height: auto;
     display: block;
     z-index: 2;
     transition: transform 0.1s ease-in-out;
-    border-radius: 15px;
+    border-radius: 15px; /* Eğer resminiz zaten köşeleri yuvarlaksa bu gerekmeyebilir */
     margin: 0;
     box-shadow: none;
 }
 
-.su-logo:active { /* ARTIK su-logo */
+.su-logo:active {
     transform: scale(1.05);
 }
 
