@@ -147,15 +147,14 @@ html.dark-mode .progress-text {
     align-items: center;
     font-size: 16px;
     padding: 0 15px;
-    cursor: pointer; /* Tıklanabilir imleç */
-    border: none; /* Kenarlık yok */
-    border-radius: 8px; /* Yuvarlatılmış köşeler */
-    background-color: var(--primary-blue); /* Mavi arka plan */
-    color: white; /* Beyaz yazı */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge */
-    transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease; /* Geçiş efektleri */
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-blue);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out; 
     
-    /* Mobil cihazlarda tıklama efekti ve metin seçimi engelleme */
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -164,68 +163,77 @@ html.dark-mode .progress-text {
     -ms-user-select: none;
     user-select: none;
     
-    width: 108px; /* Sabit genişlik */
-    height: 37px; /* Sabit yükseklik */
-    box-sizing: border-box; /* Padding ve border'ı genişliğe dahil et */
-    white-space: nowrap; /* Metnin tek satırda kalmasını sağla */
+    width: 108px;
+    height: 37px;
+    box-sizing: border-box;
+    white-space: nowrap;
 }
 
 /* Butona tıklandığında (aktif durumda) */
 .app-button:active {
-    background-color: var(--primary-blue-active); /* Koyu maviye dönüş */
-    transform: translateY(2px); /* Aşağı kaydırma efekti */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Gölgenin küçülmesi */
+    background-color: var(--primary-blue-active);
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 /* === Drink Buton Kapsayıcısı === */
 .main-buttons-container {
     margin-top: 15px;
     display: flex;
-    justify-content: center; /* İçindeki butonu yatayda ortala */
+    justify-content: center;
     align-items: center;
-    gap: 0; /* Butonlar arasında boşluk */
+    gap: 0;
     margin-bottom: 10px;
 }
 
 /* === Ayarlar Butonu Kapsayıcısı === */
 .ayarlar-butonu-sarmalayici {
     display: flex;
-    justify-content: center; /* İçindeki butonu yatayda ortala */
+    justify-content: center;
     width: 100%;
     margin-top: 10px;
 }
 
 /* === Ana Ayarlar Butonu (App Button'dan farklı stil) === */
 .anaAyarlarButonu {
-    background-color: var(--secondary-gray); /* Gri arka plan */
+    background-color: var(--secondary-gray);
     color: white;
-    width: calc(108px / 2); /* Ana butonun yarısı genişliğinde */
-    height: calc(37px / 2); /* Ana butonun yarısı yüksekliğinde */
+    width: calc(108px / 2);
+    height: calc(37px / 2);
     font-size: 12px;
     padding: 0 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
+    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out; 
 }
 
 /* Ayarlar butonuna tıklandığında (aktif durumda) */
 .anaAyarlarButonu:active {
-    background-color: var(--secondary-gray-active); /* Koyu griye dönüş */
-    transform: translateY(1px); /* Daha az aşağı kaydırma efekti */
+    background-color: var(--secondary-gray-active);
+    transform: translateY(1px);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* === Ayarlar Paneli === */
 #ayarlarPaneli {
     display: none; /* Varsayılan olarak gizli */
-    margin: 15px auto; /* Üst, alt boşluk ve yatayda ortalama */
+    margin: 15px auto;
     padding: 15px;
     border: 1px solid var(--settings-panel-border-light);
     border-radius: 10px;
     background: var(--settings-panel-bg-light);
-    max-width: 260px; /* Maksimum genişlik */
+    max-width: 260px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Geçiş efektleri */
-    z-index: 20; /* Diğer elementlerin üzerinde olması için */
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease; 
+    z-index: 20;
+    opacity: 0; 
+    pointer-events: none;
+}
+
+/* Ayarlar Paneli görünür olduğunda */
+#ayarlarPaneli.show { 
+    opacity: 1;
+    pointer-events: auto;
 }
 
 #ayarlarPaneli h3 {
@@ -239,14 +247,14 @@ html.dark-mode .progress-text {
 /* Ayarlar paneli içindeki her seçenek (label ve input/checkbox) */
 .ayarlarSecenegi {
     display: flex;
-    justify-content: space-between; /* Etiket ve input'u iki yana yasla */
-    align-items: center; /* Dikeyde ortala */
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
-    flex-wrap: wrap; /* Küçük ekranlarda alt satıra geçebilir */
+    flex-wrap: wrap;
 }
 
 .ayarlarSecenegi label {
-    flex-basis: 55%; /* Etiket için %55 alan */
+    flex-basis: 55%;
     text-align: left;
     color: var(--settings-panel-label-light);
     font-size: 15px;
@@ -260,17 +268,17 @@ html.dark-mode .progress-text {
     width: 90px;
     padding: 6px 8px;
     height: 30px; 
-    line-height: 30px; /* İçerik dikeyde ortala */
+    line-height: 30px;
     border: 1px solid var(--settings-input-border-light);
     border-radius: 5px;
     text-align: center;
-    font-size: 14px; /* Yazı boyutunu küçülttük */
+    font-size: 14px;
     background-color: var(--settings-input-bg-light);
     color: var(--settings-panel-text-light);
-    -webkit-box-sizing: border-box; /* Kutu modelini dahil et */
+    -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 /* === Checkbox (Karanlık Mod Anahtarı) Stilleri === */
@@ -278,13 +286,13 @@ html.dark-mode .progress-text {
     position: relative;
     width: 36px;
     height: 18px;
-    -webkit-appearance: none; /* Varsayılan tarayıcı stilini kaldır */
-    outline: none; /* Odaklanma çizgisini kaldır */
-    background-color: #ccc; /* Pasif arka plan rengi */
-    border-radius: 20px; /* Yuvarlatılmış köşe */
-    transition: background-color 0.3s;
+    -webkit-appearance: none;
+    outline: none;
+    background-color: #ccc;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
     cursor: pointer;
-    margin: auto 0; /* Dikeyde ortalamak için */
+    margin: auto 0;
 }
 
 .ayarlarSecenegi input[type="checkbox"]::before {
@@ -292,23 +300,23 @@ html.dark-mode .progress-text {
     position: absolute;
     width: 16px;
     height: 16px;
-    border-radius: 50%; /* Yuvarlak düğme */
-    background-color: #fff; /* Düğme rengi */
+    border-radius: 50%;
+    background-color: #fff;
     top: 1px;
     left: 1px;
-    transform: translateX(0); /* Başlangıç konumu */
-    transition: transform 0.3s; /* Geçiş efekti */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Hafif gölge */
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 /* Checkbox işaretliyken */
 .ayarlarSecenegi input[type="checkbox"]:checked {
-    background-color: var(--primary-blue); /* Mavi arka plan */
+    background-color: var(--primary-blue);
 }
 
 /* Checkbox işaretliyken düğme konumu */
 .ayarlarSecenegi input[type="checkbox"]:checked::before {
-    transform: translateX(18px); /* Sağa kaydır */
+    transform: translateX(18px);
 }
 
 /* === Sayısal Input Alanları İçin Spin Butonlarını Gizleme === */
@@ -327,8 +335,8 @@ html.dark-mode .progress-text {
 /* === Ayarlar Paneli İçindeki Butonların Kapsayıcısı === */
 .ayarlarButonlari {
     display: flex;
-    justify-content: center; /* Butonları yatayda ortala */
-    gap: 10px; /* Butonlar arasında boşluk */
+    justify-content: center;
+    gap: 10px;
     margin-top: 20px;
 }
 
@@ -336,7 +344,7 @@ html.dark-mode .progress-text {
 .ayarlarButonlari .app-button {
     font-size: 14px;
     padding: 0 15px;
-    width: 86px !important; /* !important ile ana stilin üzerine yaz */
+    width: 86px !important;
     height: 30px !important;
     margin-right: 0;
     box-sizing: border-box;
@@ -351,44 +359,46 @@ html.dark-mode .progress-text {
 
 /* === Sıfırla Butonu İçin Özel Renk === */
 .ayarlarButonlari .reset-button {
-    background-color: var(--red-alert); /* Kırmızı arka plan */
+    background-color: var(--red-alert);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
 }
 
 /* Sıfırla butonunun aktif durumu */
 .ayarlarButonlari .reset-button:active {
-    background-color: var(--red-alert-active); /* Koyu kırmızıya dönüş */
+    background-color: var(--red-alert-active);
     transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* === Bilgi Balonu (Tip Bubble) Stilleri (Şu an kullanılmıyor olabilir) === */
+/* === Bilgi Balonu (Tip Bubble) Stilleri === */
 .tip-bubble {
     display: none;
 }
 
 /* === Hedefe Ulaşılınca Drink Butonunun Yeşil Olması İçin Stil === */
 .success-button {
-    background-color: var(--success-green) !important; /* Yeşil arka plan */
-    cursor: default; /* İmleci varsayılan yap */
+    background-color: var(--success-green) !important;
+    cursor: default;
     font-size: 14px;
     padding: 0 10px;
     width: 108px;
     height: 37px;
+    transition: background-color 0.3s ease-out, transform 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
 /* Başarı butonunun aktif durumu (tıklanınca, burada bir şey yapmaması için) */
 .success-button:active {
     background-color: var(--success-green) !important;
-    transform: none !important; /* Transformu iptal et */
-    box-shadow: none !important; /* Gölgeyi iptal et */
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 /* === Duyarlı Tasarım (Responsive Design) === */
 /* Sadece iPhone 13 dikey ve benzeri küçük ekranlar (maksimum 375px genişlik) için */
 @media (max-width: 375px) {
     #ayarlarPaneli {
-        max-width: 280px; /* Daha geniş paneli biraz küçült */
+        max-width: 280px;
     }
     .app-button {
         font-size: 14px;
