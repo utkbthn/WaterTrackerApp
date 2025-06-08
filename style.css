@@ -29,8 +29,8 @@
     --settings-input-bg-dark: #3a3a3a;
     --settings-input-border-dark: #555;
 
-    --water-fill-color: #5ab1f7;
-    --water-fill-background: #e0e0e0;
+    --water-fill-color: #5ab1f7; /* Su dolgusunun normal rengi */
+    --water-fill-background: #e0e0e0; /* Damla kapsayıcısının arka plan rengi */
 }
 
 html {
@@ -57,16 +57,20 @@ html.dark-mode {
     --settings-panel-label-light: var(--settings-panel-label-dark);
     --settings-input-bg-light: var(--settings-input-bg-dark);
     --settings-input-border-light: var(--settings-input-border-dark);
-    --water-fill-background: #444;
+    --water-fill-background: #444; /* Dark mode'da damla kapsayıcısının arka planı */
 }
 
-.water-tracker-text {
-    text-align: center;
-    margin-top: 8px;
-    font-weight: bold;
-    color: var(--text-color);
-    transition: color 0.3s ease;
+/* Uygulamanın ana konteyneri, her şeyi ortalamak için */
+.water-tracker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Yatayda ortala */
+    justify-content: center; /* Dikeyde ortala (eğer yüksekliği %100 ise) */
+    min-height: 100vh; /* Tam ekran yüksekliği */
+    padding: 20px;
+    box-sizing: border-box;
 }
+
 
 /* Su Logo Kapsayıcısı */
 .su-logo-container {
@@ -75,10 +79,10 @@ html.dark-mode {
     height: 150px;
     margin: 20px auto 20px auto;
     border-radius: 15px;
-    overflow: hidden;
+    overflow: hidden; /* SVG'nin dışına taşan kısımları gizle */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    background-color: var(--water-fill-background);
-    display: flex;
+    background-color: var(--water-fill-background); /* Damla dışının rengi */
+    display: flex; /* SVG'yi ortalamak için */
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -90,19 +94,20 @@ html.dark-mode .su-logo-container {
 
 /* Yeni SVG Logo Stili */
 .animated-water-logo {
-    width: 150px; /* SVG'nin genişliği */
-    height: 150px; /* SVG'nin yüksekliği */
+    width: 100%; /* Kapsayıcısının %100'ü */
+    height: 100%; /* Kapsayıcısının %100'ü */
     display: block;
-    z-index: 2;
+    z-index: 2; /* Su dolgusunun üzerinde olması için */
     border-radius: 15px; /* Kapsayıcı ile uyumlu köşe yuvarlaklığı */
     transition: transform 0.1s ease-in-out;
-    box-shadow: none; /* Shadow'u kapsayıcıda tutuyoruz */
+    box-shadow: none; /* Gölgeyi kapsayıcıda tutuyoruz */
 }
 
 .animated-water-logo:active {
     transform: scale(1.05); /* Tıklama efekti */
 }
 
+/* Metin alanı */
 .progress-text {
     width: 100%;
     text-align: center;
@@ -119,7 +124,7 @@ html.dark-mode .progress-text {
     color: var(--dark-text-color);
 }
 
-/* Ana Buton Stili (MacBook Air ve genel büyük ekranlar için geçerli olacak) */
+/* Ana Buton Stili */
 .app-button {
     display: flex;
     justify-content: center;
@@ -158,7 +163,7 @@ html.dark-mode .progress-text {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0;
+    gap: 0; /* Butonlar arasında boşluk bırakma */
     margin-bottom: 10px;
 }
 
@@ -174,8 +179,8 @@ html.dark-mode .progress-text {
 .anaAyarlarButonu {
     background-color: var(--secondary-gray);
     color: white;
-    width: calc(108px / 2);
-    height: calc(37px / 2);
+    width: calc(108px / 2); /* Ana butonun yarısı genişliğinde */
+    height: calc(37px / 2); /* Ana butonun yarısı yüksekliğinde */
     font-size: 12px;
     padding: 0 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -188,14 +193,15 @@ html.dark-mode .progress-text {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+/* Ayarlar Paneli */
 #ayarlarPaneli {
-    display: none;
+    display: none; /* Varsayılan olarak gizli */
     margin: 15px auto;
     padding: 15px;
     border: 1px solid var(--settings-panel-border-light);
     border-radius: 10px;
     background: var(--settings-panel-bg-light);
-    max-width: 260px;
+    max-width: 260px; /* Panelin maksimum genişliği */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     z-index: 20;
@@ -211,14 +217,14 @@ html.dark-mode .progress-text {
 
 .ayarlarSecenegi {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between; /* İçerikleri iki yana yasla */
+    align-items: center; /* Dikeyde ortala */
     margin-bottom: 10px;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Gerekirse alt satıra geç */
 }
 
 .ayarlarSecenegi label {
-    flex-basis: 55%;
+    flex-basis: 55%; /* Yazı için ayrılan alan */
     text-align: left;
     color: var(--settings-panel-label-light);
     font-size: 15px;
@@ -327,7 +333,7 @@ html.dark-mode .progress-text {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* Bilgi balonu (tip bubble) stilleri */
+/* Bilgi balonu (tip bubble) stilleri (şu an kullanılmıyor olabilir) */
 .tip-bubble {
     display: none;
 }
