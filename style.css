@@ -1,26 +1,20 @@
 :root {
-    /* Açık Mod Renkleri */
     --light-background: white;
     --light-text-color: black;
-
-    /* Koyu Mod Renkleri */
     --dark-background: #121212;
     --dark-text-color: white;
 
-    /* Geniş Uygulama Renkleri (Varsayılan olarak açık mod) */
     --background-color: var(--light-background);
     --text-color: var(--light-text-color);
 
-    /* Ana Tema Renkleri */
-    --primary-blue: #3399ff; /* Mavi butonlar ve ana vurgu */
-    --primary-blue-active: #2a7acc; /* Mavi butonların tıklama rengi */
-    --secondary-gray: #a0a0a0; /* Gri butonlar */
-    --secondary-gray-active: #777777; /* Gri butonların tıklama rengi */
-    --red-alert: #ff6666; /* Uyarı/Sıfırlama rengi */
-    --red-alert-active: #cc4c4c; /* Uyarı/Sıfırlama butonunun tıklama rengi */
-    --success-green: #4CAF50; /* Başarı durumu rengi */
+    --primary-blue: #3399ff;
+    --primary-blue-active: #2a7acc;
+    --secondary-gray: #a0a0a0;
+    --secondary-gray-active: #777777;
+    --red-alert: #ff6666;
+    --red-alert-active: #cc4c4c;
+    --success-green: #4CAF50;
 
-    /* Ayarlar Paneli Renkleri (Açık Mod) */
     --settings-panel-bg-light: #fff;
     --settings-panel-border-light: #ccc;
     --settings-panel-text-light: #333;
@@ -28,7 +22,6 @@
     --settings-input-bg-light: #fff;
     --settings-input-border-light: #ddd;
 
-    /* Ayarlar Paneli Renkleri (Koyu Mod) */
     --settings-panel-bg-dark: #2a2a2a;
     --settings-panel-border-dark: #444;
     --settings-panel-text-dark: #eee;
@@ -36,18 +29,16 @@
     --settings-input-bg-dark: #3a3a3a;
     --settings-input-border-dark: #555;
 
-    /* Su Dolgu ve Arka Plan Renkleri */
-    --water-fill-color: #5ab1f7; /* Su dolgusunun normal rengi (SVG için) */
-    --water-fill-background: #e0e0e0; /* Damla kapsayıcısının arka plan rengi (SVG'nin arkası) */
+    --water-fill-color: #5ab1f7;
+    --water-fill-background: #e0e0e0;
 }
 
-/* === HTML ve BODY Temel Stilleri === */
 html {
     font-family: sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease; /* Renk geçişleri için */
-    height: 100%; /* Sayfanın tam yüksekliğini kaplaması için */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    height: 100%;
 }
 
 body {
@@ -56,73 +47,75 @@ body {
     padding: 0;
 }
 
-/* === Koyu Mod Stilleri === */
-/* html etiketi 'dark-mode' sınıfına sahip olduğunda uygulanır */
 html.dark-mode {
     --background-color: var(--dark-background);
     --text-color: var(--dark-text-color);
 
-    /* Ayarlar paneli renklerini koyu moda göre ayarla */
     --settings-panel-bg-light: var(--settings-panel-bg-dark);
     --settings-panel-border-light: var(--settings-panel-border-dark);
     --settings-panel-text-light: var(--settings-panel-text-dark);
     --settings-panel-label-light: var(--settings-panel-label-dark);
     --settings-input-bg-light: var(--settings-input-bg-dark);
     --settings-input-border-light: var(--settings-input-border-dark);
-    
-    --water-fill-background: #444; /* Koyu modda damla kapsayıcısının arka planı */
+    --water-fill-background: #444;
 }
 
-/* === Uygulamanın Ana Konteyneri === */
-/* Tüm içeriği dikey ve yatayda ortalamak için kullanılır */
-.water-tracker-container {
-    display: flex;
-    flex-direction: column; /* İçeriği dikey sırala */
-    align-items: center; /* Yatayda ortala */
-    justify-content: center; /* Dikeyde ortala */
-    min-height: 100vh; /* Minimum ekran yüksekliğini kapla */
-    padding: 20px;
-    box-sizing: border-box; /* Padding'i genişliğe dahil et */
+.water-tracker-text {
+    text-align: center;
+    margin-top: 8px;
+    font-weight: bold;
+    color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
-/* === Su Logosu Kapsayıcısı === */
+/* Su Logo Kapsayıcısı */
 .su-logo-container {
     position: relative;
-    width: 150px; /* Sabit genişlik */
-    height: 150px; /* Sabit yükseklik */
-    margin: 20px auto 20px auto; /* Üst, alt boşluk ve yatayda ortalama */
-    border-radius: 15px; /* Yuvarlatılmış köşeler */
-    overflow: hidden; /* İçeriğin dışına taşan kısımları gizle (özellikle SVG için) */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Hafif gölge */
-    background-color: var(--water-fill-background); /* Damlanın arkasındaki renk */
-    display: flex; /* İçindeki SVG'yi ortalamak için */
+    width: 150px;
+    height: 150px;
+    margin: 20px auto 20px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background-color: var(--water-fill-background);
+    display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Geçiş efektleri */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Koyu modda su logosu kapsayıcısının gölgesi */
 html.dark-mode .su-logo-container {
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/* === SVG Damla Logosu Stilleri === */
-.animated-water-logo {
-    width: 100%; /* Kapsayıcısının %100 genişliğini kullan */
-    height: 100%; /* Kapsayıcısının %100 yüksekliğini kullan */
-    display: block; /* Blok seviye element yap */
-    z-index: 2; /* Su dolgusunun üzerinde olması için (görsel katmanlama) */
-    border-radius: 15px; /* Kapsayıcı ile uyumlu köşe yuvarlaklığı */
-    transition: transform 0.1s ease-in-out; /* Tıklama efekti için geçiş */
-    box-shadow: none; /* Kapsayıcıda zaten gölge var, burada olmasın */
+/* Su Logosu Resmi */
+.su-logo {
+    max-width: 150px;
+    height: auto;
+    display: block;
+    z-index: 2;
+    transition: transform 0.1s ease-in-out;
+    border-radius: 15px;
+    margin: 0;
+    box-shadow: none;
 }
 
-/* SVG'ye tıklandığında hafif büyütme efekti */
-.animated-water-logo:active {
+.su-logo:active {
     transform: scale(1.05);
 }
 
-/* === İlerleme Metni Stili ("X ml / Y ml") === */
+.water-fill-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: var(--water-fill-color);
+    transition: height 0.4s ease-out;
+    z-index: 1;
+    border-radius: 15px;
+}
+
 .progress-text {
     width: 100%;
     text-align: center;
@@ -132,15 +125,14 @@ html.dark-mode .su-logo-container {
     text-shadow: none;
     z-index: auto;
     margin-top: 10px;
-    transition: color 0.3s ease; /* Renk geçişi için */
+    transition: color 0.3s ease;
 }
 
-/* Koyu modda ilerleme metni rengi */
 html.dark-mode .progress-text {
     color: var(--dark-text-color);
 }
 
-/* === Ana Buton Stili (Drink/Ayarlar/Tamam/Sıfırla) === */
+/* Ana Buton Stili (MacBook Air ve genel büyük ekranlar için geçerli olacak) */
 .app-button {
     display: flex;
     justify-content: center;
@@ -153,8 +145,7 @@ html.dark-mode .progress-text {
     background-color: var(--primary-blue);
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out; 
-    
+    transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -162,21 +153,19 @@ html.dark-mode .progress-text {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    
     width: 108px;
     height: 37px;
     box-sizing: border-box;
     white-space: nowrap;
 }
 
-/* Butona tıklandığında (aktif durumda) */
 .app-button:active {
     background-color: var(--primary-blue-active);
     transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* === Drink Buton Kapsayıcısı === */
+/* Drink/Afiyet butonunu ortalamak için kapsayıcı */
 .main-buttons-container {
     margin-top: 15px;
     display: flex;
@@ -186,7 +175,7 @@ html.dark-mode .progress-text {
     margin-bottom: 10px;
 }
 
-/* === Ayarlar Butonu Kapsayıcısı === */
+/* Ayarlar butonunu kapsayan ve ortalamak için kullandığımız div */
 .ayarlar-butonu-sarmalayici {
     display: flex;
     justify-content: center;
@@ -194,7 +183,7 @@ html.dark-mode .progress-text {
     margin-top: 10px;
 }
 
-/* === Ana Ayarlar Butonu (App Button'dan farklı stil) === */
+/* Ayarlar Butonu stilleri (app-button'dan özellikler alır ama özelleştiririz) */
 .anaAyarlarButonu {
     background-color: var(--secondary-gray);
     color: white;
@@ -204,19 +193,16 @@ html.dark-mode .progress-text {
     padding: 0 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
-    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out; 
 }
 
-/* Ayarlar butonuna tıklandığında (aktif durumda) */
 .anaAyarlarButonu:active {
     background-color: var(--secondary-gray-active);
     transform: translateY(1px);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* === Ayarlar Paneli === */
 #ayarlarPaneli {
-    display: none; /* Varsayılan olarak gizli */
+    display: none;
     margin: 15px auto;
     padding: 15px;
     border: 1px solid var(--settings-panel-border-light);
@@ -224,16 +210,8 @@ html.dark-mode .progress-text {
     background: var(--settings-panel-bg-light);
     max-width: 260px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease; 
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     z-index: 20;
-    opacity: 0; 
-    pointer-events: none;
-}
-
-/* Ayarlar Paneli görünür olduğunda */
-#ayarlarPaneli.show { 
-    opacity: 1;
-    pointer-events: auto;
 }
 
 #ayarlarPaneli h3 {
@@ -244,7 +222,6 @@ html.dark-mode .progress-text {
     transition: color 0.3s ease;
 }
 
-/* Ayarlar paneli içindeki her seçenek (label ve input/checkbox) */
 .ayarlarSecenegi {
     display: flex;
     justify-content: space-between;
@@ -262,26 +239,25 @@ html.dark-mode .progress-text {
     transition: color 0.3s ease;
 }
 
-/* Ayarlar paneli içindeki sayı inputları ve select kutuları */
 .ayarlarSecenegi input[type="number"],
 .ayarlarSecenegi select {
     width: 90px;
     padding: 6px 8px;
     height: 30px; 
-    line-height: 30px;
+    line-height: 30px; 
     border: 1px solid var(--settings-input-border-light);
     border-radius: 5px;
     text-align: center;
-    font-size: 14px;
+    font-size: 14px; /* Günlük Hedef ve İçilen Su Miktarı kutularının yazı boyutunu küçülttük */
     background-color: var(--settings-input-bg-light);
     color: var(--settings-panel-text-light);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
-/* === Checkbox (Karanlık Mod Anahtarı) Stilleri === */
+/* Checkbox (karanlık mod anahtarı) stilleri */
 .ayarlarSecenegi input[type="checkbox"] {
     position: relative;
     width: 36px;
@@ -290,9 +266,9 @@ html.dark-mode .progress-text {
     outline: none;
     background-color: #ccc;
     border-radius: 20px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
     cursor: pointer;
-    margin: auto 0;
+    margin: auto 0; /* Dikeyde ortalamak için */
 }
 
 .ayarlarSecenegi input[type="checkbox"]::before {
@@ -305,34 +281,30 @@ html.dark-mode .progress-text {
     top: 1px;
     left: 1px;
     transform: translateX(0);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s;
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
-/* Checkbox işaretliyken */
 .ayarlarSecenegi input[type="checkbox"]:checked {
     background-color: var(--primary-blue);
 }
 
-/* Checkbox işaretliyken düğme konumu */
 .ayarlarSecenegi input[type="checkbox"]:checked::before {
     transform: translateX(18px);
 }
 
-/* === Sayısal Input Alanları İçin Spin Butonlarını Gizleme === */
-/* Chrome, Safari, Edge */
+/* Sayısal input alanları için spin butonlarını gizleme */
 #maxAmount::-webkit-outer-spin-button,
 #maxAmount::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* Firefox */
 #maxAmount {
     -moz-appearance: textfield;
 }
 
-/* === Ayarlar Paneli İçindeki Butonların Kapsayıcısı === */
+/* Ayarlar paneli içindeki butonların kapsayıcısı */
 .ayarlarButonlari {
     display: flex;
     justify-content: center;
@@ -350,33 +322,30 @@ html.dark-mode .progress-text {
     box-sizing: border-box;
 }
 
-/* Ayarlar paneli butonlarının aktif durumu */
 .ayarlarButonlari .app-button:active {
     background-color: var(--primary-blue-active);
     transform: translateY(1px);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* === Sıfırla Butonu İçin Özel Renk === */
+/* Sıfırla butonu için özel renk */
 .ayarlarButonlari .reset-button {
     background-color: var(--red-alert);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
 }
 
-/* Sıfırla butonunun aktif durumu */
 .ayarlarButonlari .reset-button:active {
     background-color: var(--red-alert-active);
     transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* === Bilgi Balonu (Tip Bubble) Stilleri === */
+/* Bilgi balonu (tip bubble) stilleri */
 .tip-bubble {
     display: none;
 }
 
-/* === Hedefe Ulaşılınca Drink Butonunun Yeşil Olması İçin Stil === */
+/* Hedefe ulaşılınca Drink butonunun yeşil olması için yeni stil */
 .success-button {
     background-color: var(--success-green) !important;
     cursor: default;
@@ -384,18 +353,16 @@ html.dark-mode .progress-text {
     padding: 0 10px;
     width: 108px;
     height: 37px;
-    transition: background-color 0.3s ease-out, transform 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
-/* Başarı butonunun aktif durumu (tıklanınca, burada bir şey yapmaması için) */
+/* Başarı butonunun aktif durumu (tıklanınca) */
 .success-button:active {
     background-color: var(--success-green) !important;
     transform: none !important;
     box-shadow: none !important;
 }
 
-/* === Duyarlı Tasarım (Responsive Design) === */
-/* Sadece iPhone 13 dikey ve benzeri küçük ekranlar (maksimum 375px genişlik) için */
+/* Duyarlı Tasarım (Responsive Design) - Sadece iPhone 13 dikey ve benzeri küçük ekranlar (maksimum 375px genişlik) */
 @media (max-width: 375px) {
     #ayarlarPaneli {
         max-width: 280px;
