@@ -88,32 +88,19 @@ html.dark-mode .su-logo-container {
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/* Su Logosu Resmi */
-.su-logo {
-    max-width: 150px;
-    height: auto;
+/* Yeni SVG Logo Stili */
+.animated-water-logo {
+    width: 150px; /* SVG'nin genişliği */
+    height: 150px; /* SVG'nin yüksekliği */
     display: block;
     z-index: 2;
+    border-radius: 15px; /* Kapsayıcı ile uyumlu köşe yuvarlaklığı */
     transition: transform 0.1s ease-in-out;
-    border-radius: 15px;
-    margin: 0;
-    box-shadow: none;
+    box-shadow: none; /* Shadow'u kapsayıcıda tutuyoruz */
 }
 
-.su-logo:active {
-    transform: scale(1.05);
-}
-
-.water-fill-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
-    background-color: var(--water-fill-color);
-    transition: height 0.4s ease-out;
-    z-index: 1;
-    border-radius: 15px;
+.animated-water-logo:active {
+    transform: scale(1.05); /* Tıklama efekti */
 }
 
 .progress-text {
