@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
- <script>
+    <script>
         const savedTheme = localStorage.getItem('darkMode');
         if (savedTheme === 'true') {
             document.documentElement.classList.add('dark-mode');
         } else if (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark-mode');}
- </script>
+            document.documentElement.classList.add('dark-mode');
+        }
+    </script>
     <link rel="stylesheet" href="style.css">
     <title>Water Tracker</title>
 </head>
@@ -27,12 +28,12 @@
         <button class="app-button" id="drinkButton">Drink</button>
     </div>
 
-    <div class="settings-button-wrapper">
-        <button class="app-button settings-main-button" id="settingsButton">Ayarlar</button>
+    <div class="ayarlar-butonu-wrapper">
+        <button class="app-button anaAyarlarButonu" id="ayarlarButonu">Ayarlar</button>
     </div>
 
-    <div id="settingsPanel">
-        <div class="settings-option">
+    <div id="ayarlarPaneli">
+        <div class="ayarlarSecenegi">
             <label for="addAmount">İçilen Su Miktarı (ml):</label>
             <select id="addAmount">
                 <option value="100">100 ml</option>
@@ -46,17 +47,17 @@
                 <option value="500">500 ml</option>
             </select>
         </div>
-        <div class="settings-option">
+        <div class="ayarlarSecenegi">
             <label for="maxAmount">Günlük Hedef (ml):</label>
             <input type="number" id="maxAmount" min="500" step="100">
         </div>
-        <div class="settings-option">
+        <div class="ayarlarSecenegi">
             <label for="darkModeToggle">Karanlık Mod:</label>
             <input type="checkbox" id="darkModeToggle">
         </div>
-        <div class="settings-buttons">
-            <button class="app-button" id="saveSettingsButton">Tamam</button>
-            <button class="app-button reset-button" id="resetWaterButton">Sıfırla</button>
+        <div class="ayarlarButonlari">
+            <button class="app-button" id="kaydetAyarlarButonu">Tamam</button>
+            <button class="app-button reset-button" id="sifirlaSuButonu">Sıfırla</button>
         </div>
     </div>
 
