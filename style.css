@@ -1,390 +1,44 @@
-:root {
-    --light-background: white;
-    --light-text-color: black;
-    --dark-background: #121212;
-    --dark-text-color: white;
+console.log("script.js yüklendi!"); // BU SATIRI EKLEYİN
 
-    --background-color: var(--light-background);
-    --text-color: var(--light-text-color);
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elementlerini Yakala
+    const statusText = document.getElementById('statusText');
+    const drinkButton = document.getElementById('drinkButton');
+    const resetButton = document.getElementById('resetButton');
+    const ayarlarPaneli = document.getElementById('ayarlarPaneli');
+    const ayarlarButonu = document.getElementById('ayarlarButonu');
+    const saveSettingsButton = document.getElementById('saveSettings');
+    const maxAmountInput = document.getElementById('maxAmount');
+    const addAmountSelect = document.getElementById('addAmount'); // Bu input'un tipi number oldu
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const animatedWaterFill = document.getElementById('animatedWaterFill');
 
-    --primary-blue: #3399ff;
-    --primary-blue-active: #2a7acc;
-    --secondary-gray: #a0a0a0;
-    --secondary-gray-active: #777777;
-    --red-alert: #ff6666;
-    --red-alert-active: #cc4c4c;
-    --success-green: #4CAF50;
+    // ... (Kalan tüm JavaScript kodu, en son verdiğim gibi) ...
 
-    --settings-panel-bg-light: #fff;
-    --settings-panel-border-light: #ccc;
-    --settings-panel-text-light: #333;
-    --settings-panel-label-light: #555;
-    --settings-input-bg-light: #fff;
-    --settings-input-border-light: #ddd;
+    // Event Dinleyicileri
+    drinkButton.addEventListener('click', addWater);
+    resetButton.addEventListener('click', resetWater);
 
-    --settings-panel-bg-dark: #2a2a2a;
-    --settings-panel-border-dark: #444;
-    --settings-panel-text-dark: #eee;
-    --settings-panel-label-dark: #ccc;
-    --settings-input-bg-dark: #3a3a3a;
-    --settings-input-border-dark: #555;
+    ayarlarButonu.addEventListener('click', (event) => { // Bu kısım çok önemli
+        event.stopPropagation();
+        ayarlarPaneli.style.display = ayarlarPaneli.style.display === 'block' ? 'none' : 'block';
+        if (ayarlarPaneli.style.display === 'block') {
+            maxAmountInput.value = maxWaterAmount;
+            addAmountSelect.value = addWaterAmount;
+            darkModeToggle.checked = isDarkMode;
+        }
+    });
 
-    --water-fill-color: #5ab1f7; /* Su dolgusunun normal rengi */
-    --water-fill-background: #e0e0e0; /* Damla kapsayıcısının arka plan rengi */
-}
+    document.addEventListener('click', (event) => { // Bu da önemli
+        if (ayarlarPaneli.style.display === 'block' && !ayarlarPaneli.contains(event.target) && !ayarlarButonu.contains(event.target)) {
+            maxAmountInput.value = maxWaterAmount;
+            addAmountSelect.value = addWaterAmount;
+            darkModeToggle.checked = isDarkMode;
+            ayarlarPaneli.style.display = 'none';
+        }
+    });
 
-html {
-    font-family: sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    height: 100%;
-}
+    saveSettingsButton.addEventListener('click', () => { /* ... */ });
 
-body {
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
-
-html.dark-mode {
-    --background-color: var(--dark-background);
-    --text-color: var(--dark-text-color);
-
-    --settings-panel-bg-light: var(--settings-panel-bg-dark);
-    --settings-panel-border-light: var(--settings-panel-border-dark);
-    --settings-panel-text-light: var(--settings-panel-text-dark);
-    --settings-panel-label-light: var(--settings-panel-label-dark);
-    --settings-input-bg-light: var(--settings-input-bg-dark);
-    --settings-input-border-light: var(--settings-input-border-dark);
-    --water-fill-background: #444; /* Dark mode'da damla kapsayıcısının arka planı */
-}
-
-/* Uygulamanın ana konteyneri, her şeyi ortalamak için */
-.water-tracker-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Yatayda ortala */
-    justify-content: center; /* Dikeyde ortala (eğer yüksekliği %100 ise) */
-    min-height: 100vh; /* Tam ekran yüksekliği */
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-
-/* Su Logo Kapsayıcısı */
-.su-logo-container {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 20px auto 20px auto;
-    border-radius: 15px;
-    overflow: hidden; /* SVG'nin dışına taşan kısımları gizle */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    background-color: var(--water-fill-background); /* Damla dışının rengi */
-    display: flex; /* SVG'yi ortalamak için */
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-html.dark-mode .su-logo-container {
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-}
-
-/* Yeni SVG Logo Stili */
-.animated-water-logo {
-    width: 100%; /* Kapsayıcısının %100'ü */
-    height: 100%; /* Kapsayıcısının %100'ü */
-    display: block;
-    z-index: 2; /* Su dolgusunun üzerinde olması için */
-    border-radius: 15px; /* Kapsayıcı ile uyumlu köşe yuvarlaklığı */
-    transition: transform 0.1s ease-in-out;
-    box-shadow: none; /* Gölgeyi kapsayıcıda tutuyoruz */
-}
-
-.animated-water-logo:active {
-    transform: scale(1.05); /* Tıklama efekti */
-}
-
-/* Metin alanı */
-.progress-text {
-    width: 100%;
-    text-align: center;
-    line-height: normal;
-    color: var(--text-color);
-    font-weight: bold;
-    text-shadow: none;
-    z-index: auto;
-    margin-top: 10px;
-    transition: color 0.3s ease;
-}
-
-html.dark-mode .progress-text {
-    color: var(--dark-text-color);
-}
-
-/* Ana Buton Stili */
-.app-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    padding: 0 15px;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--primary-blue);
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    width: 108px;
-    height: 37px;
-    box-sizing: border-box;
-    white-space: nowrap;
-}
-
-.app-button:active {
-    background-color: var(--primary-blue-active);
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-/* Drink/Afiyet butonunu ortalamak için kapsayıcı */
-.main-buttons-container {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0; /* Butonlar arasında boşluk bırakma */
-    margin-bottom: 10px;
-}
-
-/* Ayarlar butonunu kapsayan ve ortalamak için kullandığımız div */
-.ayarlar-butonu-sarmalayici {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
-}
-
-/* Ayarlar Butonu stilleri (app-button'dan özellikler alır ama özelleştiririz) */
-.anaAyarlarButonu {
-    background-color: var(--secondary-gray);
-    color: white;
-    width: calc(108px / 2); /* Ana butonun yarısı genişliğinde */
-    height: calc(37px / 2); /* Ana butonun yarısı yüksekliğinde */
-    font-size: 12px;
-    padding: 0 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-}
-
-.anaAyarlarButonu:active {
-    background-color: var(--secondary-gray-active);
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-/* Ayarlar Paneli */
-#ayarlarPaneli {
-    display: none; /* Varsayılan olarak gizli */
-    margin: 15px auto;
-    padding: 15px;
-    border: 1px solid var(--settings-panel-border-light);
-    border-radius: 10px;
-    background: var(--settings-panel-bg-light);
-    max-width: 260px; /* Panelin maksimum genişliği */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    z-index: 20;
-}
-
-#ayarlarPaneli h3 {
-    margin-top: 0;
-    color: var(--settings-panel-text-light);
-    margin-bottom: 15px;
-    font-size: 1.1em;
-    transition: color 0.3s ease;
-}
-
-.ayarlarSecenegi {
-    display: flex;
-    justify-content: space-between; /* İçerikleri iki yana yasla */
-    align-items: center; /* Dikeyde ortala */
-    margin-bottom: 10px;
-    flex-wrap: wrap; /* Gerekirse alt satıra geç */
-}
-
-.ayarlarSecenegi label {
-    flex-basis: 55%; /* Yazı için ayrılan alan */
-    text-align: left;
-    color: var(--settings-panel-label-light);
-    font-size: 15px;
-    padding-right: 10px;
-    transition: color 0.3s ease;
-}
-
-.ayarlarSecenegi input[type="number"],
-.ayarlarSecenegi select {
-    width: 90px;
-    padding: 6px 8px;
-    height: 30px; 
-    line-height: 30px; 
-    border: 1px solid var(--settings-input-border-light);
-    border-radius: 5px;
-    text-align: center;
-    font-size: 14px; /* Günlük Hedef ve İçilen Su Miktarı kutularının yazı boyutunu küçülttük */
-    background-color: var(--settings-input-bg-light);
-    color: var(--settings-panel-text-light);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-
-/* Checkbox (karanlık mod anahtarı) stilleri */
-.ayarlarSecenegi input[type="checkbox"] {
-    position: relative;
-    width: 36px;
-    height: 18px;
-    -webkit-appearance: none;
-    outline: none;
-    background-color: #ccc;
-    border-radius: 20px;
-    transition: background-color 0.3s;
-    cursor: pointer;
-    margin: auto 0; /* Dikeyde ortalamak için */
-}
-
-.ayarlarSecenegi input[type="checkbox"]::before {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: #fff;
-    top: 1px;
-    left: 1px;
-    transform: translateX(0);
-    transition: transform 0.3s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-.ayarlarSecenegi input[type="checkbox"]:checked {
-    background-color: var(--primary-blue);
-}
-
-.ayarlarSecenegi input[type="checkbox"]:checked::before {
-    transform: translateX(18px);
-}
-
-/* Sayısal input alanları için spin butonlarını gizleme */
-#maxAmount::-webkit-outer-spin-button,
-#maxAmount::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-#maxAmount {
-    -moz-appearance: textfield;
-}
-
-/* Ayarlar paneli içindeki butonların kapsayıcısı */
-.ayarlarButonlari {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* Ayarlar paneli içindeki butonların boyutları */
-.ayarlarButonlari .app-button {
-    font-size: 14px;
-    padding: 0 15px;
-    width: 86px !important;
-    height: 30px !important;
-    margin-right: 0;
-    box-sizing: border-box;
-}
-
-.ayarlarButonlari .app-button:active {
-    background-color: var(--primary-blue-active);
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-/* Sıfırla butonu için özel renk */
-.ayarlarButonlari .reset-button {
-    background-color: var(--red-alert);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.ayarlarButonlari .reset-button:active {
-    background-color: var(--red-alert-active);
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-/* Bilgi balonu (tip bubble) stilleri (şu an kullanılmıyor olabilir) */
-.tip-bubble {
-    display: none;
-}
-
-/* Hedefe ulaşılınca Drink butonunun yeşil olması için yeni stil */
-.success-button {
-    background-color: var(--success-green) !important;
-    cursor: default;
-    font-size: 14px;
-    padding: 0 10px;
-    width: 108px;
-    height: 37px;
-}
-
-/* Başarı butonunun aktif durumu (tıklanınca) */
-.success-button:active {
-    background-color: var(--success-green) !important;
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-/* Duyarlı Tasarım (Responsive Design) - Sadece iPhone 13 dikey ve benzeri küçük ekranlar (maksimum 375px genişlik) */
-@media (max-width: 375px) {
-    #ayarlarPaneli {
-        max-width: 280px;
-    }
-    .app-button {
-        font-size: 14px;
-        padding: 0 10px;
-        width: 100px;
-        height: 31px;
-    }
-    .anaAyarlarButonu {
-        width: calc(100px / 2);
-        height: calc(31px / 2);
-        font-size: 9px;
-        padding: 0 5px;
-    }
-    .ayarlarSecenegi label {
-        font-size: 14px;
-    }
-    .ayarlarSecenegi input[type="number"],
-    .ayarlarSecenegi select {
-        font-size: 14px;
-        padding: 5px 7px;
-        width: 80px;
-    }
-    .ayarlarButonlari .app-button {
-        font-size: 13px;
-        padding: 0 12px;
-        width: 74px !important;
-        height: 25px !important;
-    }
-}
+    applyInitialSettings();
+});
