@@ -17,9 +17,19 @@
 </head>
 
 <body>
-    <div class="su-logo-container">
-        <div class="water-fill-progress" id="waterFillProgress"></div>
-        <img src="images/water.logo.png" alt="Su" class="su-logo">
+   <div class="su-logo-container">
+    <svg class="animated-water-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <mask id="damlaMaskesi">
+                <path d="M12 2C12 2 5 10 5 15C5 19.4183 8.58172 23 13 23C17.4183 23 21 19.4183 21 15C21 10 12 2 12 2Z" fill="white"/>
+            </mask>
+        </defs>
+
+        <path d="M12 2C12 2 5 10 5 15C5 19.4183 8.58172 23 13 23C17.4183 23 21 19.4183 21 15C21 10 12 2 12 2Z"
+              fill="none" stroke="#00AEEF" stroke-width="1.5"/>
+
+        <rect x="0" y="0" width="24" height="24" fill="#5ab1f7" mask="url(#damlaMaskesi)" id="animatedWaterFill"/>
+    </svg>
     </div>
 
     <div class="progress-text" id="status"></div>
