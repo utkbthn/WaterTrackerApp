@@ -13,7 +13,7 @@
     --secondary-gray-active: #777777;
     --red-alert: #ff6666;
     --red-alert-active: #cc4c4c;
-    --success-green: #4CAF50; /* Başarı rengi */
+    --success-green: #4CAF50;
     --progress-bar-start: #4CAF50;
     --progress-bar-end: #2196F3;
 
@@ -181,7 +181,7 @@ html.dark-mode .progress-text {
 }
 
 /* Ayarlar butonunu kapsayan ve ortalamak için kullandığımız div */
-.ayarlar-butonu-sarmalayici { /* DEĞİŞTİ */
+.ayarlar-butonu-sarmalayici {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -349,16 +349,19 @@ html.dark-mode .progress-text {
 
 /* Hedefe ulaşılınca Drink butonunun yeşil olması için yeni stil */
 .success-button {
-    background-color: var(--success-green) !important; /* Başarı rengini kullan */
-    cursor: default; /* Pasif olunca imleç değişmesin */
-    /* app-button'dan aldığı diğer stiller korunur */
+    background-color: var(--success-green) !important;
+    cursor: default;
+    font-size: 12px; /* "Afiyet Olsun" yazısının boyutu */
+    padding: 0 10px; /* "Afiyet Olsun" butonunun iç boşluğu */
+    width: 108px; /* "Drink" butonu ile aynı genişlik */
+    height: 37px; /* "Drink" butonu ile aynı yükseklik */
 }
 
 /* Başarı butonunun aktif durumu (tıklanınca) */
 .success-button:active {
-    background-color: var(--success-green) !important; /* Tıklayınca da rengi sabit kalsın */
-    transform: none !important; /* Animasyon olmasın */
-    box-shadow: none !important; /* Gölge olmasın */
+    background-color: var(--success-green) !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 /* Duyarlı Tasarım (Responsive Design) - Sadece iPhone 13 dikey ve benzeri küçük ekranlar (maksimum 375px genişlik) */
