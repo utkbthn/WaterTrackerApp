@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const waterFillProgress = document.getElementById('waterFillProgress');
     const statusText = document.getElementById('status');
     const drinkButton = document.getElementById('drinkButton');
-    const ayarlarButonu = document.getElementById('ayarlarButonu');             // Değişti: settingsButton -> ayarlarButonu
-    const ayarlarPaneli = document.getElementById('ayarlarPaneli');             // Değişti: settingsPanel -> ayarlarPaneli
+    const ayarlarButonu = document.getElementById('ayarlarButonu');             
+    const ayarlarPaneli = document.getElementById('ayarlarPaneli');             
     const addAmountSelect = document.getElementById('addAmount');
     const maxAmountInput = document.getElementById('maxAmount');
     const darkModeToggle = document.getElementById('darkModeToggle');
-    const kaydetAyarlarButonu = document.getElementById('kaydetAyarlarButonu'); // Değişti: saveSettingsButton -> kaydetAyarlarButonu
-    const sifirlaSuButonu = document.getElementById('sifirlaSuButonu');         // Değişti: resetWaterButton -> sifirlaSuButonu
+    const kaydetAyarlarButonu = document.getElementById('kaydetAyarlarButonu'); 
+    const sifirlaSuButonu = document.getElementById('sifirlaSuButonu');         
     const suLogo = document.querySelector('.su-logo');
 
     // Varsayılan Değerler
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadSettings() {
         const savedWaterAmount = localStorage.getItem('currentWaterAmount');
         const savedMaxAmount = localStorage.getItem('maxWaterAmount');
-        const savedAddAmount = localStorage.getItem('addWaterAmount');
+        const savedAddAmount = localStorage.getItem('addAmount'); // 'addAmount' olarak kaydetmiştik
         const savedDarkMode = localStorage.getItem('darkMode');
 
         if (savedWaterAmount !== null) {
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (savedMaxAmount !== null) {
             maxWaterAmount = parseInt(savedMaxAmount);
         }
-        if (savedAddAmount !== null) {
+        if (savedAddAmount !== null) { // Eğer 'addAmount' kaydedilmişse kullan
             addWaterAmount = parseInt(savedAddAmount);
         }
         if (savedDarkMode !== null) {
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         addAmountSelect.value = addWaterAmount;
         maxAmountInput.value = maxWaterAmount;
         applyDarkMode(darkModeToggle.checked);
-        updateWaterDisplay();
+        updateWaterDisplay(); // Ekranı güncellemek için çağır
     }
 
     // Su seviyesini güncelle ve görüntüle
@@ -52,13 +52,26 @@ document.addEventListener('DOMContentLoaded', () => {
         waterFillProgress.style.height = `${percentage}%`;
 
         if (percentage >= 100) {
-            statusText.textContent = `Tebrikler! Günlük hedefinize ulaştınız: ${currentWaterAmount} ml`;
+            statusText.textContent = `Tebrikler! Günlük hedefinize ulaştınız: ${currentWaterAmount} ml`; // Bu yazı değişmeden kalıyor
             statusText.style.color = 'var(--success-green)';
             waterFillProgress.style.backgroundColor = 'var(--success-green)';
+
+            // Drink butonunu "Afiyet Olsun 🎉" yap ve yeşil arka plan ver
+            drinkButton.textContent = 'Afiyet Olsun 🎉';
+            drinkButton.disabled = true; // Butonu pasif yap
+            drinkButton.classList.remove('app-button'); // Mevcut app-button stilini kaldır (geçici olarak)
+            drinkButton.classList.add('success-button'); // Yeni başarı sınıfını ekle
+
         } else {
             statusText.textContent = `${currentWaterAmount} ml / ${maxWaterAmount} ml`;
             statusText.style.color = 'var(--text-color)';
             waterFillProgress.style.backgroundColor = 'var(--water-fill-color)';
+
+            // Drink butonunu normal haline getir
+            drinkButton.textContent = 'Drink'; // Burası başlangıçtaki hali
+            drinkButton.disabled = false; // Butonu aktif yap
+            drinkButton.classList.add('app-button'); // app-button stilini geri ekle
+            drinkButton.classList.remove('success-button'); // Başarı sınıfını kaldır
         }
     }
 
@@ -83,14 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.classList.remove('dark-mode');
             localStorage.setItem('darkMode', 'false');
         }
-        // Temanın değişmesiyle metin rengini yeniden ayarla
-        updateWaterDisplay();
+        updateWaterDisplay(); // Temanın değişmesiyle metin ve buton renklerini yeniden ayarla
     }
 
     // Ayarları kaydet
     function saveSettings() {
         maxWaterAmount = parseInt(maxAmountInput.value);
-        addWaterAmount = parseInt(addAmountSelect.value);
+        addWaterAmount = parseInt(addAmountSelect.value); // addAmount'ı select'ten al
 
         if (isNaN(maxWaterAmount) || maxWaterAmount < 500) {
             alert("Günlük hedef en az 500 ml olmalıdır!");
@@ -99,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         localStorage.setItem('maxWaterAmount', maxWaterAmount);
-        localStorage.setItem('addWaterAmount', addWaterAmount);
+        localStorage.setItem('addAmount', addWaterAmount); // 'addAmount' olarak kaydet
         localStorage.setItem('darkMode', darkModeToggle.checked);
 
         applyDarkMode(darkModeToggle.checked);
@@ -116,11 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Olay Dinleyicileri
     drinkButton.addEventListener('click', addWater);
-    ayarlarButonu.addEventListener('click', () => { // Değişti: settingsButton -> ayarlarButonu
-        ayarlarPaneli.style.display = ayarlarPaneli.style.display === 'block' ? 'none' : 'block'; // Değişti: settingsPanel -> ayarlarPaneli
+    ayarlarButonu.addEventListener('click', () => {
+        ayarlarPaneli.style.display = ayarlarPaneli.style.display === 'block' ? 'none' : 'block';
     });
-    kaydetAyarlarButonu.addEventListener('click', saveSettings); // Değişti: saveSettingsButton -> kaydetAyarlarButonu
-    sifirlaSuButonu.addEventListener('click', resetWater);     // Değişti: resetWaterButton -> sifirlaSuButonu
+    kaydetAyarlarButonu.addEventListener('click', saveSettings);
+    sifirlaSuButonu.addEventListener('click', resetWater);
     darkModeToggle.addEventListener('change', (event) => {
         applyDarkMode(event.target.checked);
     });
