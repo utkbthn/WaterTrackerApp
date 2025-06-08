@@ -108,10 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ayarlarPaneli.style.display = 'none';
     }
 
-    function resetWater() {
+     function resetWater() {
         currentWaterAmount = 0;
         localStorage.setItem('currentWaterAmount', currentWaterAmount);
         updateWaterDisplay();
+        ayarlarPaneli.style.display = 'none'; // Ayarlar panelini kapat
     }
 
     drinkButton.addEventListener('click', addWater);
