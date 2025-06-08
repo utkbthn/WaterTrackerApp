@@ -1,206 +1,138 @@
-const DEFAULT_MAX_WATER_AMOUNT = 2500;
-const DEFAULT_ADD_AMOUNT = 250;
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elementleri
+    const waterFillProgress = document.getElementById('waterFillProgress');
+    const statusText = document.getElementById('status');
+    const drinkButton = document.getElementById('drinkButton');
+    const ayarlarButonu = document.getElementById('ayarlarButonu');             // Değişti: settingsButton -> ayarlarButonu
+    const ayarlarPaneli = document.getElementById('ayarlarPaneli');             // Değişti: settingsPanel -> ayarlarPaneli
+    const addAmountSelect = document.getElementById('addAmount');
+    const maxAmountInput = document.getElementById('maxAmount');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const kaydetAyarlarButonu = document.getElementById('kaydetAyarlarButonu'); // Değişti: saveSettingsButton -> kaydetAyarlarButonu
+    const sifirlaSuButonu = document.getElementById('sifirlaSuButonu');         // Değişti: resetWaterButton -> sifirlaSuButonu
+    const suLogo = document.querySelector('.su-logo');
 
-let currentWaterAmount;
-let maxWaterGoal;
-let addWaterAmount;
-let isDarkMode;
+    // Varsayılan Değerler
+    const defaultAddAmount = 250;
+    const defaultMaxAmount = 2500;
+    const defaultDarkMode = false;
+    let currentWaterAmount = 0;
+    let maxWaterAmount = defaultMaxAmount;
+    let addWaterAmount = defaultAddAmount;
 
-const statusDisplay = document.getElementById("status");
-const darkModeToggle = document.getElementById("darkModeToggle");
-const rootElement = document.documentElement;
-const settingsPanel = document.getElementById("settingsPanel");
-const addAmountSelect = document.getElementById("addAmount");
-const maxAmountInput = document.getElementById("maxAmount");
-const drinkButton = document.getElementById("drinkButton");
-const settingsButton = document.getElementById("settingsButton");
-const saveSettingsButton = document.getElementById("saveSettingsButton");
-const resetWaterButton = document.getElementById("resetWaterButton");
-const tipBubble = document.getElementById("tipBubble");
-const tipContent = document.getElementById("tipContent");
+    // Local Storage'dan ayarları yükle
+    function loadSettings() {
+        const savedWaterAmount = localStorage.getItem('currentWaterAmount');
+        const savedMaxAmount = localStorage.getItem('maxWaterAmount');
+        const savedAddAmount = localStorage.getItem('addWaterAmount');
+        const savedDarkMode = localStorage.getItem('darkMode');
 
-const waterFillProgress = document.getElementById("waterFillProgress");
-
-let lastResetDate;
-
-function loadInitialSettings() {
-    currentWaterAmount = Number(localStorage.getItem("water"));
-    if (isNaN(currentWaterAmount)) currentWaterAmount = 0;
-
-    maxWaterGoal = Number(localStorage.getItem("maxWater"));
-    if (isNaN(maxWaterGoal) || maxWaterGoal < 500) maxWaterGoal = DEFAULT_MAX_WATER_AMOUNT;
-
-    addWaterAmount = Number(localStorage.getItem("addAmount"));
-    if (isNaN(addWaterAmount)) addWaterAmount = DEFAULT_ADD_AMOUNT;
-
-    isDarkMode = localStorage.getItem("darkMode") === "true";
-    lastResetDate = localStorage.getItem("lastResetDate");
-}
-
-function applyTheme() {
-    if (isDarkMode) {
-        rootElement.classList.add("dark-mode");
-    } else {
-        rootElement.classList.remove("dark-mode");
-    }
-    if (darkModeToggle) {
-        darkModeToggle.checked = isDarkMode;
-    }
-}
-
-function getTodayDateString() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, '0');
-    const day = today.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-}
-
-function resetWaterIfNewDay() {
-    const todayDate = getTodayDateString();
-    if (lastResetDate !== todayDate) {
-        resetWater(true);
-        lastResetDate = todayDate;
-        localStorage.setItem("lastResetDate", lastResetDate);
-    }
-}
-
-function updateDisplay() {
-    let percent = (currentWaterAmount / maxWaterGoal) * 100;
-    percent = Math.min(Math.max(percent, 0), 100);
-
-    waterFillProgress.style.height = percent + "%";
-    statusDisplay.innerText = `${currentWaterAmount} ml / ${maxWaterGoal} ml`;
-
-    if (drinkButton) {
-        if (currentWaterAmount >= maxWaterGoal) {
-            drinkButton.innerText = "Afiyet Olsun! 🎉";
-            drinkButton.style.backgroundColor = "var(--success-green)";
-            drinkButton.style.cursor = "default";
-
-            // ***** SADECE AFİYET OLSUN! 🎉 YAZISI İÇİN BOYUT AYARLAMALARI BAŞLANGICI *****
-            // MacBook Air ve genel büyük ekranlar için varsayılan Afiyet Olsun stili
-            drinkButton.style.fontSize = "12px";
-            drinkButton.style.paddingLeft = "7px";
-            drinkButton.style.paddingRight = "7px";
-
-            // iPhone 13 dikey ve benzeri küçük ekranlar için özel Afiyet Olsun stili
-            const width = window.innerWidth;
-            if (width <= 375) {
-                drinkButton.style.fontSize = "10.5px";
-                drinkButton.style.paddingLeft = "5px";
-                drinkButton.style.paddingRight = "5px";
-            }
-            // ***** SADEFE AFİYET OLSUN! 🎉 YAZISI İÇİN BOYUT AYARLAMALARI SONU *****
-
-        } else {
-            drinkButton.innerText = "Drink";
-            drinkButton.style.backgroundColor = "var(--primary-blue)";
-            drinkButton.style.cursor = "pointer";
-
-            // ***** SADECE DRINK YAZISI İÇİN BOYUT AYARLAMALARI BAŞLANGICI *****
-            // CSS'ten gelecek varsayılan değerlere sıfırlamak en iyisidir.
-            // Bu, MacBook Air ve diğer büyük ekranlarda CSS'teki .app-button font-size ve padding'ini kullanır.
-            drinkButton.style.fontSize = "";
-            drinkButton.style.paddingLeft = "";
-            drinkButton.style.paddingRight = "";
-            drinkButton.style.paddingTop = "";
-            drinkButton.style.paddingBottom = "";
-
-            // iPhone 13 dikey ve benzeri küçük ekranlar için CSS'teki .app-button medya sorgusunu kullanır.
-            // Bu kısımda JavaScript ile özel bir ayar yapmaya gerek yok, CSS zaten halledecek.
-            // ***** SADECE DRINK YAZISI İÇİN BOYUT AYARLAMALARI SONU *****
+        if (savedWaterAmount !== null) {
+            currentWaterAmount = parseInt(savedWaterAmount);
         }
-    }
-}
-
-function addWater() {
-    if (currentWaterAmount < maxWaterGoal) {
-        currentWaterAmount += addWaterAmount;
-        if (currentWaterAmount > maxWaterGoal) {
-            currentWaterAmount = maxWaterGoal;
+        if (savedMaxAmount !== null) {
+            maxWaterAmount = parseInt(savedMaxAmount);
         }
-        localStorage.setItem("water", currentWaterAmount);
-        updateDisplay();
-    }
-}
+        if (savedAddAmount !== null) {
+            addWaterAmount = parseInt(savedAddAmount);
+        }
+        if (savedDarkMode !== null) {
+            darkModeToggle.checked = (savedDarkMode === 'true');
+        }
 
-function resetWater(isAutoReset = false) {
-    currentWaterAmount = 0;
-    localStorage.setItem("water", currentWaterAmount);
-    if (drinkButton) {
-        drinkButton.innerText = "Drink";
-        drinkButton.style.backgroundColor = "var(--primary-blue)";
-        drinkButton.style.cursor = "pointer";
-        drinkButton.style.fontSize = "";
-        drinkButton.style.paddingLeft = "";
-        drinkButton.style.paddingRight = "";
-        drinkButton.style.paddingTop = "";
-        drinkButton.style.paddingBottom = "";
-    }
-    updateDisplay();
-    if (!isAutoReset && settingsPanel.style.display === "block") {
-        settingsPanel.style.display = "none";
-    }
-}
-
-function toggleSettings() {
-    if (settingsPanel.style.display === "none" || settingsPanel.style.display === "") {
-        maxAmountInput.value = maxWaterGoal;
         addAmountSelect.value = addWaterAmount;
-        darkModeToggle.checked = isDarkMode;
-        settingsPanel.style.display = "block";
-    } else {
-        settingsPanel.style.display = "none";
-    }
-}
-
-function saveAndCloseSettings() {
-    const newMax = Number(maxAmountInput.value);
-    const newAdd = Number(addAmountSelect.value);
-
-    if (isNaN(newMax) || newMax < 500) {
-        alert("Günlük hedef en az 500 ml olmalı ve sayısal bir değer girilmelidir!");
-        maxAmountInput.value = maxWaterGoal;
-        return;
+        maxAmountInput.value = maxWaterAmount;
+        applyDarkMode(darkModeToggle.checked);
+        updateWaterDisplay();
     }
 
-    maxWaterGoal = newMax;
-    localStorage.setItem("maxWater", maxWaterGoal);
+    // Su seviyesini güncelle ve görüntüle
+    function updateWaterDisplay() {
+        const percentage = (currentWaterAmount / maxWaterAmount) * 100;
+        waterFillProgress.style.height = `${percentage}%`;
 
-    if (!isNaN(newAdd)) {
-        addWaterAmount = newAdd;
-        localStorage.setItem("addAmount", newAdd);
+        if (percentage >= 100) {
+            statusText.textContent = `Tebrikler! Günlük hedefinize ulaştınız: ${currentWaterAmount} ml`;
+            statusText.style.color = 'var(--success-green)';
+            waterFillProgress.style.backgroundColor = 'var(--success-green)';
+        } else {
+            statusText.textContent = `${currentWaterAmount} ml / ${maxWaterAmount} ml`;
+            statusText.style.color = 'var(--text-color)';
+            waterFillProgress.style.backgroundColor = 'var(--water-fill-color)';
+        }
     }
 
-    isDarkMode = darkModeToggle.checked;
-    localStorage.setItem("darkMode", isDarkMode);
-    applyTheme();
+    // Su ekle
+    function addWater() {
+        if (currentWaterAmount < maxWaterAmount) {
+            currentWaterAmount += addWaterAmount;
+            if (currentWaterAmount > maxWaterAmount) {
+                currentWaterAmount = maxWaterAmount;
+            }
+            localStorage.setItem('currentWaterAmount', currentWaterAmount);
+            updateWaterDisplay();
+        }
+    }
 
-    updateDisplay();
-    settingsPanel.style.display = "none";
-}
+    // Karanlık mod uygula/kaldır
+    function applyDarkMode(isDark) {
+        if (isDark) {
+            document.documentElement.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'true');
+        } else {
+            document.documentElement.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'false');
+        }
+        // Temanın değişmesiyle metin rengini yeniden ayarla
+        updateWaterDisplay();
+    }
 
-// Event Listeners
-drinkButton.addEventListener('click', addWater);
-settingsButton.addEventListener('click', toggleSettings);
-saveSettingsButton.addEventListener('click', saveAndCloseSettings);
-resetWaterButton.addEventListener('click', () => resetWater(false));
+    // Ayarları kaydet
+    function saveSettings() {
+        maxWaterAmount = parseInt(maxAmountInput.value);
+        addWaterAmount = parseInt(addAmountSelect.value);
 
-darkModeToggle.addEventListener("change", () => {
-    isDarkMode = darkModeToggle.checked;
-    localStorage.setItem("darkMode", isDarkMode);
-    applyTheme();
+        if (isNaN(maxWaterAmount) || maxWaterAmount < 500) {
+            alert("Günlük hedef en az 500 ml olmalıdır!");
+            maxWaterAmount = defaultMaxAmount; // Geçersizse varsayılana dön
+            maxAmountInput.value = defaultMaxAmount;
+        }
+
+        localStorage.setItem('maxWaterAmount', maxWaterAmount);
+        localStorage.setItem('addWaterAmount', addWaterAmount);
+        localStorage.setItem('darkMode', darkModeToggle.checked);
+
+        applyDarkMode(darkModeToggle.checked);
+        updateWaterDisplay();
+        ayarlarPaneli.style.display = 'none'; // Ayarları kaydettikten sonra paneli kapat
+    }
+
+    // Suyu sıfırla
+    function resetWater() {
+        currentWaterAmount = 0;
+        localStorage.setItem('currentWaterAmount', currentWaterAmount);
+        updateWaterDisplay();
+    }
+
+    // Olay Dinleyicileri
+    drinkButton.addEventListener('click', addWater);
+    ayarlarButonu.addEventListener('click', () => { // Değişti: settingsButton -> ayarlarButonu
+        ayarlarPaneli.style.display = ayarlarPaneli.style.display === 'block' ? 'none' : 'block'; // Değişti: settingsPanel -> ayarlarPaneli
+    });
+    kaydetAyarlarButonu.addEventListener('click', saveSettings); // Değişti: saveSettingsButton -> kaydetAyarlarButonu
+    sifirlaSuButonu.addEventListener('click', resetWater);     // Değişti: resetWaterButton -> sifirlaSuButonu
+    darkModeToggle.addEventListener('change', (event) => {
+        applyDarkMode(event.target.checked);
+    });
+
+    // Başlangıçta ayarları yükle
+    loadSettings();
+
+    // Su logosuna tıklama animasyonu
+    suLogo.addEventListener('click', () => {
+        suLogo.classList.add('active'); // Animasyon sınıfını ekle
+        setTimeout(() => {
+            suLogo.classList.remove('active'); // Animasyon bitince sınıfı kaldır
+        }, 100); // CSS transition süresiyle eşleşmeli (0.1s = 100ms)
+    });
 });
-
-// Sayfa yüklendiğinde ve boyut değiştiğinde
-window.onload = function () {
-    loadInitialSettings();
-    resetWaterIfNewDay();
-    updateDisplay();
-    applyTheme();
-    settingsPanel.style.display = "none";
-};
-
-// Ekran boyutu değiştiğinde de updateDisplay'i çağır
-window.addEventListener('resize', updateDisplay);
