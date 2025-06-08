@@ -1,182 +1,147 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const statusText = document.getElementById('statusText');
+    const waterFillProgress = document.getElementById('waterFillProgress');
+    const statusText = document.getElementById('status');
     const drinkButton = document.getElementById('drinkButton');
-    const resetButton = document.getElementById('resetButton');
-    const ayarlarPaneli = document.getElementById('ayarlarPaneli');
-    const ayarlarButonu = document.getElementById('ayarlarButonu');
-    const saveSettingsButton = document.getElementById('saveSettings');
-    const maxAmountInput = document.getElementById('maxAmount');
+    const ayarlarButonu = document.getElementById('ayarlarButonu');             
+    const ayarlarPaneli = document.getElementById('ayarlarPaneli');             
     const addAmountSelect = document.getElementById('addAmount');
+    const maxAmountInput = document.getElementById('maxAmount');
     const darkModeToggle = document.getElementById('darkModeToggle');
-    const animatedWaterFill = document.getElementById('animatedWaterFill');
+    const kaydetAyarlarButonu = document.getElementById('kaydetAyarlarButonu'); 
+    const sifirlaSuButonu = document.getElementById('sifirlaSuButonu');         
+    const suLogo = document.querySelector('.su-logo');
 
-    let currentWaterAmount = parseInt(localStorage.getItem('currentWaterAmount')) || 0;
-    let maxWaterAmount = parseInt(localStorage.getItem('maxWaterAmount')) || 2500;
-    let addWaterAmount = parseInt(localStorage.getItem('addWaterAmount')) || 250;
-    let isDarkMode = (localStorage.getItem('darkMode') === 'true');
+    const defaultAddAmount = 250;
+    const defaultMaxAmount = 2500;
+    const defaultDarkMode = false;
+    let currentWaterAmount = 0;
+    let maxWaterAmount = defaultMaxAmount;
+    let addWaterAmount = defaultAddAmount;
 
-    function applyInitialSettings() {
-        maxAmountInput.value = maxWaterAmount;
+    function loadSettings() {
+        const savedWaterAmount = localStorage.getItem('currentWaterAmount');
+        const savedMaxAmount = localStorage.getItem('maxWaterAmount');
+        const savedAddAmount = localStorage.getItem('addAmount');
+        const savedDarkMode = localStorage.getItem('darkMode');
+
+        if (savedWaterAmount !== null) {
+            currentWaterAmount = parseInt(savedWaterAmount);
+        }
+        if (savedMaxAmount !== null) {
+            maxWaterAmount = parseInt(savedMaxAmount);
+        }
+        if (savedAddAmount !== null) {
+            addWaterAmount = parseInt(savedAddAmount);
+        }
+        if (savedDarkMode !== null) {
+            darkModeToggle.checked = (savedDarkMode === 'true');
+        }
+
         addAmountSelect.value = addWaterAmount;
-        darkModeToggle.checked = isDarkMode;
-
-        if (isDarkMode) {
-            document.documentElement.classList.add('dark-mode');
-        } else {
-            document.documentElement.classList.remove('dark-mode');
-        }
+        maxAmountInput.value = maxWaterAmount;
+        applyDarkMode(darkModeToggle.checked);
         updateWaterDisplay();
-    }
-
-    function addWater() {
-        if (currentWaterAmount >= maxWaterAmount) {
-            return;
-        }
-
-        currentWaterAmount += addWaterAmount;
-        if (currentWaterAmount > maxWaterAmount) {
-            currentWaterAmount = maxWaterAmount;
-        }
-
-        updateWaterDisplay();
-        saveWaterAmount();
-    }
-
-    function resetWater() {
-        currentWaterAmount = 0;
-        updateWaterDisplay();
-        saveWaterAmount();
     }
 
     function updateWaterDisplay() {
         const percentage = (currentWaterAmount / maxWaterAmount) * 100;
-        
-        const rectMaxHeight = 24; 
-        const newFillHeight = (percentage / 100) * rectMaxHeight;
-        const newFillY = rectMaxHeight - newFillHeight; 
-
-        if (animatedWaterFill) {
-            animatedWaterFill.setAttribute('y', newFillY);
-            animatedWaterFill.setAttribute('height', newFillHeight);
-        }
+        waterFillProgress.style.height = `${percentage}%`;
 
         if (percentage >= 100) {
             statusText.textContent = `Tebrikler! Günlük hedefinize ulaştınız: ${currentWaterAmount} ml`;
             statusText.style.color = 'var(--success-green)';
-            if (animatedWaterFill) {
-                animatedWaterFill.setAttribute('fill', 'var(--success-green)');
-            }
+            waterFillProgress.style.backgroundColor = 'var(--success-green)';
+
             drinkButton.textContent = 'Afiyet Olsun 🎉';
             drinkButton.disabled = true;
             drinkButton.classList.add('success-button');
+
         } else {
             statusText.textContent = `${currentWaterAmount} ml / ${maxWaterAmount} ml`;
             statusText.style.color = 'var(--text-color)';
-            if (animatedWaterFill) {
-                animatedWaterFill.setAttribute('fill', 'var(--water-fill-color)');
-            }
+            waterFillProgress.style.backgroundColor = 'var(--water-fill-color)';
+
             drinkButton.textContent = 'Drink';
             drinkButton.disabled = false;
             drinkButton.classList.remove('success-button');
         }
     }
 
-    function saveWaterAmount() {
-        localStorage.setItem('currentWaterAmount', currentWaterAmount);
+    function addWater() {
+        if (currentWaterAmount < maxWaterAmount) {
+            currentWaterAmount += addWaterAmount;
+            if (currentWaterAmount > maxWaterAmount) {
+                currentWaterAmount = maxWaterAmount;
+            }
+            localStorage.setItem('currentWaterAmount', currentWaterAmount);
+            updateWaterDisplay();
+        }
+    }
+
+    function applyDarkMode(isDark) {
+        if (isDark) {
+            document.documentElement.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'true');
+        } else {
+            document.documentElement.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'false');
+        }
+        updateWaterDisplay();
+    }
+
+    function saveSettings() {
+        maxWaterAmount = parseInt(maxAmountInput.value);
+        addWaterAmount = parseInt(addAmountSelect.value);
+
+        if (isNaN(maxWaterAmount) || maxWaterAmount < 500) {
+            alert("Günlük hedef en az 500 ml olmalıdır!");
+            maxWaterAmount = defaultMaxAmount;
+            maxAmountInput.value = defaultMaxAmount;
+        }
+
         localStorage.setItem('maxWaterAmount', maxWaterAmount);
-        localStorage.setItem('addWaterAmount', addWaterAmount);
-        localStorage.setItem('darkMode', isDarkMode);
+        localStorage.setItem('addAmount', addWaterAmount);
+        localStorage.setItem('darkMode', darkModeToggle.checked);
+
+        applyDarkMode(darkModeToggle.checked);
+        updateWaterDisplay();
+        ayarlarPaneli.style.display = 'none';
     }
 
-    if (ayarlarButonu) {
-        ayarlarButonu.addEventListener('click', (event) => {
-            event.stopPropagation();
+    function resetWater() {
+        currentWaterAmount = 0;
+        localStorage.setItem('currentWaterAmount', currentWaterAmount);
+        updateWaterDisplay();
+        ayarlarPaneli.style.display = 'none';
+    }
+
+    drinkButton.addEventListener('click', addWater);
+    ayarlarButonu.addEventListener('click', () => {
+        ayarlarPaneli.style.display = ayarlarPaneli.style.display === 'block' ? 'none' : 'block';
+    });
+    kaydetAyarlarButonu.addEventListener('click', saveSettings);
+    sifirlaSuButonu.addEventListener('click', resetWater);
+    darkModeToggle.addEventListener('change', (event) => {
+        applyDarkMode(event.target.checked);
+    });
+
+    loadSettings();
+
+    suLogo.addEventListener('click', () => {
+        suLogo.classList.add('active');
+        setTimeout(() => {
+            suLogo.classList.remove('active');
+        }, 100);
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!ayarlarPaneli.contains(event.target) && !ayarlarButonu.contains(event.target) && ayarlarPaneli.style.display === 'block') {
+            // Ayarlar panelini kapatmadan önce değişiklikleri geri al
+            maxAmountInput.value = maxWaterAmount;
+            addAmountSelect.value = addWaterAmount;
+            darkModeToggle.checked = (localStorage.getItem('darkMode') === 'true'); 
             
-            if (ayarlarPaneli) {
-                if (ayarlarPaneli.style.display === 'block') {
-                    ayarlarPaneli.classList.remove('show');
-                    ayarlarPaneli.addEventListener('transitionend', function handler() {
-                        ayarlarPaneli.style.display = 'none';
-                        ayarlarPaneli.removeEventListener('transitionend', handler);
-                    }, { once: true });
-                } else {
-                    ayarlarPaneli.style.display = 'block';
-                    requestAnimationFrame(() => {
-                        ayarlarPaneli.classList.add('show');
-                    });
-                    maxAmountInput.value = maxWaterAmount;
-                    addAmountSelect.value = addWaterAmount;
-                    darkModeToggle.checked = isDarkMode;
-                }
-            }
-        });
-    }
-
-    if (ayarlarPaneli && ayarlarButonu) {
-        document.addEventListener('click', (event) => {
-            if (ayarlarPaneli.style.display === 'block' && 
-                !ayarlarPaneli.contains(event.target) && 
-                !ayarlarButonu.contains(event.target) &&
-                event.target !== saveSettingsButton && 
-                event.target !== resetButton 
-            ) {
-                maxAmountInput.value = maxWaterAmount;
-                addAmountSelect.value = addWaterAmount;
-                darkModeToggle.checked = isDarkMode;
-                ayarlarPaneli.classList.remove('show');
-                ayarlarPaneli.addEventListener('transitionend', function handler() {
-                    ayarlarPaneli.style.display = 'none';
-                    ayarlarPaneli.removeEventListener('transitionend', handler);
-                }, { once: true });
-            }
-        });
-    }
-
-    if (saveSettingsButton) {
-        saveSettingsButton.addEventListener('click', () => {
-            const newMaxAmount = parseInt(maxAmountInput.value);
-            const newAddAmount = parseInt(addAmountSelect.value);
-            const newIsDarkMode = darkModeToggle.checked;
-
-            if (isNaN(newMaxAmount) || newMaxAmount <= 0) {
-                alert('Lütfen geçerli bir günlük hedef miktarı girin (pozitif bir sayı).');
-                return;
-            }
-            if (isNaN(newAddAmount) || newAddAmount <= 0) {
-                alert('Lütfen geçerli bir içilen su miktarı girin (pozitif bir sayı).');
-                return;
-            }
-
-            if (newMaxAmount < currentWaterAmount && currentWaterAmount !== 0) {
-                if (!confirm(`Yeni günlük hedef (${newMaxAmount} ml) mevcut içilen su miktarınızdan (${currentWaterAmount} ml) daha düşük. Mevcut su miktarınız sıfırlanacak. Devam etmek istiyor musunuz?`)) {
-                    return;
-                }
-                currentWaterAmount = 0;
-            }
-
-            maxWaterAmount = newMaxAmount;
-            addWaterAmount = newAddAmount;
-            isDarkMode = newIsDarkMode;
-
-            saveWaterAmount();
-            applyInitialSettings();
-            
-            if (ayarlarPaneli) {
-                ayarlarPaneli.classList.remove('show');
-                ayarlarPaneli.addEventListener('transitionend', function handler() {
-                    ayarlarPaneli.style.display = 'none';
-                    ayarlarPaneli.removeEventListener('transitionend', handler);
-                }, { once: true });
-            }
-        });
-    }
-
-    if (drinkButton) {
-        drinkButton.addEventListener('click', addWater);
-    }
-    if (resetButton) {
-        resetButton.addEventListener('click', resetWater);
-    }
-
-    applyInitialSettings();
+            ayarlarPaneli.style.display = 'none';
+        }
+    });
 });
