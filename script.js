@@ -136,6 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('click', (event) => {
         if (!ayarlarPaneli.contains(event.target) && !ayarlarButonu.contains(event.target) && ayarlarPaneli.style.display === 'block') {
+            // Ayarlar panelini kapatmadan önce değişiklikleri geri al
+            maxAmountInput.value = maxWaterAmount;
+            addAmountSelect.value = addWaterAmount;
+            darkModeToggle.checked = (localStorage.getItem('darkMode') === 'true'); 
+            
             ayarlarPaneli.style.display = 'none';
         }
     });
