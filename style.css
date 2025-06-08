@@ -13,7 +13,7 @@
     --secondary-gray-active: #777777;
     --red-alert: #ff6666;
     --red-alert-active: #cc4c4c;
-    --success-green: #4CAF50;
+    --success-green: #4CAF50; /* Başarı rengi */
     --progress-bar-start: #4CAF50;
     --progress-bar-end: #2196F3;
 
@@ -181,8 +181,7 @@ html.dark-mode .progress-text {
 }
 
 /* Ayarlar butonunu kapsayan ve ortalamak için kullandığımız div */
-/* ÖNEMLİ: Burası değişti! */
-.ayarlar-butonu-sarmalayici {
+.ayarlar-butonu-sarmalayici { /* DEĞİŞTİ */
     display: flex;
     justify-content: center;
     width: 100%;
@@ -348,6 +347,20 @@ html.dark-mode .progress-text {
     display: none;
 }
 
+/* Hedefe ulaşılınca Drink butonunun yeşil olması için yeni stil */
+.success-button {
+    background-color: var(--success-green) !important; /* Başarı rengini kullan */
+    cursor: default; /* Pasif olunca imleç değişmesin */
+    /* app-button'dan aldığı diğer stiller korunur */
+}
+
+/* Başarı butonunun aktif durumu (tıklanınca) */
+.success-button:active {
+    background-color: var(--success-green) !important; /* Tıklayınca da rengi sabit kalsın */
+    transform: none !important; /* Animasyon olmasın */
+    box-shadow: none !important; /* Gölge olmasın */
+}
+
 /* Duyarlı Tasarım (Responsive Design) - Sadece iPhone 13 dikey ve benzeri küçük ekranlar (maksimum 375px genişlik) */
 @media (max-width: 375px) {
     #ayarlarPaneli {
@@ -359,7 +372,7 @@ html.dark-mode .progress-text {
         width: 100px;
         height: 31px;
     }
-    .anaAyarlarButonu { /* Bu kısım zaten önceki düzeltmelerde yapılmıştı, teyit amaçlı tekrar yazdım */
+    .anaAyarlarButonu {
         width: calc(100px / 2);
         height: calc(31px / 2);
         font-size: 9px;
