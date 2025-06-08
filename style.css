@@ -73,7 +73,7 @@ html.dark-mode {
     transition: color 0.3s ease;
 }
 
-.water-icon-container {
+.water.logo-container {
     position: relative;
     width: 150px;
     height: 150px;
