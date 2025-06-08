@@ -73,7 +73,7 @@ html.dark-mode {
     transition: color 0.3s ease;
 }
 
-/* Su Logo Kapsayıcısı (Şimdi HTML'deki "su-logo-container" ile eşleşiyor) */
+/* Su Logo Kapsayıcısı */
 .su-logo-container {
     position: relative;
     width: 150px;
@@ -93,14 +93,14 @@ html.dark-mode .su-logo-container {
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/* Su Logosu Resmi (img etiketi için, class="su-logo" ile eşleşiyor) */
+/* Su Logosu Resmi */
 .su-logo {
     max-width: 150px;
     height: auto;
     display: block;
     z-index: 2;
     transition: transform 0.1s ease-in-out;
-    border-radius: 15px; /* Eğer resminiz zaten köşeleri yuvarlaksa bu gerekmeyebilir */
+    border-radius: 15px;
     margin: 0;
     box-shadow: none;
 }
@@ -181,7 +181,8 @@ html.dark-mode .progress-text {
 }
 
 /* Ayarlar butonunu kapsayan ve ortalamak için kullandığımız div */
-.settings-button-wrapper {
+/* ÖNEMLİ: Burası değişti! */
+.ayarlar-butonu-sarmalayici {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -189,7 +190,7 @@ html.dark-mode .progress-text {
 }
 
 /* Ayarlar Butonu stilleri (app-button'dan özellikler alır ama özelleştiririz) */
-.settings-main-button {
+.anaAyarlarButonu {
     background-color: var(--secondary-gray);
     color: white;
     width: calc(108px / 2);
@@ -200,13 +201,13 @@ html.dark-mode .progress-text {
     border-radius: 6px;
 }
 
-.settings-main-button:active {
+.anaAyarlarButonu:active {
     background-color: var(--secondary-gray-active);
     transform: translateY(1px);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-#settingsPanel {
+#ayarlarPaneli {
     display: none;
     margin: 15px auto;
     padding: 15px;
@@ -219,7 +220,7 @@ html.dark-mode .progress-text {
     z-index: 20;
 }
 
-#settingsPanel h3 {
+#ayarlarPaneli h3 {
     margin-top: 0;
     color: var(--settings-panel-text-light);
     margin-bottom: 15px;
@@ -227,7 +228,7 @@ html.dark-mode .progress-text {
     transition: color 0.3s ease;
 }
 
-.settings-option {
+.ayarlarSecenegi {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -235,7 +236,7 @@ html.dark-mode .progress-text {
     flex-wrap: wrap;
 }
 
-.settings-option label {
+.ayarlarSecenegi label {
     flex-basis: 55%;
     text-align: left;
     color: var(--settings-panel-label-light);
@@ -244,8 +245,8 @@ html.dark-mode .progress-text {
     transition: color 0.3s ease;
 }
 
-.settings-option input[type="number"],
-.settings-option select {
+.ayarlarSecenegi input[type="number"],
+.ayarlarSecenegi select {
     width: 90px;
     padding: 6px 8px;
     border: 1px solid var(--settings-input-border-light);
@@ -261,7 +262,7 @@ html.dark-mode .progress-text {
 }
 
 /* Checkbox (karanlık mod anahtarı) stilleri */
-.settings-option input[type="checkbox"] {
+.ayarlarSecenegi input[type="checkbox"] {
     position: relative;
     width: 36px;
     height: 18px;
@@ -273,7 +274,7 @@ html.dark-mode .progress-text {
     cursor: pointer;
 }
 
-.settings-option input[type="checkbox"]::before {
+.ayarlarSecenegi input[type="checkbox"]::before {
     content: '';
     position: absolute;
     width: 16px;
@@ -287,11 +288,11 @@ html.dark-mode .progress-text {
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
-.settings-option input[type="checkbox"]:checked {
+.ayarlarSecenegi input[type="checkbox"]:checked {
     background-color: var(--primary-blue);
 }
 
-.settings-option input[type="checkbox"]:checked::before {
+.ayarlarSecenegi input[type="checkbox"]:checked::before {
     transform: translateX(18px);
 }
 
@@ -307,7 +308,7 @@ html.dark-mode .progress-text {
 }
 
 /* Ayarlar paneli içindeki butonların kapsayıcısı */
-.settings-buttons {
+.ayarlarButonlari {
     display: flex;
     justify-content: center;
     gap: 10px;
@@ -315,7 +316,7 @@ html.dark-mode .progress-text {
 }
 
 /* Ayarlar paneli içindeki butonların boyutları */
-.settings-buttons .app-button {
+.ayarlarButonlari .app-button {
     font-size: 14px;
     padding: 0 15px;
     width: 86px !important;
@@ -324,19 +325,19 @@ html.dark-mode .progress-text {
     box-sizing: border-box;
 }
 
-.settings-buttons .app-button:active {
+.ayarlarButonlari .app-button:active {
     background-color: var(--primary-blue-active);
     transform: translateY(1px);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Sıfırla butonu için özel renk */
-.settings-buttons .reset-button {
+.ayarlarButonlari .reset-button {
     background-color: var(--red-alert);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.settings-buttons .reset-button:active {
+.ayarlarButonlari .reset-button:active {
     background-color: var(--red-alert-active);
     transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
@@ -344,12 +345,12 @@ html.dark-mode .progress-text {
 
 /* Bilgi balonu (tip bubble) stilleri */
 .tip-bubble {
-    display: none; /* Bu HTML elementini tamamen gizliyoruz çünkü fonksiyonu değişti */
+    display: none;
 }
 
 /* Duyarlı Tasarım (Responsive Design) - Sadece iPhone 13 dikey ve benzeri küçük ekranlar (maksimum 375px genişlik) */
 @media (max-width: 375px) {
-    #settingsPanel {
+    #ayarlarPaneli {
         max-width: 280px;
     }
     .app-button {
@@ -358,22 +359,22 @@ html.dark-mode .progress-text {
         width: 100px;
         height: 31px;
     }
-    .settings-main-button {
+    .anaAyarlarButonu { /* Bu kısım zaten önceki düzeltmelerde yapılmıştı, teyit amaçlı tekrar yazdım */
         width: calc(100px / 2);
         height: calc(31px / 2);
         font-size: 9px;
         padding: 0 5px;
     }
-    .settings-option label {
+    .ayarlarSecenegi label {
         font-size: 14px;
     }
-    .settings-option input[type="number"],
-    .settings-option select {
+    .ayarlarSecenegi input[type="number"],
+    .ayarlarSecenegi select {
         font-size: 14px;
         padding: 5px 7px;
         width: 80px;
     }
-    .settings-buttons .app-button {
+    .ayarlarButonlari .app-button {
         font-size: 13px;
         padding: 0 12px;
         width: 74px !important;
