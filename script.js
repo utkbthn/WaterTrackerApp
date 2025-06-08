@@ -108,11 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ayarlarPaneli.style.display = 'none';
     }
 
-     function resetWater() {
+    function resetWater() {
         currentWaterAmount = 0;
         localStorage.setItem('currentWaterAmount', currentWaterAmount);
         updateWaterDisplay();
-        ayarlarPaneli.style.display = 'none'; // Ayarlar panelini kapat
+        ayarlarPaneli.style.display = 'none';
     }
 
     drinkButton.addEventListener('click', addWater);
@@ -132,5 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             suLogo.classList.remove('active');
         }, 100);
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!ayarlarPaneli.contains(event.target) && !ayarlarButonu.contains(event.target) && ayarlarPaneli.style.display === 'block') {
+            ayarlarPaneli.style.display = 'none';
+        }
     });
 });
