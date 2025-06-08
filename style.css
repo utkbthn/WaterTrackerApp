@@ -73,7 +73,8 @@ html.dark-mode {
     transition: color 0.3s ease;
 }
 
-.water.logo-container {
+/* Su Logo Kapsayıcısı */
+.su-logo-container { /* ARTIK su-logo-container */
     position: relative;
     width: 150px;
     height: 150px;
@@ -88,11 +89,12 @@ html.dark-mode {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-html.dark-mode .water.logo-container {
+html.dark-mode .su-logo-container { /* ARTIK su-logo-container */
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-.water.logo {
+/* Su Logosu Resmi */
+.su-logo { /* ARTIK su-logo */
     max-width: 150px;
     height: auto;
     display: block;
@@ -103,7 +105,7 @@ html.dark-mode .water.logo-container {
     box-shadow: none;
 }
 
-.water.logo:active {
+.su-logo:active { /* ARTIK su-logo */
     transform: scale(1.05);
 }
 
